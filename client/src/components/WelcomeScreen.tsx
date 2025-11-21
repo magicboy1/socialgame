@@ -71,161 +71,107 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
         </motion.div>
       ))}
 
-      <div className="relative z-10 min-h-screen flex flex-col md:flex-row items-center justify-center p-6 gap-8 md:gap-12">
-        {/* Hero mascot - Left side, bigger */}
-        <motion.div
-          initial={{ x: -200, opacity: 0, rotate: -180 }}
-          animate={{ x: 0, opacity: 1, rotate: 0 }}
-          transition={{
-            type: "spring",
-            stiffness: 150,
-            damping: 12,
-            delay: 0.3,
-          }}
-          className="relative flex-shrink-0"
-        >
+      <div className="relative z-10 min-h-screen flex flex-col md:flex-row items-center justify-center p-6 gap-8 md:gap-16">
+        {/* Right side - All content */}
+        <div className="flex flex-col items-center md:items-end gap-6 md:gap-8 flex-1 max-w-2xl order-2 md:order-1">
+          {/* Epic title with new design */}
           <motion.div
-            animate={{
-              y: [0, -20, 0],
-            }}
+            initial={{ y: -100, opacity: 0, scale: 0.8 }}
+            animate={{ y: 0, opacity: 1, scale: 1 }}
             transition={{
-              duration: 3,
-              repeat: Infinity,
-              ease: "easeInOut",
+              type: "spring",
+              stiffness: 120,
+              damping: 12,
+              delay: 0.2,
             }}
+            className="text-center md:text-right"
           >
-            <div className="relative scale-150 md:scale-[2]">
-              {/* Glow effect behind mascot */}
-              <motion.div
-                className="absolute inset-0 rounded-full blur-3xl"
-                style={{
-                  background: 'radial-gradient(circle, rgba(229, 242, 107, 0.5) 0%, transparent 70%)',
+            <div className="bg-white/10 backdrop-blur-md rounded-3xl p-6 md:p-8 border-4 border-white/40">
+              <motion.h1 
+                className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-[hsl(var(--yellow))] leading-tight mb-2"
+                style={{ 
+                  textShadow: '4px 4px 0px hsl(var(--orange-red)), 2px 2px 0px hsl(var(--navy))',
+                  direction: 'rtl',
                 }}
                 animate={{
-                  scale: [1, 1.3, 1],
-                  opacity: [0.5, 0.8, 0.5],
+                  scale: [1, 1.02, 1],
                 }}
                 transition={{
                   duration: 2,
                   repeat: Infinity,
                   ease: "easeInOut",
                 }}
-              />
-              <Mascot size="large" animate={true} />
-            </div>
-          </motion.div>
-
-          {/* Sparkles around mascot */}
-          {Array.from({ length: 8 }).map((_, i) => (
-            <motion.div
-              key={`sparkle-${i}`}
-              className="absolute"
-              style={{
-                left: `${50 + Math.cos((i * Math.PI * 2) / 8) * 150}%`,
-                top: `${50 + Math.sin((i * Math.PI * 2) / 8) * 150}%`,
-              }}
-              animate={{
-                scale: [0, 1.5, 0],
-                rotate: [0, 180, 360],
-                opacity: [0, 1, 0],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                delay: i * 0.15,
-                ease: "easeInOut",
-              }}
-            >
-              <Sparkles className="w-10 h-10 text-[hsl(var(--yellow))]" />
-            </motion.div>
-          ))}
-        </motion.div>
-
-        {/* Right side - All content */}
-        <div className="flex flex-col items-center md:items-start gap-6 md:gap-8 flex-1 max-w-2xl">
-          {/* Epic title with glow effect */}
-          <motion.div
-            initial={{ x: 200, opacity: 0, scale: 0.5 }}
-            animate={{ x: 0, opacity: 1, scale: 1 }}
-            transition={{
-              type: "spring",
-              stiffness: 100,
-              damping: 10,
-              delay: 0.2,
-            }}
-            className="text-center md:text-right space-y-3"
-          >
-            <motion.div
-              animate={{
-                textShadow: [
-                  '0 0 20px rgba(229, 242, 107, 0.8), 0 0 40px rgba(229, 242, 107, 0.5)',
-                  '0 0 30px rgba(229, 242, 107, 1), 0 0 60px rgba(229, 242, 107, 0.7)',
-                  '0 0 20px rgba(229, 242, 107, 0.8), 0 0 40px rgba(229, 242, 107, 0.5)',
-                ],
-              }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            >
-              <h1 
-                className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight"
+              >
+                أبطال
+              </motion.h1>
+              <motion.h2 
+                className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black text-white leading-tight"
                 style={{ 
-                  textShadow: '4px 4px 0px hsl(var(--navy)), 0 0 30px rgba(229, 242, 107, 0.6)',
-                  WebkitTextStroke: '2px hsl(var(--navy))',
-                  letterSpacing: '0',
-                  wordSpacing: '0',
+                  textShadow: '3px 3px 0px hsl(var(--navy))',
+                  direction: 'rtl',
                 }}
               >
-                أبطال السوشال ميديا
-              </h1>
-            </motion.div>
+                السوشال ميديا
+              </motion.h2>
+            </div>
           </motion.div>
 
           {/* Subtitle */}
           <motion.div
             initial={{ x: 200, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
-            transition={{ delay: 0.5 }}
+            transition={{ delay: 0.4 }}
             className="text-center md:text-right"
           >
             <h3 
-              className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-white mb-4"
+              className="text-2xl md:text-3xl lg:text-4xl font-black text-white"
               style={{ 
                 textShadow: '3px 3px 0px hsl(var(--navy))',
-                letterSpacing: '0',
-                wordSpacing: '0',
+                direction: 'rtl',
               }}
             >
-              كن بطلاً للأمان! 🦸
+              🦸 كن بطلاً للأمان 🦸
             </h3>
           </motion.div>
           
-          {/* Features */}
+          {/* Features - New design */}
           <motion.div
             initial={{ x: 200, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
-            transition={{ delay: 0.7 }}
-            className="flex flex-col gap-3 w-full"
+            transition={{ delay: 0.6 }}
+            className="space-y-3 w-full"
           >
-            <div className="flex items-center gap-3 bg-white/20 backdrop-blur-sm rounded-full px-6 py-3 border-4 border-white">
-              <Shield className="w-7 h-7 text-[hsl(var(--yellow))]" strokeWidth={3} />
-              <span className="text-xl md:text-2xl font-extrabold text-white" style={{ textShadow: '2px 2px 0px rgba(0, 0, 0, 0.3)', letterSpacing: '0', wordSpacing: '0' }}>
-                10 أسئلة تحدي
-              </span>
+            <div className="flex items-start gap-4 text-right" dir="rtl">
+              <div className="bg-[hsl(var(--yellow))] rounded-full p-3 flex-shrink-0 border-4 border-white">
+                <Shield className="w-8 h-8 text-[hsl(var(--navy))]" strokeWidth={3} />
+              </div>
+              <div>
+                <p className="text-xl md:text-2xl font-black text-white" style={{ textShadow: '2px 2px 0px rgba(0, 0, 0, 0.4)', direction: 'rtl' }}>
+                  10 أسئلة تحدي مثيرة
+                </p>
+              </div>
             </div>
-            <div className="flex items-center gap-3 bg-white/20 backdrop-blur-sm rounded-full px-6 py-3 border-4 border-white">
-              <Star className="w-7 h-7 fill-[hsl(var(--yellow))] text-[hsl(var(--yellow))]" />
-              <span className="text-xl md:text-2xl font-extrabold text-white" style={{ textShadow: '2px 2px 0px rgba(0, 0, 0, 0.3)', letterSpacing: '0', wordSpacing: '0' }}>
-                اجمع نجوم ذهبية
-              </span>
+            
+            <div className="flex items-start gap-4 text-right" dir="rtl">
+              <div className="bg-[hsl(var(--yellow))] rounded-full p-3 flex-shrink-0 border-4 border-white">
+                <Star className="w-8 h-8 fill-[hsl(var(--navy))] text-[hsl(var(--navy))]" />
+              </div>
+              <div>
+                <p className="text-xl md:text-2xl font-black text-white" style={{ textShadow: '2px 2px 0px rgba(0, 0, 0, 0.4)', direction: 'rtl' }}>
+                  نجوم ذهبية للفائزين
+                </p>
+              </div>
             </div>
-            <div className="flex items-center gap-3 bg-white/20 backdrop-blur-sm rounded-full px-6 py-3 border-4 border-white">
-              <Sparkles className="w-7 h-7 text-[hsl(var(--yellow))]" />
-              <span className="text-xl md:text-2xl font-extrabold text-white" style={{ textShadow: '2px 2px 0px rgba(0, 0, 0, 0.3)', letterSpacing: '0', wordSpacing: '0' }}>
-                تعلم وامرح معنا
-              </span>
+            
+            <div className="flex items-start gap-4 text-right" dir="rtl">
+              <div className="bg-[hsl(var(--yellow))] rounded-full p-3 flex-shrink-0 border-4 border-white">
+                <Sparkles className="w-8 h-8 text-[hsl(var(--navy))]" />
+              </div>
+              <div>
+                <p className="text-xl md:text-2xl font-black text-white" style={{ textShadow: '2px 2px 0px rgba(0, 0, 0, 0.4)', direction: 'rtl' }}>
+                  تعلم وأنت تلعب
+                </p>
+              </div>
             </div>
           </motion.div>
 
@@ -237,9 +183,9 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
               type: "spring",
               stiffness: 150,
               damping: 10,
-              delay: 0.9,
+              delay: 0.8,
             }}
-            className="w-full"
+            className="w-full mt-4"
           >
             <motion.div
               animate={{
@@ -254,13 +200,12 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
               <Button
                 onClick={onStart}
                 size="lg"
-                className="h-24 px-16 text-3xl md:text-4xl font-extrabold rounded-2xl gap-4 bg-[hsl(var(--yellow))] text-[hsl(var(--navy))] border-[10px] border-white hover:bg-white hover:scale-110 transition-all duration-300 w-full md:w-auto"
+                className="h-24 px-16 text-3xl md:text-4xl font-black rounded-2xl gap-4 bg-[hsl(var(--yellow))] text-[hsl(var(--navy))] border-[10px] border-white hover:bg-white hover:scale-110 transition-all duration-300 w-full md:w-auto"
                 data-testid="button-start-game"
                 style={{ 
                   boxShadow: '0 10px 0px hsl(var(--orange-red)), 0 0 40px rgba(229, 242, 107, 0.6)',
                   textShadow: '2px 2px 0px rgba(0, 0, 0, 0.2)',
-                  letterSpacing: '0',
-                  wordSpacing: '0',
+                  direction: 'rtl',
                 }}
               >
                 <Play className="w-12 h-12 fill-current" />
@@ -271,8 +216,8 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
 
           {/* Press Start animation */}
           <motion.p
-            className="text-lg md:text-xl font-bold text-white/80"
-            style={{ textShadow: '2px 2px 0px rgba(0, 0, 0, 0.3)', letterSpacing: '0', wordSpacing: '0' }}
+            className="text-lg md:text-xl font-black text-white/80"
+            style={{ textShadow: '2px 2px 0px rgba(0, 0, 0, 0.3)', direction: 'rtl' }}
             animate={{
               opacity: [0.5, 1, 0.5],
             }}
@@ -285,6 +230,75 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
             اضغط للبدء ↑
           </motion.p>
         </div>
+
+        {/* Hero mascot - Left side, BIGGER */}
+        <motion.div
+          initial={{ x: -300, opacity: 0, rotate: -180 }}
+          animate={{ x: 0, opacity: 1, rotate: 0 }}
+          transition={{
+            type: "spring",
+            stiffness: 150,
+            damping: 12,
+            delay: 0.3,
+          }}
+          className="relative flex-shrink-0 order-1 md:order-2"
+        >
+          <motion.div
+            animate={{
+              y: [0, -25, 0],
+            }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          >
+            <div className="relative scale-[1.8] md:scale-[2.5] lg:scale-[3]">
+              {/* Glow effect behind mascot */}
+              <motion.div
+                className="absolute inset-0 rounded-full blur-3xl"
+                style={{
+                  background: 'radial-gradient(circle, rgba(229, 242, 107, 0.6) 0%, transparent 70%)',
+                }}
+                animate={{
+                  scale: [1, 1.4, 1],
+                  opacity: [0.6, 0.9, 0.6],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              />
+              <Mascot size="large" animate={true} />
+            </div>
+          </motion.div>
+
+          {/* Sparkles around mascot */}
+          {Array.from({ length: 10 }).map((_, i) => (
+            <motion.div
+              key={`sparkle-${i}`}
+              className="absolute"
+              style={{
+                left: `${50 + Math.cos((i * Math.PI * 2) / 10) * 180}%`,
+                top: `${50 + Math.sin((i * Math.PI * 2) / 10) * 180}%`,
+              }}
+              animate={{
+                scale: [0, 1.8, 0],
+                rotate: [0, 180, 360],
+                opacity: [0, 1, 0],
+              }}
+              transition={{
+                duration: 2.5,
+                repeat: Infinity,
+                delay: i * 0.15,
+                ease: "easeInOut",
+              }}
+            >
+              <Sparkles className="w-12 h-12 text-[hsl(var(--yellow))]" />
+            </motion.div>
+          ))}
+        </motion.div>
       </div>
     </motion.div>
   );
