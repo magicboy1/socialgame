@@ -34,25 +34,25 @@ export function DraggableQuestionCard({ question, isDragging, disabled = false }
     >
       <motion.div
         animate={{
-          scale: isDragging ? 1.1 : 1,
-          rotate: isDragging ? 3 : 0,
+          scale: isDragging ? 1.05 : 1,
+          rotate: isDragging ? 2 : 0,
         }}
         transition={{ type: "spring", stiffness: 300, damping: 25 }}
       >
-        <Card
+        <div
           className={`
-            p-10 md:p-16 rounded-[2rem] border-4 
+            p-6 sm:p-8 md:p-10 rounded-[2rem] relative
             ${
               isDragging
-                ? "shadow-2xl border-[#2D8B7E] bg-[#F5EDD5] ring-8 ring-[#2D8B7E]/30"
-                : "shadow-xl border-[#2D8B7E]/20 bg-[#F5EDD5]"
+                ? "shadow-[0_20px_50px_rgba(45,139,126,0.4)] bg-[#F5EDD5]"
+                : "shadow-[0_10px_30px_rgba(0,0,0,0.15)] bg-[#F5EDD5]"
             }
           `}
         >
-          <div className="flex flex-col items-center gap-8">
+          <div className="flex flex-col items-center gap-4 sm:gap-6">
             <motion.div
               animate={{
-                y: isDragging ? 0 : [0, -8, 0],
+                y: isDragging ? 0 : [0, -6, 0],
               }}
               transition={{
                 duration: 2,
@@ -61,21 +61,21 @@ export function DraggableQuestionCard({ question, isDragging, disabled = false }
               }}
             >
               <Move
-                className={`w-16 h-16 ${isDragging ? "text-[#2D8B7E]" : "text-[#2D8B7E]/60"}`}
-                strokeWidth={3}
+                className={`w-10 h-10 sm:w-12 sm:h-12 ${isDragging ? "text-[#2D8B7E]" : "text-[#2D8B7E]/60"}`}
+                strokeWidth={2.5}
               />
             </motion.div>
 
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="text-2xl md:text-3xl font-bold text-[#2D8B7E] text-center"
+              className="text-base sm:text-lg md:text-xl font-bold text-[#2D8B7E] text-center"
             >
               هل هذا التصرف آمن أم خطير؟
             </motion.p>
 
             <h2
-              className="text-3xl md:text-5xl font-bold text-foreground leading-relaxed text-center min-h-[100px] flex items-center justify-center px-4"
+              className="text-xl sm:text-2xl md:text-3xl font-bold text-[#2D8B7E] leading-relaxed text-center px-2 sm:px-4"
               data-testid="text-scenario"
             >
               {question.scenario}
@@ -85,13 +85,13 @@ export function DraggableQuestionCard({ question, isDragging, disabled = false }
               <motion.p
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="text-xl md:text-2xl font-bold text-[#2D8B7E]/70 text-center"
+                className="text-sm sm:text-base md:text-lg font-semibold text-[#2D8B7E]/70 text-center"
               >
-                اسحب البطاقة للأسفل ↓
+                اسحب البطاقة إلى المكان الصحيح ↓
               </motion.p>
             )}
           </div>
-        </Card>
+        </div>
       </motion.div>
     </div>
   );

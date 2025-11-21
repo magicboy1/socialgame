@@ -25,7 +25,6 @@ const encouragingMessages = {
 };
 
 export function FeedbackScreen({ isCorrect, tip, onContinue }: FeedbackScreenProps) {
-  console.log("FeedbackScreen - isCorrect:", isCorrect, "tip:", tip);
   const mascotMessage = isCorrect
     ? encouragingMessages.correct[Math.floor(Math.random() * encouragingMessages.correct.length)]
     : encouragingMessages.incorrect[Math.floor(Math.random() * encouragingMessages.incorrect.length)];

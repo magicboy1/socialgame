@@ -15,68 +15,55 @@ export function DropZone({ id, label, value, isOver }: DropZoneProps) {
   const isSafe = value === true;
 
   return (
-    <div ref={setNodeRef} className="flex-1 min-h-[200px] md:min-h-[250px]">
+    <div ref={setNodeRef} className="w-full">
       <motion.div
         animate={{
           scale: isOver ? 1.05 : 1,
-          y: isOver ? -10 : 0,
+          y: isOver ? -5 : 0,
         }}
         transition={{ type: "spring", stiffness: 300, damping: 25 }}
-        className="h-full"
+        className="w-full"
+        data-testid={`drop-zone-${value ? "safe" : "unsafe"}`}
       >
-        <Card
+        <div
           className={`
-            h-full flex flex-col items-center justify-center gap-6 rounded-3xl border-8 transition-all duration-300
+            w-full py-6 sm:py-8 px-6 sm:px-8 md:px-12 rounded-[3rem] transition-all duration-300 relative overflow-hidden
             ${
               isSafe
                 ? isOver
-                  ? "bg-[#2D8B7E] border-[#2D8B7E] shadow-2xl"
-                  : "bg-[#2D8B7E]/20 border-[#2D8B7E]/40 hover:border-[#2D8B7E]/60"
+                  ? "bg-[#28A745] shadow-[0_10px_30px_rgba(40,167,69,0.5)]"
+                  : "bg-[#2D8B7E] shadow-[0_8px_20px_rgba(45,139,126,0.4)] hover:shadow-[0_12px_25px_rgba(45,139,126,0.5)]"
                 : isOver
-                ? "bg-[#E85D5D] border-[#E85D5D] shadow-2xl"
-                : "bg-[#E85D5D]/20 border-[#E85D5D]/40 hover:border-[#E85D5D]/60"
+                ? "bg-[#DC3545] shadow-[0_10px_30px_rgba(232,93,93,0.5)]"
+                : "bg-[#E85D5D] shadow-[0_8px_20px_rgba(232,93,93,0.4)] hover:shadow-[0_12px_25px_rgba(232,93,93,0.5)]"
             }
           `}
-          data-testid={`drop-zone-${value ? "safe" : "unsafe"}`}
         >
-          <motion.div
-            animate={{
-              scale: isOver ? [1, 1.2, 1] : 1,
-              rotate: isOver ? [0, 5, -5, 0] : 0,
-            }}
-            transition={{ duration: 0.5, repeat: isOver ? Infinity : 0 }}
-          >
-            {isSafe ? (
-              <Check
-                className={`w-24 h-24 ${isOver ? "text-white" : "text-[#2D8B7E]"}`}
-                strokeWidth={5}
-              />
-            ) : (
-              <X
-                className={`w-24 h-24 ${isOver ? "text-white" : "text-[#E85D5D]"}`}
-                strokeWidth={5}
-              />
-            )}
-          </motion.div>
-
-          <h3
-            className={`text-4xl md:text-5xl font-bold ${
-              isOver ? "text-white" : isSafe ? "text-[#2D8B7E]" : "text-[#E85D5D]"
-            }`}
-          >
-            {label}
-          </h3>
-
-          {isOver && (
-            <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-2xl font-bold text-white"
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
+            <motion.div
+              animate={{
+                scale: isOver ? [1, 1.15, 1] : 1,
+              }}
+              transition={{ duration: 0.4, repeat: isOver ? Infinity : 0 }}
             >
-              اترك هنا
-            </motion.p>
-          )}
-        </Card>
+              {isSafe ? (
+                <Check
+                  className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 text-white"
+                  strokeWidth={4}
+                />
+              ) : (
+                <X
+                  className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 text-white"
+                  strokeWidth={4}
+                />
+              )}
+            </motion.div>
+
+            <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white">
+              {label}
+            </h3>
+          </div>
+        </div>
       </motion.div>
     </div>
   );
