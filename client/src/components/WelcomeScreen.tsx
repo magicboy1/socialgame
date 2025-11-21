@@ -71,7 +71,7 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
         </motion.div>
       ))}
 
-      <div className="relative z-10 h-screen flex flex-col items-center justify-center p-2 sm:p-3 md:p-4 lg:p-6 overflow-hidden">
+      <div className="relative z-10 min-h-screen flex flex-col items-center justify-center p-2 sm:p-3 md:p-4 lg:p-6">
         <div className="w-full max-w-6xl flex flex-col gap-4 sm:gap-5 md:gap-8 lg:gap-12">
           {/* Title */}
           <motion.div
@@ -158,7 +158,17 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
                 }}
                 className="w-full mt-1 sm:mt-2 md:mt-3 lg:mt-4"
               >
-                <Button
+                <motion.div
+                  animate={{
+                    scale: [1, 1.05, 1],
+                  }}
+                  transition={{
+                    duration: 1.5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                >
+                  <Button
                   onClick={onStart}
                   size="lg"
                   className="h-16 sm:h-20 md:h-24 lg:h-28 px-8 sm:px-10 md:px-16 lg:px-20 text-sm sm:text-lg md:text-3xl lg:text-4xl font-black rounded-lg sm:rounded-2xl gap-2 sm:gap-3 md:gap-4 bg-[hsl(var(--yellow))] text-[hsl(var(--navy))] border-4 sm:border-6 md:border-[10px] border-white hover:bg-white hover:scale-105 transition-all duration-300 w-full max-w-xs sm:max-w-sm md:max-w-md"
@@ -169,9 +179,10 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
                     direction: 'rtl',
                   }}
                 >
-                  <Play className="w-6 h-6 sm:w-8 sm:h-8 md:w-12 md:h-12 lg:w-14 lg:h-14 fill-current" />
-                  ابدأ المغامرة!
-                </Button>
+                    <Play className="w-6 h-6 sm:w-8 sm:h-8 md:w-12 md:h-12 lg:w-14 lg:h-14 fill-current" />
+                    ابدأ المغامرة!
+                  </Button>
+                </motion.div>
               </motion.div>
             </motion.div>
 
