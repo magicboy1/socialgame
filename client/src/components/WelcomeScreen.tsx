@@ -161,7 +161,7 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
                 <Button
                   onClick={onStart}
                   size="lg"
-                  className="h-20 md:h-24 lg:h-28 px-12 md:px-16 lg:px-20 text-2xl md:text-3xl lg:text-4xl font-black rounded-2xl gap-4 bg-[hsl(var(--yellow))] text-[hsl(var(--navy))] border-[8px] md:border-[10px] border-white hover:bg-white hover:scale-105 transition-all duration-300 w-full"
+                  className="h-20 md:h-24 lg:h-28 px-12 md:px-16 lg:px-20 text-2xl md:text-3xl lg:text-4xl font-black rounded-2xl gap-4 bg-[hsl(var(--yellow))] text-[hsl(var(--navy))] border-[8px] md:border-[10px] border-white hover:bg-white hover:scale-105 transition-all duration-300 w-full max-w-md"
                   data-testid="button-start-game"
                   style={{ 
                     boxShadow: '0 10px 0px hsl(var(--orange-red)), 0 0 40px rgba(229, 242, 107, 0.6)',
@@ -197,7 +197,7 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
                 ease: "easeInOut",
               }}
             >
-              <div className="relative scale-[2] md:scale-[2.5] lg:scale-[3] xl:scale-[3.5]">
+              <div className="relative scale-[1.5] md:scale-[2] lg:scale-[2.5] xl:scale-[3]">
                 {/* Glow effect behind mascot */}
                 <motion.div
                   className="absolute inset-0 rounded-full blur-2xl"
