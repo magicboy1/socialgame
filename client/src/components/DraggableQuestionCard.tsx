@@ -64,8 +64,16 @@ export function DraggableQuestionCard({ question, isDragging }: DraggableQuestio
               />
             </motion.div>
 
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="text-2xl md:text-3xl font-bold text-[#2D8B7E] text-center"
+            >
+              هل هذا التصرف آمن أم خطير؟
+            </motion.p>
+
             <h2
-              className="text-3xl md:text-5xl font-bold text-[#2D8B7E] leading-relaxed text-center min-h-[120px] flex items-center justify-center"
+              className="text-3xl md:text-5xl font-bold text-foreground leading-relaxed text-center min-h-[100px] flex items-center justify-center px-4"
               data-testid="text-scenario"
             >
               {question.scenario}
@@ -75,9 +83,9 @@ export function DraggableQuestionCard({ question, isDragging }: DraggableQuestio
               <motion.p
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="text-xl md:text-2xl font-bold text-[#2D8B7E]/80 text-center"
+                className="text-xl md:text-2xl font-bold text-[#2D8B7E]/70 text-center"
               >
-                اسحب البطاقة للأسفل
+                اسحب البطاقة للأسفل ↓
               </motion.p>
             )}
           </div>
