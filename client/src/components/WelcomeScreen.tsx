@@ -71,8 +71,8 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
         </motion.div>
       ))}
 
-      <div className="relative z-10 min-h-screen flex flex-col items-center justify-start md:justify-center p-1.5 sm:p-2.5 md:p-4 lg:p-6 overflow-x-hidden">
-        <div className="w-full max-w-6xl flex flex-col gap-2 sm:gap-3 md:gap-8 lg:gap-12 py-2 sm:py-4 md:py-8">
+      <div className="relative z-10 h-screen flex flex-col items-center justify-center p-1 sm:p-1.5 md:p-4 lg:p-6 overflow-hidden">
+        <div className="w-full max-w-6xl flex flex-col gap-1.5 sm:gap-2 md:gap-8 lg:gap-12">
           {/* Title */}
           <motion.div
             initial={{ y: -50, opacity: 0 }}
@@ -85,9 +85,9 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
             }}
             className="w-full"
           >
-            <div className="bg-white/10 backdrop-blur-md rounded-lg sm:rounded-xl md:rounded-3xl p-1.5 sm:p-2 md:p-6 lg:p-8 border-4 border-white/40 text-center">
+            <div className="bg-white/10 backdrop-blur-md rounded-md sm:rounded-xl md:rounded-3xl p-1 sm:p-1.5 md:p-6 lg:p-8 border-3 sm:border-4 border-white/40 text-center">
               <h1 
-                className="text-base sm:text-xl md:text-4xl lg:text-5xl xl:text-6xl font-black text-[hsl(var(--yellow))] leading-tight mb-0 md:mb-2"
+                className="text-sm sm:text-lg md:text-4xl lg:text-5xl xl:text-6xl font-black text-[hsl(var(--yellow))] leading-tight mb-0 md:mb-2"
                 style={{ 
                   textShadow: '4px 4px 0px hsl(var(--orange-red)), 2px 2px 0px hsl(var(--navy))',
                   direction: 'rtl',
@@ -96,7 +96,7 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
                 أبطال السوشال ميديا
               </h1>
               <h3 
-                className="text-xs sm:text-sm md:text-2xl lg:text-3xl xl:text-4xl font-black text-white"
+                className="text-[10px] sm:text-xs md:text-2xl lg:text-3xl xl:text-4xl font-black text-white"
                 style={{ 
                   textShadow: '3px 3px 0px hsl(var(--navy))',
                   direction: 'rtl',
