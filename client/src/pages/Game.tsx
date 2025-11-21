@@ -195,7 +195,15 @@ export default function Game() {
           </div>
 
           <DragOverlay dropAnimation={null}>
-            {activeId ? null : null}
+            {activeId ? (
+              <div style={{ cursor: 'grabbing' }}>
+                <DraggableQuestionCard 
+                  question={currentQuestion} 
+                  isDragging={true} 
+                  isOverDropZone={overId !== null}
+                />
+              </div>
+            ) : null}
           </DragOverlay>
         </DndContext>
       </div>

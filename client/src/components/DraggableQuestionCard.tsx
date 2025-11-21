@@ -35,8 +35,9 @@ export function DraggableQuestionCard({ question, isDragging, disabled = false, 
     >
       <motion.div
         animate={{
-          scale: isDragging ? (isOverDropZone ? 0.5 : 0.8) : 1,
+          scale: isOverDropZone ? 0.5 : (isDragging ? 0.8 : 1),
           rotate: isDragging ? 3 : 0,
+          opacity: isDragging ? 0.3 : 1,
         }}
         transition={{ type: "spring", stiffness: 300, damping: 25 }}
       >
