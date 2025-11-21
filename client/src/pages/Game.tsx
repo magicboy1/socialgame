@@ -81,13 +81,15 @@ export default function Game() {
   const handleDragEnd = (event: DragEndEvent) => {
     const { over } = event;
     
-    setActiveId(null);
-    setOverId(null);
-
     if (over && gamePhase === "playing" && !submitAnswerMutation.isPending) {
       setIsSubmitting(true);
+      setActiveId(null);
+      setOverId(null);
       const answer = over.id === "safe" ? true : false;
       submitAnswerMutation.mutate(answer);
+    } else {
+      setActiveId(null);
+      setOverId(null);
     }
   };
 
@@ -143,7 +145,7 @@ export default function Game() {
   }
 
   const currentQuestion = questions[currentQuestionIndex];
-  const isDragEnabled = gamePhase === "playing" && !submitAnswerMutation.isPending;
+  const isDragEnabled = gamePhase === "playing" && !submitAnswerMutation.isPending && !isSubmitting;
 
   return (
     <>
@@ -179,13 +181,19 @@ export default function Game() {
           onDragCancel={handleDragCancel}
         >
           <div className="flex-1 flex flex-col items-center justify-center max-w-4xl mx-auto w-full gap-4 sm:gap-6 md:gap-8">
-            <div className="w-full max-w-2xl" style={{ opacity: isSubmitting ? 0 : 1, transition: 'opacity 0.2s' }}>
-              <DraggableQuestionCard 
-                question={currentQuestion} 
-                isDragging={activeId !== null}
-                disabled={!isDragEnabled}
-              />
-            </div>
+            {!isSubmitting && (
+              <motion.div 
+                className="w-full max-w-2xl"
+                initial={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+              >
+                <DraggableQuestionCard 
+                  question={currentQuestion} 
+                  isDragging={activeId !== null}
+                  disabled={!isDragEnabled}
+                />
+              </motion.div>
+            )}
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
