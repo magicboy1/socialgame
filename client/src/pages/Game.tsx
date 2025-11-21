@@ -194,12 +194,8 @@ export default function Game() {
             </motion.div>
           </div>
 
-          <DragOverlay>
-            {activeId ? (
-              <div className="cursor-grabbing">
-                <DraggableQuestionCard question={currentQuestion} isDragging={true} isOverDropZone={overId !== null} />
-              </div>
-            ) : null}
+          <DragOverlay dropAnimation={null}>
+            {activeId ? null : null}
           </DragOverlay>
         </DndContext>
       </div>
