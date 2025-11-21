@@ -1,8 +1,17 @@
-# Social Media Safety Educational Game
+# في أمانتي الأمان السوشيال ميديا - Social Media Safety Educational Game
 
 ## Overview
 
-An interactive educational game designed to teach children ages 6-10 about social media safety and privacy. The application presents quiz-style scenarios where children make decisions about safe online behavior, guided by a friendly superhero mascot. Users progress through questions, receive immediate feedback with educational tips, and earn points for correct answers.
+An interactive educational game designed to teach children ages 6-10 about social media safety and privacy in Arabic. The application presents quiz scenarios in Arabic where children drag question cards to safe (green) or unsafe (red) zones, guided by a friendly superhero mascot. Children receive immediate feedback with educational tips in Arabic and earn stars for correct answers.
+
+**Key Features**:
+- Full Arabic language support with RTL (right-to-left) text direction
+- Touch-optimized drag-and-drop interaction for tablets
+- 10 educational questions about social media safety in Arabic
+- Turquoise gradient background with beige question cards
+- Green "أمن" (Safe) and red "غير أمن" (Unsafe) drop zones
+- Animated feedback screens with educational tips
+- Star-based scoring system
 
 ## User Preferences
 
@@ -20,12 +29,23 @@ Preferred communication style: Simple, everyday language.
 **UI Component System**
 - Shadcn UI component library with Radix UI primitives for accessible, composable components
 - Tailwind CSS for utility-first styling with custom design tokens
-- Design system optimized for children: rounded fonts (Poppins/Fredoka), large touch targets (80px minimum), high contrast, and playful animations
+- Design system optimized for children: Arabic fonts (Cairo/Tajawal), large touch targets (200px+ drop zones), high contrast, and playful animations
 - Framer Motion for smooth transitions and engaging animations throughout the game experience
+- dnd-kit for touch-optimized drag-and-drop interaction with pointer and touch sensors
+
+**Drag-and-Drop Interaction**
+- Question cards are draggable by children
+- Two large drop zones at bottom: green "أمن" (Safe) and red "غير أمن" (Unsafe)
+- Visual feedback during drag: card scales and rotates, drop zones highlight when hovered
+- Touch sensors configured with 200ms delay and 8px tolerance for child-friendly interaction
+- Drag disabled during feedback phase to prevent duplicate submissions
+- DragOverlay provides smooth visual feedback during drag operation
 
 **State Management**
 - TanStack Query (React Query) for server state management, caching, and data fetching
-- Local React state for UI state (game phase, current question, score, feedback)
+- Local React state for UI state (game phase, current question, score, feedback, drag state)
+- Drag state management (activeId, overId) to track current drag operation
+- `isDragEnabled` flag prevents duplicate submissions during feedback or pending mutations
 - Custom query client configured with infinite stale time and disabled automatic refetching
 
 **Design Approach**
@@ -47,9 +67,10 @@ Preferred communication style: Simple, everyday language.
 - Request validation using Zod schemas for type safety
 
 **Data Layer**
-- In-memory storage implementation with interface-based design (`IStorage`) for future database integration
-- Seed data includes 10+ pre-defined questions across categories: strangers, sharing, passwords, privacy
-- Question model includes: scenario text, educational tip, correct answer (boolean), and category
+- In-memory storage implementation with interface-based design (`IStorage`)
+- Seed data includes 10 pre-defined questions in Arabic across categories: passwords, strangers, sharing, privacy
+- Question model includes: scenario text (Arabic), educational tip (Arabic), correct answer (boolean), and category
+- Questions cover: password sharing, stranger danger, asking parents, friend requests, privacy settings, email scams, strong passwords, cyberbullying reporting, location sharing, and unknown links
 
 **Development vs Production**
 - Development: Vite middleware integration for HMR and client template serving
@@ -63,13 +84,12 @@ Preferred communication style: Simple, everyday language.
 - No persistent database currently connected
 - Storage interface designed for easy migration to PostgreSQL
 
-**Planned Database Architecture**
-- Drizzle ORM configured for PostgreSQL with Neon serverless driver
+**Future Database Architecture**
+- Drizzle ORM configured for PostgreSQL with Neon serverless driver (not currently in use)
 - Schema defined in `shared/schema.ts`:
   - `questions` table: id, scenario, tip, correctAnswer, category
-  - `gameStates` table: id, currentQuestionIndex, score, answeredQuestions, completed
-- Migration setup using drizzle-kit with `db:push` script
-- Connection pooling via `@neondatabase/serverless`
+- Game state managed in-memory (no persistence between sessions)
+- Connection would require `DATABASE_URL` environment variable
 
 ### External Dependencies
 
@@ -82,6 +102,7 @@ Preferred communication style: Simple, everyday language.
 - Shadcn UI with Radix UI primitives (@radix-ui/* packages)
 - Framer Motion for animations
 - Lucide React for icons
+- dnd-kit (@dnd-kit/core, @dnd-kit/utilities) for drag-and-drop with touch support
 - Class Variance Authority for component variant management
 
 **Development Tools**
@@ -94,8 +115,9 @@ Preferred communication style: Simple, everyday language.
 - Drizzle-zod for schema-to-zod conversion
 
 **Fonts**
-- Google Fonts: Poppins (weights 400-800) and Fredoka (weights 400-700)
+- Google Fonts: Cairo and Tajawal (Arabic fonts with multiple weights)
 - Preconnected to fonts.googleapis.com for performance
+- RTL (right-to-left) text direction configured in HTML root element
 
 **Asset Management**
 - Custom mascot image stored in `attached_assets` directory
