@@ -51,6 +51,7 @@ export default function Game() {
       });
     },
     onSuccess: (result: AnswerResult) => {
+      console.log("Answer result:", result);
       setFeedbackData(result);
       setGamePhase("feedback");
       if (result.correct) {
