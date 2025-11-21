@@ -103,27 +103,32 @@ export function FeedbackScreen({ isCorrect, tip, onContinue }: FeedbackScreenPro
           </motion.div>
 
           <motion.div
-            className="space-y-4"
+            className="space-y-6"
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.5 }}
           >
             <h2
-              className="text-4xl md:text-5xl font-bold text-[#2D8B7E]"
+              className={`text-5xl md:text-6xl font-bold ${
+                isCorrect ? "text-[#2D8B7E]" : "text-[#E85D5D]"
+              }`}
               data-testid="text-feedback-title"
             >
-              {isCorrect ? "رائع!" : "دعنا نتعلم!"}
+              {isCorrect ? "إجابة صحيحة! 🎉" : "إجابة خاطئة 😔"}
             </h2>
 
             <div
-              className={`rounded-3xl p-8 ${
+              className={`rounded-3xl p-10 ${
                 isCorrect
-                  ? "bg-[#F5EDD5] border-4 border-[#2D8B7E]/30"
-                  : "bg-[#FFE5E5] border-4 border-[#E85D5D]/30"
+                  ? "bg-[#F5EDD5] border-4 border-[#2D8B7E]/40"
+                  : "bg-[#FFE5E5] border-4 border-[#E85D5D]/40"
               }`}
             >
+              <h3 className="text-3xl font-bold text-[#2D8B7E] mb-4">
+                {isCorrect ? "لماذا هذا صحيح؟" : "لماذا هذا خطأ؟"}
+              </h3>
               <p
-                className="text-2xl md:text-3xl font-bold text-foreground leading-relaxed"
+                className="text-2xl md:text-3xl font-semibold text-foreground leading-relaxed text-right"
                 data-testid="text-tip"
               >
                 {tip}
