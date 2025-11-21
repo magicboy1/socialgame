@@ -72,7 +72,7 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
       ))}
 
       <div className="relative z-10 h-screen flex flex-col items-center justify-center p-3 md:p-4 lg:p-6 overflow-hidden">
-        <div className="w-full max-w-6xl flex flex-col gap-3 md:gap-4 lg:gap-6">
+        <div className="w-full max-w-6xl flex flex-col gap-6 md:gap-8 lg:gap-12">
           {/* Title */}
           <motion.div
             initial={{ y: -50, opacity: 0 }}
