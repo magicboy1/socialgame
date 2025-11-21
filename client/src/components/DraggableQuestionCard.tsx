@@ -9,9 +9,10 @@ interface DraggableQuestionCardProps {
   question: Question;
   isDragging: boolean;
   disabled?: boolean;
+  isOverDropZone?: boolean;
 }
 
-export function DraggableQuestionCard({ question, isDragging, disabled = false }: DraggableQuestionCardProps) {
+export function DraggableQuestionCard({ question, isDragging, disabled = false, isOverDropZone = false }: DraggableQuestionCardProps) {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id: "question-card",
     disabled,
@@ -34,8 +35,8 @@ export function DraggableQuestionCard({ question, isDragging, disabled = false }
     >
       <motion.div
         animate={{
-          scale: isDragging ? 1.05 : 1,
-          rotate: isDragging ? 2 : 0,
+          scale: isDragging ? (isOverDropZone ? 0.5 : 0.8) : 1,
+          rotate: isDragging ? 3 : 0,
         }}
         transition={{ type: "spring", stiffness: 300, damping: 25 }}
       >
@@ -87,7 +88,7 @@ export function DraggableQuestionCard({ question, isDragging, disabled = false }
                 animate={{ opacity: 1 }}
                 className="text-sm sm:text-base md:text-lg font-semibold text-[#2D8B7E]/70 text-center"
               >
-                اسحب البطاقة إلى المكان الصحيح ↓
+                ✋ اسحب البطاقة للأسفل
               </motion.p>
             )}
           </div>

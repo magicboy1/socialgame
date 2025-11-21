@@ -197,21 +197,23 @@ export default function Game() {
           <DragOverlay>
             {activeId ? (
               <div className="cursor-grabbing">
-                <DraggableQuestionCard question={currentQuestion} isDragging={true} />
+                <DraggableQuestionCard question={currentQuestion} isDragging={true} isOverDropZone={overId !== null} />
               </div>
             ) : null}
           </DragOverlay>
         </DndContext>
       </div>
 
-      {gamePhase === "feedback" && feedbackData && (
-        <FeedbackScreen
-          key="feedback"
-          isCorrect={feedbackData.correct}
-          tip={feedbackData.tip}
-          onContinue={handleContinue}
-        />
-      )}
+      <AnimatePresence>
+        {gamePhase === "feedback" && feedbackData && (
+          <FeedbackScreen
+            key={`feedback-${currentQuestionIndex}`}
+            isCorrect={feedbackData.correct}
+            tip={feedbackData.tip}
+            onContinue={handleContinue}
+          />
+        )}
+      </AnimatePresence>
     </>
   );
 }
