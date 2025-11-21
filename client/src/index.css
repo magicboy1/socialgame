@@ -9,8 +9,17 @@
   --opaque-button-border-intensity: -8;
   --elevate-1: rgba(0,0,0, .03);
   --elevate-2: rgba(0,0,0, .08);
-  --background: 165 60% 92%;
-  --foreground: 200 25% 20%;
+  
+  /* XO Game Colors */
+  --teal: 156 37% 47%;
+  --navy: 215 30% 25%;
+  --orange-red: 9 88% 63%;
+  --yellow: 61 81% 66%;
+  --game-white: 0 0% 100%;
+  --game-black: 0 0% 0%;
+  
+  --background: 156 37% 47%;
+  --foreground: 215 30% 25%;
   --border: 165 40% 85%;
   --card: 0 0% 100%;
   --card-foreground: 200 25% 20%;
@@ -45,7 +54,7 @@
   --chart-3: 45 85% 60%;
   --chart-4: 280 50% 60%;
   --chart-5: 320 55% 55%;
-  --font-sans: Cairo, Tajawal, system-ui, sans-serif;
+  --font-sans: 'Baloo Bhaijaan 2', Cairo, Tajawal, system-ui, sans-serif;
   --font-serif: Georgia, serif;
   --font-mono: Menlo, monospace;
   --radius: .5rem;

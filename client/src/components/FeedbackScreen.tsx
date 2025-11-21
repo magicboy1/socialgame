@@ -35,11 +35,11 @@ export function FeedbackScreen({ isCorrect, tip, onContinue }: FeedbackScreenPro
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.9 }}
       transition={{ duration: 0.3 }}
-      className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#7ED4C8]/95 backdrop-blur-sm p-6"
+      className="fixed inset-0 z-[9999] flex items-center justify-center bg-[hsl(var(--teal))]/95 backdrop-blur-sm p-6"
       data-testid="feedback-screen"
       style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}
     >
-      <Card className="max-w-2xl w-full p-8 md:p-12 rounded-3xl shadow-2xl border-4 relative overflow-visible bg-white">
+      <Card className="max-w-2xl w-full p-8 md:p-12 rounded-2xl border-[10px] border-[hsl(var(--navy))] relative overflow-visible bg-white" style={{ boxShadow: '0 8px 0px hsl(var(--orange-red))' }}>
         {isCorrect && (
           <>
             {Array.from({ length: 6 }).map((_, i) => (
@@ -111,26 +111,29 @@ export function FeedbackScreen({ isCorrect, tip, onContinue }: FeedbackScreenPro
             transition={{ delay: 0.5 }}
           >
             <h2
-              className={`text-5xl md:text-6xl font-bold ${
-                isCorrect ? "text-[#2D8B7E]" : "text-[#E85D5D]"
-              }`}
+              className="text-5xl md:text-6xl font-extrabold"
+              style={{
+                color: isCorrect ? 'hsl(156 60% 35%)' : 'hsl(9 88% 50%)',
+                textShadow: '2px 2px 0px rgba(0, 0, 0, 0.3)'
+              }}
               data-testid="text-feedback-title"
             >
               {isCorrect ? "إجابة صحيحة! 🎉" : "إجابة خاطئة 😔"}
             </h2>
 
             <div
-              className={`rounded-3xl p-10 ${
-                isCorrect
-                  ? "bg-[#F5EDD5] border-4 border-[#2D8B7E]/40"
-                  : "bg-[#FFE5E5] border-4 border-[#E85D5D]/40"
-              }`}
+              className="rounded-xl p-10 bg-white border-[8px]"
+              style={{
+                borderColor: isCorrect ? 'hsl(156 60% 35%)' : 'hsl(9 88% 50%)',
+                boxShadow: '0 6px 0px hsl(var(--yellow))'
+              }}
             >
-              <h3 className="text-3xl font-bold text-[#2D8B7E] mb-4">
+              <h3 className="text-3xl font-extrabold mb-4" style={{ color: 'hsl(var(--navy))', textShadow: '2px 2px 0px rgba(0, 0, 0, 0.2)' }}>
                 {isCorrect ? "لماذا هذا صحيح؟" : "لماذا هذا خطأ؟"}
               </h3>
               <p
-                className="text-2xl md:text-3xl font-semibold text-foreground leading-relaxed text-right"
+                className="text-2xl md:text-3xl font-bold leading-relaxed text-right"
+                style={{ color: 'hsl(var(--navy))' }}
                 data-testid="text-tip"
               >
                 {tip}
@@ -147,8 +150,9 @@ export function FeedbackScreen({ isCorrect, tip, onContinue }: FeedbackScreenPro
             <Button
               onClick={onContinue}
               size="lg"
-              className="h-20 px-12 text-2xl font-bold rounded-2xl shadow-lg w-full md:w-auto bg-[#2D8B7E] hover:bg-[#2D8B7E]/90"
+              className="h-20 px-12 text-2xl font-extrabold rounded-xl w-full md:w-auto bg-white text-[hsl(var(--navy))] border-[8px] border-[hsl(var(--navy))] hover:bg-[hsl(var(--yellow))]"
               data-testid="button-continue"
+              style={{ boxShadow: '0 6px 0px hsl(var(--orange-red))', textShadow: '2px 2px 0px rgba(0, 0, 0, 0.15)' }}
             >
               متابعة التعلم
             </Button>

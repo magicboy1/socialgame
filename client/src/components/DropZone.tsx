@@ -27,17 +27,20 @@ export function DropZone({ id, label, value, isOver }: DropZoneProps) {
       >
         <div
           className={`
-            w-full py-6 sm:py-8 px-6 sm:px-8 md:px-12 rounded-[3rem] transition-all duration-300 relative overflow-hidden
-            ${
+            w-full py-6 sm:py-8 px-6 sm:px-8 md:px-12 rounded-lg transition-all duration-200 relative
+            border-[8px] ${
               isSafe
                 ? isOver
-                  ? "bg-[#28A745] shadow-[0_10px_30px_rgba(40,167,69,0.5)]"
-                  : "bg-[#2D8B7E] shadow-[0_8px_20px_rgba(45,139,126,0.4)] hover:shadow-[0_12px_25px_rgba(45,139,126,0.5)]"
+                  ? "bg-[hsl(var(--yellow))] border-[hsl(var(--navy))]"
+                  : "bg-white border-[hsl(var(--navy))] hover:bg-[hsl(var(--yellow))]"
                 : isOver
-                ? "bg-[#DC3545] shadow-[0_10px_30px_rgba(232,93,93,0.5)]"
-                : "bg-[#E85D5D] shadow-[0_8px_20px_rgba(232,93,93,0.4)] hover:shadow-[0_12px_25px_rgba(232,93,93,0.5)]"
+                ? "bg-[hsl(var(--yellow))] border-[hsl(var(--orange-red))]"
+                : "bg-white border-[hsl(var(--orange-red))] hover:bg-[hsl(var(--yellow))]"
             }
           `}
+          style={{
+            boxShadow: `0 6px 0px ${isSafe ? 'hsl(var(--orange-red))' : 'hsl(var(--navy))'}`,
+          }}
         >
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
             <motion.div
@@ -48,18 +51,23 @@ export function DropZone({ id, label, value, isOver }: DropZoneProps) {
             >
               {isSafe ? (
                 <Check
-                  className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 text-white"
+                  className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16"
                   strokeWidth={4}
+                  style={{ color: isOver ? 'hsl(var(--navy))' : 'hsl(156 60% 35%)' }}
                 />
               ) : (
                 <X
-                  className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 text-white"
+                  className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16"
                   strokeWidth={4}
+                  style={{ color: isOver ? 'hsl(var(--orange-red))' : 'hsl(9 88% 50%)' }}
                 />
               )}
             </motion.div>
 
-            <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white">
+            <h3 className="text-3xl sm:text-4xl md:text-5xl font-extrabold" style={{
+              color: isSafe ? (isOver ? 'hsl(var(--navy))' : 'hsl(156 60% 35%)') : (isOver ? 'hsl(var(--orange-red))' : 'hsl(9 88% 50%)'),
+              textShadow: '2px 2px 0px rgba(0, 0, 0, 0.3)'
+            }}>
               {label}
             </h3>
           </div>

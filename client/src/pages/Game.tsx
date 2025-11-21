@@ -149,7 +149,7 @@ export default function Game() {
 
   return (
     <>
-      <div className="min-h-screen bg-gradient-to-br from-[#7ED4C8] via-[#6BC9BD] to-[#5BBFB3] p-3 sm:p-4 md:p-6 flex flex-col overflow-hidden">
+      <div className="min-h-screen bg-[hsl(var(--teal))] p-3 sm:p-4 md:p-6 flex flex-col overflow-hidden">
         <motion.div
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -161,10 +161,10 @@ export default function Game() {
               <Mascot size="small" animate={false} />
             </div>
             <div>
-              <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-[#2D8B7E] leading-tight" data-testid="text-game-title">
-                في أماناتي الأمان
+              <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-extrabold text-white leading-tight drop-shadow-[2px_2px_0px_rgba(0,0,0,0.3)]" data-testid="text-game-title" style={{ textShadow: '2px 2px 0px rgba(0, 0, 0, 0.3)' }}>
+                في أمانتي الأمان
               </h1>
-              <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-[#2D8B7E] leading-tight">
+              <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-extrabold text-white leading-tight drop-shadow-[2px_2px_0px_rgba(0,0,0,0.3)]" style={{ textShadow: '2px 2px 0px rgba(0, 0, 0, 0.3)' }}>
                 السوشيال ميديا
               </h2>
             </div>

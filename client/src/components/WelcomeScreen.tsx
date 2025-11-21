@@ -13,20 +13,20 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="min-h-screen flex items-center justify-center p-6 bg-gradient-to-br from-[#7ED4C8] via-[#6BC9BD] to-[#5BBFB3]"
+      className="min-h-screen flex items-center justify-center p-6 bg-[hsl(var(--teal))]"
       data-testid="welcome-screen"
     >
-      <Card className="max-w-3xl w-full p-8 md:p-12 rounded-3xl shadow-2xl border-4 bg-white/95">
+      <Card className="max-w-3xl w-full p-8 md:p-12 rounded-2xl bg-white border-[10px] border-[hsl(var(--navy))]" style={{ boxShadow: '0 8px 0px hsl(var(--orange-red))' }}>
         <div className="flex flex-col items-center gap-8 text-center">
           <motion.div
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.2 }}
           >
-            <h1 className="text-4xl md:text-5xl font-bold text-[#2D8B7E] mb-4">
+            <h1 className="text-4xl md:text-5xl font-extrabold mb-4" style={{ color: 'hsl(var(--navy))', textShadow: '2px 2px 0px rgba(0, 0, 0, 0.2)' }}>
               في أمانتي
             </h1>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#2D8B7E]">
+            <h2 className="text-3xl md:text-4xl font-extrabold" style={{ color: 'hsl(var(--orange-red))', textShadow: '2px 2px 0px rgba(0, 0, 0, 0.2)' }}>
               الأمان السوشيال ميديا
             </h2>
           </motion.div>
@@ -83,8 +83,9 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
             <Button
               onClick={onStart}
               size="lg"
-              className="h-20 px-16 text-2xl font-bold rounded-2xl shadow-lg gap-4 w-full md:w-auto bg-primary hover:bg-primary/90"
+              className="h-20 px-16 text-2xl font-extrabold rounded-xl gap-4 w-full md:w-auto bg-white text-[hsl(var(--navy))] border-[8px] border-[hsl(var(--navy))] hover:bg-[hsl(var(--yellow))]"
               data-testid="button-start-game"
+              style={{ boxShadow: '0 6px 0px hsl(var(--orange-red))', textShadow: '2px 2px 0px rgba(0, 0, 0, 0.15)' }}
             >
               <Play className="w-8 h-8 fill-current" />
               ابدأ المغامرة

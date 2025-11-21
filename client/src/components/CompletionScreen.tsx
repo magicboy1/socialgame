@@ -25,10 +25,10 @@ export function CompletionScreen({ score, totalQuestions, onRestart }: Completio
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="min-h-screen flex items-center justify-center p-6 bg-gradient-to-br from-[#7ED4C8] via-[#6BC9BD] to-[#5BBFB3]"
+      className="min-h-screen flex items-center justify-center p-6 bg-[hsl(var(--teal))]"
       data-testid="completion-screen"
     >
-      <Card className="max-w-3xl w-full p-8 md:p-12 rounded-3xl shadow-2xl border-4 relative overflow-hidden bg-white">
+      <Card className="max-w-3xl w-full p-8 md:p-12 rounded-2xl border-[10px] border-[hsl(var(--navy))] relative overflow-hidden bg-white" style={{ boxShadow: '0 8px 0px hsl(var(--orange-red))' }}>
         {Array.from({ length: 12 }).map((_, i) => (
           <motion.div
             key={i}
@@ -82,10 +82,10 @@ export function CompletionScreen({ score, totalQuestions, onRestart }: Completio
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.3 }}
           >
-            <h1 className="text-5xl md:text-6xl font-bold text-[#2D8B7E]">
+            <h1 className="text-5xl md:text-6xl font-extrabold" style={{ color: 'hsl(var(--orange-red))', textShadow: '2px 2px 0px rgba(0, 0, 0, 0.3)' }}>
               مبروك!
             </h1>
-            <p className="text-2xl md:text-3xl font-bold text-foreground" data-testid="text-completion-message">
+            <p className="text-2xl md:text-3xl font-extrabold" style={{ color: 'hsl(var(--navy))', textShadow: '2px 2px 0px rgba(0, 0, 0, 0.2)' }} data-testid="text-completion-message">
               {getMessage()}
             </p>
           </motion.div>
@@ -108,11 +108,11 @@ export function CompletionScreen({ score, totalQuestions, onRestart }: Completio
             ))}
           </div>
 
-          <div className="bg-[#F5EDD5] rounded-3xl p-10 w-full border-4 border-[#2D8B7E]/30">
-            <p className="text-4xl font-bold text-foreground mb-2">
+          <div className="bg-white rounded-xl p-10 w-full border-[8px] border-[hsl(var(--navy))]" style={{ boxShadow: '0 6px 0px hsl(var(--yellow))' }}>
+            <p className="text-4xl font-extrabold mb-2" style={{ color: 'hsl(var(--navy))', textShadow: '2px 2px 0px rgba(0, 0, 0, 0.2)' }}>
               النتيجة النهائية
             </p>
-            <p className="text-6xl font-bold text-[#2D8B7E]" data-testid="text-final-score">
+            <p className="text-6xl font-extrabold" style={{ color: 'hsl(var(--orange-red))', textShadow: '2px 2px 0px rgba(0, 0, 0, 0.2)' }} data-testid="text-final-score">
               {score}/{totalQuestions}
             </p>
           </div>
@@ -138,8 +138,9 @@ export function CompletionScreen({ score, totalQuestions, onRestart }: Completio
             <Button
               onClick={onRestart}
               size="lg"
-              className="h-20 px-16 text-2xl font-bold rounded-2xl shadow-lg gap-4 w-full md:w-auto bg-[#2D8B7E] hover:bg-[#2D8B7E]/90"
+              className="h-20 px-16 text-2xl font-extrabold rounded-xl gap-4 w-full md:w-auto bg-white text-[hsl(var(--navy))] border-[8px] border-[hsl(var(--navy))] hover:bg-[hsl(var(--yellow))]"
               data-testid="button-restart"
+              style={{ boxShadow: '0 6px 0px hsl(var(--orange-red))', textShadow: '2px 2px 0px rgba(0, 0, 0, 0.15)' }}
             >
               <RotateCcw className="w-7 h-7" />
               العب مرة أخرى

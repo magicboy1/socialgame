@@ -44,13 +44,11 @@ export function DraggableQuestionCard({ question, isDragging, disabled = false, 
       >
         <div
           className={`
-            p-6 sm:p-8 md:p-10 rounded-[2rem] relative
-            ${
-              isDragging
-                ? "shadow-[0_20px_50px_rgba(45,139,126,0.4)] bg-[#F5EDD5]"
-                : "shadow-[0_10px_30px_rgba(0,0,0,0.15)] bg-[#F5EDD5]"
-            }
+            p-6 sm:p-8 md:p-10 rounded-xl relative bg-white border-[8px] border-[hsl(var(--navy))] transition-all duration-200
           `}
+          style={{
+            boxShadow: isDragging ? '0 8px 0px hsl(var(--orange-red))' : '0 6px 0px hsl(var(--yellow))',
+          }}
         >
           <div className="flex flex-col items-center gap-4 sm:gap-6">
             <motion.div
@@ -64,22 +62,25 @@ export function DraggableQuestionCard({ question, isDragging, disabled = false, 
               }}
             >
               <Move
-                className={`w-10 h-10 sm:w-12 sm:h-12 ${isDragging ? "text-[#2D8B7E]" : "text-[#2D8B7E]/60"}`}
+                className={`w-10 h-10 sm:w-12 sm:h-12`}
                 strokeWidth={2.5}
+                style={{ color: 'hsl(var(--navy))' }}
               />
             </motion.div>
 
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="text-base sm:text-lg md:text-xl font-bold text-[#2D8B7E] text-center"
+              className="text-base sm:text-lg md:text-xl font-extrabold text-center"
+              style={{ color: 'hsl(var(--navy))', textShadow: '2px 2px 0px rgba(0, 0, 0, 0.15)' }}
             >
               هل هذا التصرف آمن أم خطير؟
             </motion.p>
 
             <h2
-              className="text-xl sm:text-2xl md:text-3xl font-bold text-[#2D8B7E] leading-relaxed text-center px-2 sm:px-4"
+              className="text-xl sm:text-2xl md:text-3xl font-extrabold leading-relaxed text-center px-2 sm:px-4"
               data-testid="text-scenario"
+              style={{ color: 'hsl(var(--navy))', textShadow: '2px 2px 0px rgba(0, 0, 0, 0.2)' }}
             >
               {question.scenario}
             </h2>
@@ -88,7 +89,8 @@ export function DraggableQuestionCard({ question, isDragging, disabled = false, 
               <motion.p
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="text-sm sm:text-base md:text-lg font-semibold text-[#2D8B7E]/70 text-center"
+                className="text-sm sm:text-base md:text-lg font-bold text-center"
+                style={{ color: 'hsl(var(--orange-red))', textShadow: '1px 1px 0px rgba(0, 0, 0, 0.15)' }}
               >
                 ✋ اسحب البطاقة للأسفل
               </motion.p>
