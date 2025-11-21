@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { motion, AnimatePresence } from "framer-motion";
+import { DndContext, DragEndEvent, DragOverlay, DragStartEvent, PointerSensor, TouchSensor, useSensor, useSensors } from "@dnd-kit/core";
 import { queryClient, apiRequest } from "@/lib/queryClient";
 import { WelcomeScreen } from "@/components/WelcomeScreen";
-import { QuestionCard } from "@/components/QuestionCard";
-import { AnswerButton } from "@/components/AnswerButton";
+import { DraggableQuestionCard } from "@/components/DraggableQuestionCard";
+import { DropZone } from "@/components/DropZone";
 import { FeedbackScreen } from "@/components/FeedbackScreen";
 import { CompletionScreen } from "@/components/CompletionScreen";
 import { ScoreDisplay } from "@/components/ScoreDisplay";
@@ -19,6 +20,22 @@ export default function Game() {
   const [score, setScore] = useState(0);
   const [feedbackData, setFeedbackData] = useState<AnswerResult | null>(null);
   const [animateScore, setAnimateScore] = useState(false);
+  const [activeId, setActiveId] = useState<string | null>(null);
+  const [overId, setOverId] = useState<string | null>(null);
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 8,
+      },
+    }),
+    useSensor(TouchSensor, {
+      activationConstraint: {
+        delay: 200,
+        tolerance: 8,
+      },
+    })
+  );
 
   const { data: questions = [], isLoading } = useQuery<Question[]>({
     queryKey: ["/api/questions"],
@@ -50,8 +67,29 @@ export default function Game() {
     setScore(0);
   };
 
-  const handleAnswer = (answer: boolean) => {
-    submitAnswerMutation.mutate(answer);
+  const handleDragStart = (event: DragStartEvent) => {
+    setActiveId(event.active.id as string);
+  };
+
+  const handleDragOver = (event: any) => {
+    setOverId(event.over?.id || null);
+  };
+
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { over } = event;
+    
+    setActiveId(null);
+    setOverId(null);
+
+    if (over) {
+      const answer = over.id === "safe" ? true : false;
+      submitAnswerMutation.mutate(answer);
+    }
+  };
+
+  const handleDragCancel = () => {
+    setActiveId(null);
+    setOverId(null);
   };
 
   const handleContinue = () => {
@@ -102,61 +140,71 @@ export default function Game() {
   const currentQuestion = questions[currentQuestionIndex];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#7ED4C8] via-[#6BC9BD] to-[#5BBFB3] p-4 md:p-6 flex flex-col">
-      <motion.div
-        initial={{ y: -20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        className="flex items-center justify-between mb-6"
-        data-testid="game-header"
-      >
-        <div className="flex items-center gap-3">
-          <div className="absolute left-4 md:left-8 top-4 md:top-6">
-            <Mascot size="small" animate={false} />
+    <DndContext
+      sensors={sensors}
+      onDragStart={handleDragStart}
+      onDragOver={handleDragOver}
+      onDragEnd={handleDragEnd}
+      onDragCancel={handleDragCancel}
+    >
+      <div className="min-h-screen bg-gradient-to-br from-[#7ED4C8] via-[#6BC9BD] to-[#5BBFB3] p-4 md:p-6 flex flex-col">
+        <motion.div
+          initial={{ y: -20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          className="flex items-center justify-between mb-6"
+          data-testid="game-header"
+        >
+          <div className="flex items-center gap-3">
+            <div className="absolute left-4 md:left-8 top-4 md:top-6">
+              <Mascot size="small" animate={false} />
+            </div>
+            <div className="mr-24 md:mr-32">
+              <h1 className="text-2xl md:text-4xl font-bold text-[#2D8B7E] leading-tight" data-testid="text-game-title">
+                في أمانتي الأمان
+              </h1>
+              <h2 className="text-xl md:text-3xl font-bold text-[#2D8B7E] leading-tight">
+                السوشيال ميديا
+              </h2>
+            </div>
           </div>
-          <div className="mr-24 md:mr-32">
-            <h1 className="text-2xl md:text-4xl font-bold text-[#2D8B7E] leading-tight" data-testid="text-game-title">
-              في أمانتي الأمان
-            </h1>
-            <h2 className="text-xl md:text-3xl font-bold text-[#2D8B7E] leading-tight">
-              السوشيال ميديا
-            </h2>
+
+          <ScoreDisplay score={score} animate={animateScore} />
+        </motion.div>
+
+        <div className="flex-1 flex flex-col items-center justify-between max-w-5xl mx-auto w-full gap-8 pb-4">
+          <div className="flex-1 flex items-center justify-center w-full">
+            <DraggableQuestionCard question={currentQuestion} isDragging={activeId !== null} />
           </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full"
+          >
+            <DropZone id="safe" label="أمن" value={true} isOver={overId === "safe"} />
+            <DropZone id="unsafe" label="غير أمن" value={false} isOver={overId === "unsafe"} />
+          </motion.div>
         </div>
 
-        <ScoreDisplay score={score} animate={animateScore} />
-      </motion.div>
+        <DragOverlay>
+          {activeId ? (
+            <div className="cursor-grabbing">
+              <DraggableQuestionCard question={currentQuestion} isDragging={true} />
+            </div>
+          ) : null}
+        </DragOverlay>
 
-      <div className="flex-1 flex flex-col items-center justify-center max-w-5xl mx-auto w-full gap-6">
-        <QuestionCard question={currentQuestion} />
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-3xl"
-        >
-          <AnswerButton
-            label="أمن"
-            value={true}
-            onClick={() => handleAnswer(true)}
-          />
-          <AnswerButton
-            label="غير أمن"
-            value={false}
-            onClick={() => handleAnswer(false)}
-          />
-        </motion.div>
+        <AnimatePresence>
+          {gamePhase === "feedback" && feedbackData && (
+            <FeedbackScreen
+              isCorrect={feedbackData.correct}
+              tip={feedbackData.tip}
+              onContinue={handleContinue}
+            />
+          )}
+        </AnimatePresence>
       </div>
-
-      <AnimatePresence>
-        {gamePhase === "feedback" && feedbackData && (
-          <FeedbackScreen
-            isCorrect={feedbackData.correct}
-            tip={feedbackData.tip}
-            onContinue={handleContinue}
-          />
-        )}
-      </AnimatePresence>
-    </div>
+    </DndContext>
   );
 }
