@@ -81,7 +81,7 @@ export default function Game() {
     setActiveId(null);
     setOverId(null);
 
-    if (over) {
+    if (over && gamePhase === "playing" && !submitAnswerMutation.isPending) {
       const answer = over.id === "safe" ? true : false;
       submitAnswerMutation.mutate(answer);
     }
@@ -138,73 +138,92 @@ export default function Game() {
   }
 
   const currentQuestion = questions[currentQuestionIndex];
+  const isDragEnabled = gamePhase === "playing" && !submitAnswerMutation.isPending;
 
   return (
-    <DndContext
-      sensors={sensors}
-      onDragStart={handleDragStart}
-      onDragOver={handleDragOver}
-      onDragEnd={handleDragEnd}
-      onDragCancel={handleDragCancel}
-    >
-      <div className="min-h-screen bg-gradient-to-br from-[#7ED4C8] via-[#6BC9BD] to-[#5BBFB3] p-4 md:p-6 flex flex-col">
-        <motion.div
-          initial={{ y: -20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          className="flex items-center justify-between mb-6"
-          data-testid="game-header"
+    <div className="min-h-screen bg-gradient-to-br from-[#7ED4C8] via-[#6BC9BD] to-[#5BBFB3] p-4 md:p-6 flex flex-col">
+      <motion.div
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        className="flex items-center justify-between mb-6"
+        data-testid="game-header"
+      >
+        <div className="flex items-center gap-3">
+          <div className="absolute left-4 md:left-8 top-4 md:top-6">
+            <Mascot size="small" animate={false} />
+          </div>
+          <div className="mr-24 md:mr-32">
+            <h1 className="text-2xl md:text-4xl font-bold text-[#2D8B7E] leading-tight" data-testid="text-game-title">
+              في أمانتي الأمان
+            </h1>
+            <h2 className="text-xl md:text-3xl font-bold text-[#2D8B7E] leading-tight">
+              السوشيال ميديا
+            </h2>
+          </div>
+        </div>
+
+        <ScoreDisplay score={score} animate={animateScore} />
+      </motion.div>
+
+      {isDragEnabled ? (
+        <DndContext
+          sensors={sensors}
+          onDragStart={handleDragStart}
+          onDragOver={handleDragOver}
+          onDragEnd={handleDragEnd}
+          onDragCancel={handleDragCancel}
         >
-          <div className="flex items-center gap-3">
-            <div className="absolute left-4 md:left-8 top-4 md:top-6">
-              <Mascot size="small" animate={false} />
+          <div className="flex-1 flex flex-col items-center justify-between max-w-5xl mx-auto w-full gap-8 pb-4">
+            <div className="flex-1 flex items-center justify-center w-full">
+              <DraggableQuestionCard question={currentQuestion} isDragging={activeId !== null} />
             </div>
-            <div className="mr-24 md:mr-32">
-              <h1 className="text-2xl md:text-4xl font-bold text-[#2D8B7E] leading-tight" data-testid="text-game-title">
-                في أمانتي الأمان
-              </h1>
-              <h2 className="text-xl md:text-3xl font-bold text-[#2D8B7E] leading-tight">
-                السوشيال ميديا
-              </h2>
-            </div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full"
+            >
+              <DropZone id="safe" label="أمن" value={true} isOver={overId === "safe"} />
+              <DropZone id="unsafe" label="غير أمن" value={false} isOver={overId === "unsafe"} />
+            </motion.div>
           </div>
 
-          <ScoreDisplay score={score} animate={animateScore} />
-        </motion.div>
-
+          <DragOverlay>
+            {activeId ? (
+              <div className="cursor-grabbing">
+                <DraggableQuestionCard question={currentQuestion} isDragging={true} />
+              </div>
+            ) : null}
+          </DragOverlay>
+        </DndContext>
+      ) : (
         <div className="flex-1 flex flex-col items-center justify-between max-w-5xl mx-auto w-full gap-8 pb-4">
-          <div className="flex-1 flex items-center justify-center w-full">
-            <DraggableQuestionCard question={currentQuestion} isDragging={activeId !== null} />
+          <div className="flex-1 flex items-center justify-center w-full opacity-50">
+            <DraggableQuestionCard question={currentQuestion} isDragging={false} />
           </div>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full"
+            className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full opacity-50"
           >
-            <DropZone id="safe" label="أمن" value={true} isOver={overId === "safe"} />
-            <DropZone id="unsafe" label="غير أمن" value={false} isOver={overId === "unsafe"} />
+            <DropZone id="safe" label="أمن" value={true} isOver={false} />
+            <DropZone id="unsafe" label="غير أمن" value={false} isOver={false} />
           </motion.div>
         </div>
+      )}
 
-        <DragOverlay>
-          {activeId ? (
-            <div className="cursor-grabbing">
-              <DraggableQuestionCard question={currentQuestion} isDragging={true} />
-            </div>
-          ) : null}
-        </DragOverlay>
-
-        <AnimatePresence>
-          {gamePhase === "feedback" && feedbackData && (
-            <FeedbackScreen
-              isCorrect={feedbackData.correct}
-              tip={feedbackData.tip}
-              onContinue={handleContinue}
-            />
-          )}
-        </AnimatePresence>
-      </div>
-    </DndContext>
+      <AnimatePresence>
+        {gamePhase === "feedback" && feedbackData && (
+          <FeedbackScreen
+            isCorrect={feedbackData.correct}
+            tip={feedbackData.tip}
+            onContinue={handleContinue}
+          />
+        )}
+      </AnimatePresence>
+    </div>
   );
 }
