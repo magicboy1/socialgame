@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import mascotImage from "@assets/image_1763724898056.png";
+import mascotImage from "@assets/image_1763726334471.png";
 
 interface MascotProps {
   size?: "small" | "medium" | "large";
@@ -18,8 +18,8 @@ export function Mascot({ size = "medium", animate = true, message }: MascotProps
     <div className="relative" data-testid="mascot-container">
       <img
         src={mascotImage}
-        alt="Safety Superhero Mascot"
-        className={`${sizeClasses[size]} object-contain drop-shadow-lg`}
+        alt="Little Siter - بطل الأمان"
+        className={`${sizeClasses[size]} object-contain drop-shadow-2xl`}
         data-testid="mascot-avatar"
       />
       {message && (
