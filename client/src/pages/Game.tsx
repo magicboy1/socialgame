@@ -201,6 +201,7 @@ export default function Game() {
                   question={currentQuestion} 
                   isDragging={true} 
                   isOverDropZone={overId !== null}
+                  isInOverlay={true}
                 />
               </div>
             ) : null}
