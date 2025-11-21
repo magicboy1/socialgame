@@ -22,6 +22,7 @@ export default function Game() {
   const [animateScore, setAnimateScore] = useState(false);
   const [activeId, setActiveId] = useState<string | null>(null);
   const [overId, setOverId] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -54,6 +55,7 @@ export default function Game() {
     onSuccess: (result: AnswerResult) => {
       setFeedbackData(result);
       setGamePhase("feedback");
+      setIsSubmitting(false);
       if (result.correct) {
         setScore((prev) => prev + 1);
         setAnimateScore(true);
@@ -83,6 +85,7 @@ export default function Game() {
     setOverId(null);
 
     if (over && gamePhase === "playing" && !submitAnswerMutation.isPending) {
+      setIsSubmitting(true);
       const answer = over.id === "safe" ? true : false;
       submitAnswerMutation.mutate(answer);
     }
@@ -98,6 +101,7 @@ export default function Game() {
       setCurrentQuestionIndex((prev) => prev + 1);
       setGamePhase("playing");
       setFeedbackData(null);
+      setIsSubmitting(false);
     } else {
       setGamePhase("completed");
     }
@@ -175,7 +179,7 @@ export default function Game() {
           onDragCancel={handleDragCancel}
         >
           <div className="flex-1 flex flex-col items-center justify-center max-w-4xl mx-auto w-full gap-4 sm:gap-6 md:gap-8">
-            <div className="w-full max-w-2xl">
+            <div className="w-full max-w-2xl" style={{ opacity: isSubmitting ? 0 : 1, transition: 'opacity 0.2s' }}>
               <DraggableQuestionCard 
                 question={currentQuestion} 
                 isDragging={activeId !== null}
