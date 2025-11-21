@@ -31,7 +31,7 @@ export function DraggableQuestionCard({ question, isDragging, disabled = false, 
       {...listeners}
       {...attributes}
       data-testid="question-card"
-      className="w-full cursor-grab active:cursor-grabbing touch-none"
+      className={`w-full cursor-grab active:cursor-grabbing touch-none ${isDragging ? 'opacity-0' : ''}`}
     >
       <motion.div
         animate={{
