@@ -8,11 +8,13 @@ import type { Question } from "@shared/schema";
 interface DraggableQuestionCardProps {
   question: Question;
   isDragging: boolean;
+  disabled?: boolean;
 }
 
-export function DraggableQuestionCard({ question, isDragging }: DraggableQuestionCardProps) {
+export function DraggableQuestionCard({ question, isDragging, disabled = false }: DraggableQuestionCardProps) {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id: "question-card",
+    disabled,
   });
 
   const style = transform

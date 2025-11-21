@@ -35,8 +35,10 @@ export function FeedbackScreen({ isCorrect, tip, onContinue }: FeedbackScreenPro
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.9 }}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-[#7ED4C8]/95 backdrop-blur-sm p-6"
+      transition={{ duration: 0.3 }}
+      className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#7ED4C8]/95 backdrop-blur-sm p-6"
       data-testid="feedback-screen"
+      style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0 }}
     >
       <Card className="max-w-2xl w-full p-8 md:p-12 rounded-3xl shadow-2xl border-4 relative overflow-visible bg-white">
         {isCorrect && (

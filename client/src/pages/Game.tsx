@@ -45,15 +45,18 @@ export default function Game() {
   const submitAnswerMutation = useMutation({
     mutationFn: async (answer: boolean) => {
       const question = questions[currentQuestionIndex];
-      return apiRequest("POST", "/api/answer", {
+      const response = await apiRequest("POST", "/api/answer", {
         questionId: question.id,
         userAnswer: answer,
       });
+      return await response.json();
     },
     onSuccess: (result: AnswerResult) => {
       console.log("Answer result:", result);
+      console.log("Setting feedbackData and gamePhase to feedback");
       setFeedbackData(result);
       setGamePhase("feedback");
+      console.log("feedbackData set, gamePhase set to feedback");
       if (result.correct) {
         setScore((prev) => prev + 1);
         setAnimateScore(true);
@@ -79,12 +82,25 @@ export default function Game() {
   const handleDragEnd = (event: DragEndEvent) => {
     const { over } = event;
     
+    console.log("handleDragEnd called", {
+      over: over?.id,
+      gamePhase,
+      isPending: submitAnswerMutation.isPending
+    });
+    
     setActiveId(null);
     setOverId(null);
 
     if (over && gamePhase === "playing" && !submitAnswerMutation.isPending) {
       const answer = over.id === "safe" ? true : false;
+      console.log("Submitting answer:", answer, "for question:", questions[currentQuestionIndex]?.id);
       submitAnswerMutation.mutate(answer);
+    } else {
+      console.log("handleDragEnd: conditions not met", {
+        hasOver: !!over,
+        isPlaying: gamePhase === "playing",
+        notPending: !submitAnswerMutation.isPending
+      });
     }
   };
 
@@ -166,57 +182,43 @@ export default function Game() {
         <ScoreDisplay score={score} animate={animateScore} />
       </motion.div>
 
-      {isDragEnabled ? (
-        <DndContext
-          sensors={sensors}
-          onDragStart={handleDragStart}
-          onDragOver={handleDragOver}
-          onDragEnd={handleDragEnd}
-          onDragCancel={handleDragCancel}
-        >
-          <div className="flex-1 flex flex-col items-center justify-between max-w-5xl mx-auto w-full gap-8 pb-4">
-            <div className="flex-1 flex items-center justify-center w-full">
-              <DraggableQuestionCard question={currentQuestion} isDragging={activeId !== null} />
-            </div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full"
-            >
-              <DropZone id="safe" label="أمن" value={true} isOver={overId === "safe"} />
-              <DropZone id="unsafe" label="غير أمن" value={false} isOver={overId === "unsafe"} />
-            </motion.div>
-          </div>
-
-          <DragOverlay>
-            {activeId ? (
-              <div className="cursor-grabbing">
-                <DraggableQuestionCard question={currentQuestion} isDragging={true} />
-              </div>
-            ) : null}
-          </DragOverlay>
-        </DndContext>
-      ) : (
+      <DndContext
+        sensors={sensors}
+        onDragStart={handleDragStart}
+        onDragOver={handleDragOver}
+        onDragEnd={handleDragEnd}
+        onDragCancel={handleDragCancel}
+      >
         <div className="flex-1 flex flex-col items-center justify-between max-w-5xl mx-auto w-full gap-8 pb-4">
-          <div className="flex-1 flex items-center justify-center w-full opacity-50">
-            <DraggableQuestionCard question={currentQuestion} isDragging={false} />
+          <div className="flex-1 flex items-center justify-center w-full">
+            <DraggableQuestionCard 
+              question={currentQuestion} 
+              isDragging={activeId !== null}
+              disabled={!isDragEnabled}
+            />
           </div>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full opacity-50"
+            className={`grid grid-cols-1 md:grid-cols-2 gap-6 w-full ${!isDragEnabled ? 'opacity-50 pointer-events-none' : ''}`}
           >
-            <DropZone id="safe" label="أمن" value={true} isOver={false} />
-            <DropZone id="unsafe" label="غير أمن" value={false} isOver={false} />
+            <DropZone id="safe" label="أمن" value={true} isOver={overId === "safe"} />
+            <DropZone id="unsafe" label="غير أمن" value={false} isOver={overId === "unsafe"} />
           </motion.div>
         </div>
-      )}
 
-      <AnimatePresence>
+        <DragOverlay>
+          {activeId ? (
+            <div className="cursor-grabbing">
+              <DraggableQuestionCard question={currentQuestion} isDragging={true} />
+            </div>
+          ) : null}
+        </DragOverlay>
+      </DndContext>
+
+      <AnimatePresence mode="wait">
         {gamePhase === "feedback" && feedbackData && (
           <FeedbackScreen
             isCorrect={feedbackData.correct}
