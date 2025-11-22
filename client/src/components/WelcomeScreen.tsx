@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Shield, Play, Star, Sparkles } from "lucide-react";
+import { Play, Trophy, Star, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Mascot } from "./Mascot";
 
@@ -12,249 +12,228 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="h-screen relative overflow-hidden bg-gradient-to-br from-[hsl(var(--teal))] via-[hsl(156_45%_42%)] to-[hsl(156_50%_38%)]"
+      className="h-screen relative overflow-hidden"
+      style={{ background: 'linear-gradient(135deg, hsl(230, 35%, 7%) 0%, hsl(260, 40%, 12%) 100%)' }}
       data-testid="welcome-screen"
     >
-      {/* Animated particles background */}
+      {/* Animated spotlight beams */}
+      <div className="spotlight-beam" style={{ animationDelay: '0s' }} />
+      <div className="spotlight-beam" style={{ animationDelay: '3s' }} />
+      <div className="spotlight-beam" style={{ animationDelay: '6s' }} />
+
+      {/* Floating particles */}
       {Array.from({ length: 20 }).map((_, i) => (
         <motion.div
           key={i}
           className="absolute rounded-full"
           style={{
-            width: Math.random() * 60 + 20,
-            height: Math.random() * 60 + 20,
+            width: Math.random() * 4 + 2,
+            height: Math.random() * 4 + 2,
             left: `${Math.random() * 100}%`,
             top: `${Math.random() * 100}%`,
-            background: i % 3 === 0 
-              ? 'hsl(var(--yellow))' 
-              : i % 3 === 1 
-              ? 'hsl(var(--orange-red))' 
-              : 'rgba(255, 255, 255, 0.3)',
-            opacity: Math.random() * 0.3 + 0.1,
+            background: i % 2 === 0 ? 'hsl(45 100% 55%)' : 'hsl(195 100% 65%)',
+            opacity: 0.4,
           }}
           animate={{
-            y: [0, Math.random() * -100 - 50],
-            x: [0, Math.random() * 100 - 50],
-            scale: [1, Math.random() + 0.5],
-            opacity: [0.1, 0.3, 0.1],
+            y: [0, -100, -200],
+            opacity: [0, 0.6, 0],
           }}
           transition={{
-            duration: Math.random() * 10 + 5,
+            duration: Math.random() * 5 + 3,
             repeat: Infinity,
-            ease: "easeInOut",
+            delay: Math.random() * 3,
+            ease: "easeOut",
           }}
         />
       ))}
 
-      {/* Glowing stars */}
-      {Array.from({ length: 8 }).map((_, i) => (
-        <motion.div
-          key={`star-${i}`}
-          className="absolute"
-          style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-          }}
-          animate={{
-            scale: [1, 1.5, 1],
-            opacity: [0.4, 1, 0.4],
-            rotate: [0, 180, 360],
-          }}
-          transition={{
-            duration: Math.random() * 3 + 2,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: Math.random() * 2,
-          }}
-        >
-          <Star className="w-6 h-6 fill-[hsl(var(--yellow))] text-[hsl(var(--yellow))]" />
-        </motion.div>
-      ))}
-
-      <div className="relative z-10 h-full flex flex-col items-center justify-center p-2 sm:p-2.5 md:p-3 lg:p-6 overflow-hidden">
-        <div className="w-full max-w-6xl flex flex-col gap-2.5 sm:gap-3.5 md:gap-4 lg:gap-8 xl:gap-12">
+      <div className="relative z-10 h-full flex flex-col items-center justify-center p-4 sm:p-6 md:p-8">
+        <div className="w-full max-w-4xl flex flex-col gap-6 sm:gap-8 md:gap-12">
+          
           {/* Title */}
           <motion.div
-            initial={{ y: -50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
             transition={{
               type: "spring",
-              stiffness: 120,
-              damping: 12,
+              stiffness: 100,
+              damping: 15,
               delay: 0.2,
             }}
-            className="w-full"
+            className="text-center"
           >
-            <div className="bg-white/10 backdrop-blur-md rounded-lg sm:rounded-xl md:rounded-2xl lg:rounded-3xl p-2 sm:p-2.5 md:p-4 lg:p-8 border-3 sm:border-4 border-white/40 text-center">
+            <div className="relative inline-block">
+              {/* Glow effect */}
+              <motion.div
+                className="absolute inset-0 blur-3xl"
+                style={{
+                  background: 'radial-gradient(circle, rgba(212, 175, 55, 0.4) 0%, transparent 70%)',
+                }}
+                animate={{
+                  scale: [1, 1.2, 1],
+                  opacity: [0.4, 0.6, 0.4],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              />
+              
               <h1 
-                className="text-base sm:text-lg md:text-2xl lg:text-5xl xl:text-6xl font-black text-[hsl(var(--yellow))] leading-tight mb-0 lg:mb-2"
+                className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-gold leading-tight mb-2 sm:mb-3 md:mb-4 relative"
                 style={{ 
-                  textShadow: '4px 4px 0px hsl(var(--orange-red)), 2px 2px 0px hsl(var(--navy))',
+                  textShadow: '0 0 30px hsl(45 100% 55% / 0.8), 0 0 60px hsl(45 100% 55% / 0.4), 4px 4px 0px hsl(30 45% 25%), 2px 2px 0px rgba(0, 0, 0, 0.8)',
                   direction: 'rtl',
                 }}
               >
                 أبطال السوشال ميديا
               </h1>
               <h3 
-                className="text-xs sm:text-sm md:text-lg lg:text-3xl xl:text-4xl font-black text-white"
+                className="text-sm sm:text-lg md:text-2xl lg:text-3xl xl:text-4xl font-black text-white relative"
                 style={{ 
-                  textShadow: '3px 3px 0px hsl(var(--navy))',
+                  textShadow: '0 0 20px hsl(195 100% 65% / 0.6), 3px 3px 0px rgba(0, 0, 0, 0.8)',
                   direction: 'rtl',
                 }}
               >
-                🦸 كن بطلاً للأمان 🦸
+                🦸 من سيربح النجوم الذهبية؟ 🦸
               </h3>
             </div>
           </motion.div>
 
-          {/* Main content: Mascot (right) + Features (left) */}
-          <div className="w-full flex-1 flex flex-col md:flex-row items-center md:items-stretch justify-center gap-2 sm:gap-3 md:gap-3 lg:gap-6 xl:gap-10">
-            {/* Left side - Features and Button */}
+          {/* Mascot + Features */}
+          <div className="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12">
+            
+            {/* Mascot */}
             <motion.div
-              initial={{ x: -100, opacity: 0 }}
+              initial={{ x: -50, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               transition={{ delay: 0.4 }}
-              className="flex flex-col items-end justify-center gap-1.5 sm:gap-2.5 md:gap-3 lg:gap-5 flex-1 order-2 md:order-1"
+              className="relative order-1 md:order-2"
             >
-              {/* Features */}
-              <div className="space-y-1.5 sm:space-y-2.5 md:space-y-3 lg:space-y-4 w-full">
-                <div className="flex items-center gap-1.5 sm:gap-2.5 md:gap-3 lg:gap-4 justify-start" dir="rtl">
-                  <div className="bg-[hsl(var(--yellow))] rounded-full p-1.5 sm:p-2 md:p-3 lg:p-4 flex-shrink-0 border-2 md:border-3 lg:border-4 border-white">
-                    <Shield className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 lg:w-9 lg:h-9 text-[hsl(var(--navy))]" strokeWidth={3} />
-                  </div>
-                  <p className="text-[10px] sm:text-xs md:text-sm lg:text-2xl xl:text-3xl font-black text-white" style={{ textShadow: '1px 1px 0px rgba(0, 0, 0, 0.4)', direction: 'rtl' }}>
-                    10 أسئلة تحدي
-                  </p>
-                </div>
-                
-                <div className="flex items-center gap-1.5 sm:gap-2.5 md:gap-3 lg:gap-4 justify-start" dir="rtl">
-                  <div className="bg-[hsl(var(--yellow))] rounded-full p-1.5 sm:p-2 md:p-3 lg:p-4 flex-shrink-0 border-2 md:border-3 lg:border-4 border-white">
-                    <Star className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 lg:w-9 lg:h-9 fill-[hsl(var(--navy))] text-[hsl(var(--navy))]" />
-                  </div>
-                  <p className="text-[10px] sm:text-xs md:text-sm lg:text-2xl xl:text-3xl font-black text-white" style={{ textShadow: '1px 1px 0px rgba(0, 0, 0, 0.4)', direction: 'rtl' }}>
-                    نجوم ذهبية
-                  </p>
-                </div>
-                
-                <div className="flex items-center gap-1.5 sm:gap-2.5 md:gap-3 lg:gap-4 justify-start" dir="rtl">
-                  <div className="bg-[hsl(var(--yellow))] rounded-full p-1.5 sm:p-2 md:p-3 lg:p-4 flex-shrink-0 border-2 md:border-3 lg:border-4 border-white">
-                    <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 lg:w-9 lg:h-9 text-[hsl(var(--navy))]" />
-                  </div>
-                  <p className="text-[10px] sm:text-xs md:text-sm lg:text-2xl xl:text-3xl font-black text-white" style={{ textShadow: '1px 1px 0px rgba(0, 0, 0, 0.4)', direction: 'rtl' }}>
-                    تعلم وامرح
-                  </p>
-                </div>
-              </div>
-
-              {/* Start button */}
               <motion.div
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{
-                  type: "spring",
-                  stiffness: 150,
-                  damping: 10,
-                  delay: 0.6,
-                }}
-                className="w-full mt-1.5 sm:mt-2 md:mt-2.5 lg:mt-3 xl:mt-4"
-              >
-                <motion.div
-                  animate={{
-                    scale: [1, 1.05, 1],
-                  }}
-                  transition={{
-                    duration: 1.5,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                >
-                  <Button
-                  onClick={onStart}
-                  size="lg"
-                  className="h-10 sm:h-14 md:h-16 lg:h-24 xl:h-28 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 text-[10px] sm:text-xs md:text-sm lg:text-3xl xl:text-4xl font-black rounded-md sm:rounded-lg md:rounded-xl lg:rounded-2xl gap-1 sm:gap-1.5 md:gap-2 lg:gap-4 bg-[hsl(var(--yellow))] text-[hsl(var(--navy))] border-2 sm:border-3 md:border-4 lg:border-[10px] border-white hover:bg-white hover:scale-105 transition-all duration-300 w-full max-w-[120px] sm:max-w-xs md:max-w-sm lg:max-w-md"
-                  data-testid="button-start-game"
-                  style={{ 
-                    boxShadow: '0 4px 0px hsl(var(--orange-red)), 0 0 20px rgba(229, 242, 107, 0.6)',
-                    textShadow: '1px 1px 0px rgba(0, 0, 0, 0.2)',
-                    direction: 'rtl',
-                  }}
-                >
-                    <Play className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 lg:w-12 lg:h-12 xl:w-14 xl:h-14 fill-current" />
-                    <span className="hidden sm:inline">ابدأ!</span>
-                  </Button>
-                </motion.div>
-              </motion.div>
-            </motion.div>
-
-              {/* Right side - Hero mascot */}
-            <motion.div
-              initial={{ x: 100, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{
-                type: "spring",
-                stiffness: 120,
-                damping: 12,
-                delay: 0.3,
-              }}
-              className="relative flex-shrink-0 order-1 md:order-2 flex items-center justify-center"
-            >
-            <motion.div
-              animate={{
-                y: [0, -15, 0],
-              }}
-              transition={{
-                duration: 3,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-            >
-              <div className="relative scale-[0.75] sm:scale-[1] md:scale-[1.3] lg:scale-[2] xl:scale-[2.5]">
-                {/* Glow effect behind mascot */}
-                <motion.div
-                  className="absolute inset-0 rounded-full blur-2xl"
-                  style={{
-                    background: 'radial-gradient(circle, rgba(229, 242, 107, 0.4) 0%, transparent 70%)',
-                  }}
-                  animate={{
-                    scale: [1, 1.2, 1],
-                    opacity: [0.4, 0.6, 0.4],
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                />
-                <Mascot size="large" animate={true} />
-              </div>
-            </motion.div>
-
-            {/* Fewer sparkles */}
-            {Array.from({ length: 4 }).map((_, i) => (
-              <motion.div
-                key={`sparkle-${i}`}
-                className="absolute"
-                style={{
-                  left: `${50 + Math.cos((i * Math.PI * 2) / 4) * 160}%`,
-                  top: `${50 + Math.sin((i * Math.PI * 2) / 4) * 160}%`,
-                }}
                 animate={{
-                  scale: [0, 1.2, 0],
-                  rotate: [0, 180, 360],
-                  opacity: [0, 0.8, 0],
+                  y: [0, -15, 0],
                 }}
                 transition={{
                   duration: 3,
                   repeat: Infinity,
-                  delay: i * 0.3,
                   ease: "easeInOut",
                 }}
               >
-                <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 md:w-7 md:h-7 lg:w-12 lg:h-12 text-[hsl(var(--yellow))]" />
+                <div className="relative scale-90 sm:scale-100 md:scale-125 lg:scale-150">
+                  {/* Glow effect behind mascot */}
+                  <motion.div
+                    className="absolute inset-0 rounded-full blur-2xl"
+                    style={{
+                      background: 'radial-gradient(circle, rgba(212, 175, 55, 0.3) 0%, transparent 70%)',
+                    }}
+                    animate={{
+                      scale: [1, 1.3, 1],
+                      opacity: [0.3, 0.5, 0.3],
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                  />
+                  <Mascot size="large" animate={true} />
+                </div>
               </motion.div>
-            ))}
+            </motion.div>
+
+            {/* Features */}
+            <motion.div
+              initial={{ x: 50, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ delay: 0.5 }}
+              className="flex flex-col gap-3 sm:gap-4 order-2 md:order-1"
+              dir="rtl"
+            >
+              <div className="flex items-center gap-3 sm:gap-4">
+                <div 
+                  className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center flex-shrink-0"
+                  style={{
+                    background: 'linear-gradient(135deg, hsl(45 100% 55%), hsl(40 90% 48%))',
+                    boxShadow: '0 0 20px rgba(212, 175, 55, 0.5)',
+                  }}
+                >
+                  <Trophy className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-[hsl(230,35%,7%)]" strokeWidth={3} />
+                </div>
+                <p className="text-base sm:text-lg md:text-2xl lg:text-3xl font-bold text-white" style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8)' }}>
+                  10 أسئلة تحدي
+                </p>
+              </div>
+              
+              <div className="flex items-center gap-3 sm:gap-4">
+                <div 
+                  className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center flex-shrink-0"
+                  style={{
+                    background: 'linear-gradient(135deg, hsl(45 100% 55%), hsl(40 90% 48%))',
+                    boxShadow: '0 0 20px rgba(212, 175, 55, 0.5)',
+                  }}
+                >
+                  <Star className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 fill-[hsl(230,35%,7%)] text-[hsl(230,35%,7%)]" />
+                </div>
+                <p className="text-base sm:text-lg md:text-2xl lg:text-3xl font-bold text-white" style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8)' }}>
+                  نجوم ذهبية
+                </p>
+              </div>
+              
+              <div className="flex items-center gap-3 sm:gap-4">
+                <div 
+                  className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center flex-shrink-0"
+                  style={{
+                    background: 'linear-gradient(135deg, hsl(45 100% 55%), hsl(40 90% 48%))',
+                    boxShadow: '0 0 20px rgba(212, 175, 55, 0.5)',
+                  }}
+                >
+                  <Zap className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 fill-[hsl(230,35%,7%)] text-[hsl(230,35%,7%)]" />
+                </div>
+                <p className="text-base sm:text-lg md:text-2xl lg:text-3xl font-bold text-white" style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8)' }}>
+                  إثارة ومتعة
+                </p>
+              </div>
             </motion.div>
           </div>
+
+          {/* Start button */}
+          <motion.div
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{
+              type: "spring",
+              stiffness: 150,
+              damping: 12,
+              delay: 0.7,
+            }}
+            className="flex justify-center"
+          >
+            <motion.div
+              animate={{
+                scale: [1, 1.05, 1],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            >
+              <Button
+                onClick={onStart}
+                size="lg"
+                className="btn-gold h-14 sm:h-16 md:h-20 lg:h-24 px-8 sm:px-12 md:px-16 lg:px-20 text-base sm:text-xl md:text-2xl lg:text-3xl font-black rounded-xl sm:rounded-2xl gap-2 sm:gap-3 md:gap-4 hover:scale-110 transition-all duration-300"
+                data-testid="button-start-game"
+                style={{ 
+                  direction: 'rtl',
+                }}
+              >
+                <Play className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-12 lg:h-12 fill-current" />
+                <span>ابدأ اللعبة!</span>
+              </Button>
+            </motion.div>
+          </motion.div>
         </div>
       </div>
     </motion.div>

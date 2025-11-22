@@ -1,11 +1,9 @@
 import { useState } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
-import { motion, AnimatePresence } from "framer-motion";
-import { DndContext, DragEndEvent, DragOverlay, DragStartEvent, PointerSensor, TouchSensor, useSensor, useSensors } from "@dnd-kit/core";
+import { motion } from "framer-motion";
 import { queryClient, apiRequest } from "@/lib/queryClient";
 import { WelcomeScreen } from "@/components/WelcomeScreen";
-import { DraggableQuestionCard } from "@/components/DraggableQuestionCard";
-import { DropZone } from "@/components/DropZone";
+import { MultipleChoiceQuestion } from "@/components/MultipleChoiceQuestion";
 import { FeedbackScreen } from "@/components/FeedbackScreen";
 import { CompletionScreen } from "@/components/CompletionScreen";
 import { ScoreDisplay } from "@/components/ScoreDisplay";
@@ -20,23 +18,8 @@ export default function Game() {
   const [score, setScore] = useState(0);
   const [feedbackData, setFeedbackData] = useState<AnswerResult | null>(null);
   const [animateScore, setAnimateScore] = useState(false);
-  const [activeId, setActiveId] = useState<string | null>(null);
-  const [overId, setOverId] = useState<string | null>(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const sensors = useSensors(
-    useSensor(PointerSensor, {
-      activationConstraint: {
-        distance: 8,
-      },
-    }),
-    useSensor(TouchSensor, {
-      activationConstraint: {
-        delay: 200,
-        tolerance: 8,
-      },
-    })
-  );
+  const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
+  const [showResult, setShowResult] = useState(false);
 
   const { data: questions = [], isLoading } = useQuery<Question[]>({
     queryKey: ["/api/questions"],
@@ -44,7 +27,7 @@ export default function Game() {
   });
 
   const submitAnswerMutation = useMutation({
-    mutationFn: async (answer: boolean) => {
+    mutationFn: async (answer: number) => {
       const question = questions[currentQuestionIndex];
       const response = await apiRequest("POST", "/api/answer", {
         questionId: question.id,
@@ -54,13 +37,17 @@ export default function Game() {
     },
     onSuccess: (result: AnswerResult) => {
       setFeedbackData(result);
-      setGamePhase("feedback");
-      setIsSubmitting(false);
-      if (result.correct) {
-        setScore((prev) => prev + 1);
-        setAnimateScore(true);
-        setTimeout(() => setAnimateScore(false), 500);
-      }
+      setShowResult(true);
+      
+      // Show result on button for 1.5 seconds, then go to feedback screen
+      setTimeout(() => {
+        setGamePhase("feedback");
+        if (result.correct) {
+          setScore((prev) => prev + 1);
+          setAnimateScore(true);
+          setTimeout(() => setAnimateScore(false), 500);
+        }
+      }, 1500);
     },
   });
 
@@ -70,32 +57,11 @@ export default function Game() {
     setScore(0);
   };
 
-  const handleDragStart = (event: DragStartEvent) => {
-    setActiveId(event.active.id as string);
-  };
-
-  const handleDragOver = (event: any) => {
-    setOverId(event.over?.id || null);
-  };
-
-  const handleDragEnd = (event: DragEndEvent) => {
-    const { over } = event;
+  const handleAnswer = (choiceNumber: number) => {
+    if (submitAnswerMutation.isPending || showResult) return;
     
-    if (over && gamePhase === "playing" && !submitAnswerMutation.isPending) {
-      setIsSubmitting(true);
-      setActiveId(null);
-      setOverId(null);
-      const answer = over.id === "safe" ? true : false;
-      submitAnswerMutation.mutate(answer);
-    } else {
-      setActiveId(null);
-      setOverId(null);
-    }
-  };
-
-  const handleDragCancel = () => {
-    setActiveId(null);
-    setOverId(null);
+    setSelectedAnswer(choiceNumber);
+    submitAnswerMutation.mutate(choiceNumber);
   };
 
   const handleContinue = () => {
@@ -103,7 +69,8 @@ export default function Game() {
       setCurrentQuestionIndex((prev) => prev + 1);
       setGamePhase("playing");
       setFeedbackData(null);
-      setIsSubmitting(false);
+      setSelectedAnswer(null);
+      setShowResult(false);
     } else {
       setGamePhase("completed");
     }
@@ -114,6 +81,8 @@ export default function Game() {
     setCurrentQuestionIndex(0);
     setScore(0);
     setFeedbackData(null);
+    setSelectedAnswer(null);
+    setShowResult(false);
     queryClient.invalidateQueries({ queryKey: ["/api/questions"] });
   };
 
@@ -131,9 +100,21 @@ export default function Game() {
     );
   }
 
+  if (gamePhase === "feedback" && feedbackData) {
+    return (
+      <FeedbackScreen
+        isCorrect={feedbackData.correct}
+        tip={feedbackData.tip}
+        onContinue={handleContinue}
+        currentQuestion={currentQuestionIndex + 1}
+        totalQuestions={questions.length}
+      />
+    );
+  }
+
   if (isLoading || questions.length === 0) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#7ED4C8] via-[#6BC9BD] to-[#5BBFB3]">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[hsl(230,35%,7%)] to-[hsl(260,40%,12%)]">
         <motion.div
           animate={{ rotate: 360 }}
           transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
@@ -145,92 +126,50 @@ export default function Game() {
   }
 
   const currentQuestion = questions[currentQuestionIndex];
-  const isDragEnabled = gamePhase === "playing" && !submitAnswerMutation.isPending && !isSubmitting;
 
   return (
-    <>
-      <div className="min-h-screen bg-[hsl(var(--teal))] p-3 sm:p-4 md:p-6 flex flex-col overflow-hidden">
+    <div className="min-h-screen relative overflow-hidden" style={{ background: 'linear-gradient(135deg, hsl(230, 35%, 7%) 0%, hsl(260, 40%, 12%) 100%)' }}>
+      {/* Animated spotlight beams */}
+      <div className="spotlight-beam" style={{ animationDelay: '0s' }} />
+      <div className="spotlight-beam" style={{ animationDelay: '4s' }} />
+      
+      {/* Content */}
+      <div className="relative z-10 min-h-screen flex flex-col p-3 sm:p-4 md:p-6">
+        {/* Header */}
         <motion.div
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          className="flex items-center justify-between mb-3 sm:mb-4 md:mb-6 relative"
+          className="flex items-center justify-between mb-4 sm:mb-6 md:mb-8"
           data-testid="game-header"
         >
-          <div className="flex items-center gap-2 sm:gap-3">
-            <div className="flex-shrink-0">
+          {/* Progress */}
+          <div className="flex items-center gap-2 sm:gap-3" dir="rtl">
+            <div className="flex-shrink-0 hidden sm:block">
               <Mascot size="small" animate={false} />
             </div>
-            <div>
-              <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-extrabold text-white leading-tight drop-shadow-[2px_2px_0px_rgba(0,0,0,0.3)]" data-testid="text-game-title" style={{ textShadow: '2px 2px 0px rgba(0, 0, 0, 0.3)' }}>
-                في أمانتي الأمان
-              </h1>
-              <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-extrabold text-white leading-tight drop-shadow-[2px_2px_0px_rgba(0,0,0,0.3)]" style={{ textShadow: '2px 2px 0px rgba(0, 0, 0, 0.3)' }}>
-                السوشيال ميديا
-              </h2>
+            <div className="text-right">
+              <p className="text-xs sm:text-sm md:text-lg font-bold text-gold" style={{ textShadow: '0 0 10px rgba(212, 175, 55, 0.5)' }}>
+                السؤال {currentQuestionIndex + 1} من {questions.length}
+              </p>
             </div>
           </div>
 
+          {/* Score */}
           <ScoreDisplay score={score} animate={animateScore} />
         </motion.div>
 
-        <DndContext
-          sensors={sensors}
-          onDragStart={handleDragStart}
-          onDragOver={handleDragOver}
-          onDragEnd={handleDragEnd}
-          onDragCancel={handleDragCancel}
-        >
-          <div className="flex-1 flex flex-col items-center justify-center max-w-4xl mx-auto w-full gap-4 sm:gap-6 md:gap-8">
-            {!isSubmitting && (
-              <motion.div 
-                className="w-full max-w-2xl"
-                initial={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-              >
-                <DraggableQuestionCard 
-                  question={currentQuestion} 
-                  isDragging={activeId !== null}
-                  disabled={!isDragEnabled}
-                />
-              </motion.div>
-            )}
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className={`grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 w-full max-w-3xl ${!isDragEnabled ? 'opacity-50 pointer-events-none' : ''}`}
-            >
-              <DropZone id="safe" label="أمن" value={true} isOver={overId === "safe"} />
-              <DropZone id="unsafe" label="غير أمن" value={false} isOver={overId === "unsafe"} />
-            </motion.div>
-          </div>
-
-          <DragOverlay dropAnimation={null}>
-            {activeId ? (
-              <div style={{ cursor: 'grabbing' }}>
-                <DraggableQuestionCard 
-                  question={currentQuestion} 
-                  isDragging={true} 
-                  isOverDropZone={overId !== null}
-                  isInOverlay={true}
-                />
-              </div>
-            ) : null}
-          </DragOverlay>
-        </DndContext>
-      </div>
-
-      <AnimatePresence>
-        {gamePhase === "feedback" && feedbackData && (
-          <FeedbackScreen
-            key={`feedback-${currentQuestionIndex}`}
-            isCorrect={feedbackData.correct}
-            tip={feedbackData.tip}
-            onContinue={handleContinue}
+        {/* Question Area */}
+        <div className="flex-1 flex items-center justify-center">
+          <MultipleChoiceQuestion
+            question={currentQuestion}
+            onAnswer={handleAnswer}
+            selectedAnswer={selectedAnswer}
+            showResult={showResult}
+            isCorrect={feedbackData?.correct ?? null}
+            disabled={submitAnswerMutation.isPending || showResult}
           />
-        )}
-      </AnimatePresence>
-    </>
+        </div>
+      </div>
+    </div>
   );
 }
