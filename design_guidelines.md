@@ -1,125 +1,204 @@
-# Design Guidelines: Children's Social Media Safety Educational Game
+# Design Guidelines: Game Show Style Quiz - "من سيربح المليون" Aesthetic
 
-## Design Approach
-**Reference-Based Approach**: Drawing from the provided reference image and modern educational game interfaces like Khan Academy Kids, ABCmouse, and Duolingo Kids. Focus on playful, safe, child-friendly aesthetics with clear visual hierarchy optimized for touchscreen interaction.
+## Design Philosophy
+**Game Show Inspiration**: Drawing heavily from "Who Wants to Be a Millionaire" - dramatic, sophisticated, and engaging. Dark, rich backgrounds with dramatic lighting, metallic gold accents, and a sense of high stakes and excitement.
 
 ## Core Design Principles
-- **Child-Centric Safety**: Large touch targets (minimum 80px), clear visual feedback, no complex interactions
-- **Educational Clarity**: Single-focus screens with one primary task per view
-- **Playful Learning**: Reward-based progression with encouraging visual feedback
-- **Accessibility**: High contrast between interactive elements and backgrounds, simple iconography
+- **Dramatic Presentation**: Dark backgrounds with spotlight effects and dramatic gradients
+- **High Stakes Feel**: Build tension through lighting, colors, and transitions
+- **Clear Hierarchy**: Question dominates the screen, choices are prominent and easy to tap
+- **Luxurious Aesthetic**: Gold, bronze, and deep blue/purple tones for sophistication
+- **Child-Safe Arabic Design**: All text in Arabic with RTL support, but with adult-level polish
+
+## Color Palette
+
+### Primary Colors (Game Show Theme)
+- **Deep Background**: Dark navy blue to deep purple gradients `hsl(230, 35%, 7%)` to `hsl(260, 40%, 12%)`
+- **Spotlight Gold**: Bright metallic gold `hsl(45, 100%, 55%)`
+- **Bronze Accents**: Rich bronze for borders `hsl(30, 45%, 45%)`
+- **Correct Answer**: Bright emerald green `hsl(145, 65%, 45%)`
+- **Wrong Answer**: Deep dramatic red `hsl(0, 75%, 45%)`
+
+### Accent Colors
+- **Text Primary**: Crisp white with subtle glow `hsl(0, 0%, 98%)`
+- **Text Secondary**: Light gold `hsl(45, 80%, 75%)`
+- **Highlight/Glow**: Bright cyan-blue for spotlights `hsl(195, 100%, 65%)`
+- **Card Background**: Dark semi-transparent `rgba(20, 25, 45, 0.85)`
 
 ## Typography System
 
-**Primary Font**: Rounded sans-serif (e.g., Nunito, Poppins, Fredoka)
-- Game Title: Bold, 48-56px
-- Question/Scenario Text: Semi-bold, 24-28px
-- Button Text: Bold, 20-24px
-- Feedback Messages: Semi-bold, 32-36px
+**Primary Font**: 'Baloo Bhaijaan 2' (already installed, Arabic-friendly, rounded but professional)
 
-**Secondary Font**: Same family, medium weight for supporting text
-- Score/Progress: 16-18px
-- Mascot dialogue: 18-20px
+- **Game Title**: Extra Bold, 48-64px, gold color with text shadow
+- **Question Text**: Bold, 24-32px, white with subtle glow
+- **Choice Buttons**: Semi-bold, 18-24px, white text
+- **Feedback/Tips**: Bold, 28-36px, gold or white depending on context
+- **Score Display**: Bold, 20-24px, gold
 
-All text should have generous line-height (1.6-1.8) for readability.
+**Text Effects**:
+- All important text has subtle text-shadow for depth
+- Gold text uses layered shadows (dark shadow + colored glow)
+- RTL direction for all Arabic content
 
 ## Layout System
 
-**Spacing Units**: Use Tailwind units of 4, 6, 8, 12, 16, 20, 24
-- Component padding: p-8 to p-12
-- Between elements: gap-6 to gap-8
-- Screen edges: p-8 to p-12
-
-**Grid Structure**: 
-- Single-column centered layout (max-w-5xl)
-- Full-screen viewport (100vh) with proper touch-safe areas
-- Rounded container boxes with generous padding
-
-## Component Library
+### Welcome Screen
+- **Full-screen dramatic background**: Dark gradient with animated spotlight beams
+- **Centered title**: Large, gold, with dramatic shadow effects
+- **Mascot**: Positioned with spotlight effect
+- **Start button**: Large, gold, pulsing glow animation
 
 ### Game Screen Layout
-**Top Bar** (h-24):
-- Left: Mascot character illustration (w-20 h-20, rounded-full with border)
-- Center: Score/star display with icon
-- Right: Progress indicator (e.g., "Question 3/10")
-- Spacing: justify-between items-center px-8
+**Top Bar** (h-16 to h-20):
+- Left: Progress indicator (e.g., "السؤال 3 من 10")
+- Center: Dramatic game logo/title (smaller)
+- Right: Score with star icon and gold color
 
-**Central Card Area**:
-- Large rounded card (rounded-3xl) with soft shadow
-- Padding: p-12
-- Contains scenario illustration/image placeholder at top (h-48 to h-64)
-- Question/tip text below with p-6
-- Minimum height to prevent layout shift
+**Question Card** (center, dominant):
+- Large semi-transparent dark card with gold border
+- Question text centered, white, generous padding
+- Subtle spotlight glow effect on card
+- Rounded corners with dramatic shadow
 
-**Choice Buttons Area** (bottom section):
-- Grid of 2x2 or 4 horizontal buttons
-- Each button: h-20 to h-24, rounded-2xl
-- Gap between buttons: gap-6
-- Full-width touch targets with clear affordance
-- Icon + text layout within each button
+**Choice Buttons Area** (bottom 40% of screen):
+- 4 large buttons in 2x2 grid
+- Each button:
+  - Dark background with gold border (2-3px)
+  - Arabic letter prefix (أ، ب، ج، د) in gold circle on right
+  - Choice text in white, RTL aligned
+  - Hover: Bright glow effect
+  - Correct: Green glow animation
+  - Wrong: Red pulse effect
+- Generous spacing between buttons (gap-4 to gap-6)
+- Full-width touch targets
 
 ### Mascot Integration
-- Fixed position mascot in corner (w-32 h-32 to w-40 h-40)
-- Appears with encouraging messages
-- Speech bubble component (rounded-2xl, tail pointing to mascot)
+- Positioned in bottom-left or top-left corner
+- Size: w-24 to w-32
+- Appears with encouraging messages in speech bubbles
+- Speech bubble: Dark background, gold border, white text
 
-### Feedback/Reward Screens
-- Full-screen overlay with celebration graphics
-- Large success/try-again message (text-5xl)
-- Star rating or progress visualization
-- Continue button (centered, extra large)
+### Feedback Screen
+- Full-screen overlay with dramatic effect
+- Correct: Green spotlight beams, confetti, gold stars
+- Wrong: Red dramatic lighting, consoling message
+- Large feedback message with tip
+- Continue button: Gold, prominent, pulsing
+
+### Completion Screen
+- Full-screen celebration
+- Final score prominently displayed in gold
+- Star rating visualization
+- Congratulations message based on score
+- Play again button: Gold, large, centered
 
 ## Interactive Elements
 
-**Button States**:
-- Default: Soft shadow, clear borders
-- Active/Pressed: Scale down (scale-95), deeper shadow
-- Correct Answer: Success indicator animation
-- Wrong Answer: Gentle shake animation
+### Choice Buttons (Game Show Style)
+**Default State**:
+- Dark background `rgba(20, 30, 50, 0.7)`
+- Gold border `border-2 sm:border-3`
+- White text with subtle shadow
+- Minimum height: h-16 sm:h-20 md:h-24
 
-**Touch Feedback**:
-- Immediate visual response on touch
-- No hover states (touchscreen-only)
-- Sound effects placeholders for interactions
+**Hover/Focus**:
+- Bright gold glow effect
+- Scale slightly: `scale-[1.02]`
+- Increased border brightness
 
-## Animations
-**Minimal, purposeful only**:
-- Card entrance: Gentle slide-up fade-in
-- Correct answer: Gentle bounce + checkmark appearance
-- Wrong answer: Small shake (2-3px horizontal)
-- Star rewards: Pop-in scale animation
-- Transition between questions: Smooth fade
+**Selected/Active**:
+- Bright gold background
+- Dark navy text
+- Pulsing animation
 
-## Images
+**Correct Answer**:
+- Green glow animation
+- Green border
+- Checkmark icon appears
+- Celebratory sound effect placeholder
 
-**Mascot Character**:
-- Friendly superhero girl illustration
-- PNG with transparency
-- Consistent style throughout
-- Placement: Top-left corner of each screen or floating near questions
+**Wrong Answer**:
+- Red glow pulse
+- Shake animation
+- X icon appears
 
-**Scenario Illustrations**:
-- Each question card includes a contextual illustration
-- Simple, flat 2D style matching overall aesthetic
-- Depicts social media scenarios (phone, computer, chat bubbles)
-- Size: 300-400px width, aspect ratio 16:9 or 4:3
-- Placement: Top of question card
+### Animations
 
-**Background Elements**:
-- Soft gradient backgrounds (full-screen)
-- Optional decorative elements (stars, sparkles) as SVG icons
-- No photography - all illustrated assets
+**Screen Transitions**:
+- Fade in/out with dramatic timing
+- Question cards slide up with ease-out
+- Choices stagger-fade in from bottom
 
-## Responsive Considerations
-**Primary Target**: Tablet landscape (1024x768 to 1366x1024)
-- Optimize for 10-12 inch touchscreens
-- All elements scale proportionally
-- Mobile portrait: Stack buttons vertically, reduce card size
-- Desktop: Center game area, add decorative side elements
+**Success Animations**:
+- Confetti particles
+- Spotlight sweep
+- Star burst effects
+- Gold shimmer on text
 
-## Success Metrics Integration
-- Star counter (top-right): Large, colorful, animated on increment
-- Progress bar: Thin, rounded, positioned below top bar
-- Level/difficulty indicator: Small badge next to title
+**Failure Animations**:
+- Gentle shake on wrong answer
+- Red pulse glow
+- Consoling mascot appearance
 
-**Critical**: All touch targets meet minimum 80px size. Visual hierarchy guides children's attention from mascot → question → choices in natural reading flow.
+**Background Effects**:
+- Slow-moving spotlight beams
+- Subtle particle drift
+- Gradient shifts
+
+## Special Effects
+
+### Spotlights
+- Animated beams crossing the dark background
+- Radial gradients with opacity
+- Cyan-blue to gold color shifts
+- Slow rotation animation
+
+### Glows and Shadows
+- Text: Multiple layered shadows for depth
+- Buttons: Outer glow on hover (box-shadow with blur)
+- Cards: Dramatic drop shadow with blur
+- Gold elements: Bright yellow glow
+
+### Particles
+- Small animated circles or stars
+- Drift upward slowly
+- Gold and cyan colors
+- Low opacity for subtlety
+
+## Responsive Behavior
+
+**Mobile (< 640px)**:
+- Stack buttons vertically
+- Reduce text sizes by 25-30%
+- Smaller spotlight effects
+- Maintain aspect ratios
+
+**Tablet (640px - 1024px)**:
+- 2x2 button grid
+- Medium text sizes
+- Full spotlight effects
+- Balanced layout
+
+**Desktop (> 1024px)**:
+- Maximum visual effects
+- Large, comfortable spacing
+- Full dramatic presentation
+
+## Accessibility
+
+- High contrast between text and backgrounds (WCAG AA)
+- Large touch targets (minimum 60px, ideal 80px+)
+- Clear visual feedback on all interactions
+- RTL support throughout
+- Keyboard navigation support
+
+## Key Differences from Kids' Design
+
+1. **Sophisticated Colors**: Dark dramatic instead of bright playful
+2. **Metallic Accents**: Gold/bronze instead of primary colors
+3. **Lighting Effects**: Spotlights and glows instead of flat colors
+4. **Typography**: Professional drama instead of cartoonish
+5. **Animations**: Smooth and dramatic instead of bouncy
+6. **Layout**: Centered elegance instead of scattered playfulness
+
+This creates an engaging, dramatic quiz experience that feels like a high-stakes game show while remaining appropriate and accessible for children ages 6-10.

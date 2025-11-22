@@ -6,7 +6,7 @@ import { z } from "zod";
 
 const answerSubmissionSchema = z.object({
   questionId: z.number().int().positive(),
-  userAnswer: z.boolean(),
+  userAnswer: z.number().int().min(1).max(4),
 });
 
 export async function registerRoutes(app: Express): Promise<Server> {
