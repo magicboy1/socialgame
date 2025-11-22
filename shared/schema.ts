@@ -1,12 +1,16 @@
-import { pgTable, text, varchar, integer, boolean } from "drizzle-orm/pg-core";
+import { pgTable, text, varchar, integer } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
 export const questions = pgTable("questions", {
   id: integer("id").primaryKey(),
   scenario: text("scenario").notNull(),
+  choice1: text("choice1").notNull(),
+  choice2: text("choice2").notNull(),
+  choice3: text("choice3").notNull(),
+  choice4: text("choice4").notNull(),
+  correctAnswer: integer("correct_answer").notNull(),
   tip: text("tip").notNull(),
-  correctAnswer: boolean("correct_answer").notNull(),
   category: varchar("category", { length: 50 }).notNull(),
 });
 
@@ -17,11 +21,11 @@ export type InsertQuestion = z.infer<typeof insertQuestionSchema>;
 
 export interface AnswerSubmission {
   questionId: number;
-  userAnswer: boolean;
+  userAnswer: number;
 }
 
 export interface AnswerResult {
   correct: boolean;
-  correctAnswer: boolean;
+  correctAnswer: number;
   tip: string;
 }
