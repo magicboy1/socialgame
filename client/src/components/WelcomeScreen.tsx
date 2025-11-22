@@ -71,8 +71,8 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
         </motion.div>
       ))}
 
-      <div className="relative z-10 h-full flex flex-col items-center justify-center p-2 sm:p-3 md:p-4 lg:p-6 overflow-hidden">
-        <div className="w-full max-w-6xl flex flex-col gap-3 sm:gap-4 md:gap-8 lg:gap-12">
+      <div className="relative z-10 h-full flex flex-col items-center justify-center p-2 sm:p-2.5 md:p-3 lg:p-6 overflow-hidden">
+        <div className="w-full max-w-6xl flex flex-col gap-2.5 sm:gap-3.5 md:gap-4 lg:gap-8 xl:gap-12">
           {/* Title */}
           <motion.div
             initial={{ y: -50, opacity: 0 }}
@@ -85,9 +85,9 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
             }}
             className="w-full"
           >
-            <div className="bg-white/10 backdrop-blur-md rounded-lg sm:rounded-2xl md:rounded-3xl p-2 sm:p-3 md:p-6 lg:p-8 border-4 border-white/40 text-center">
+            <div className="bg-white/10 backdrop-blur-md rounded-lg sm:rounded-xl md:rounded-2xl lg:rounded-3xl p-2 sm:p-2.5 md:p-4 lg:p-8 border-3 sm:border-4 border-white/40 text-center">
               <h1 
-                className="text-lg sm:text-2xl md:text-4xl lg:text-5xl xl:text-6xl font-black text-[hsl(var(--yellow))] leading-tight mb-0 md:mb-2"
+                className="text-base sm:text-lg md:text-2xl lg:text-5xl xl:text-6xl font-black text-[hsl(var(--yellow))] leading-tight mb-0 lg:mb-2"
                 style={{ 
                   textShadow: '4px 4px 0px hsl(var(--orange-red)), 2px 2px 0px hsl(var(--navy))',
                   direction: 'rtl',
@@ -96,7 +96,7 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
                 أبطال السوشال ميديا
               </h1>
               <h3 
-                className="text-sm sm:text-base md:text-2xl lg:text-3xl xl:text-4xl font-black text-white"
+                className="text-xs sm:text-sm md:text-lg lg:text-3xl xl:text-4xl font-black text-white"
                 style={{ 
                   textShadow: '3px 3px 0px hsl(var(--navy))',
                   direction: 'rtl',
@@ -108,39 +108,39 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
           </motion.div>
 
           {/* Main content: Mascot (right) + Features (left) */}
-          <div className="w-full flex-1 flex flex-col md:flex-row items-center md:items-stretch justify-center gap-3 sm:gap-4 md:gap-6 lg:gap-10 xl:gap-16">
+          <div className="w-full flex-1 flex flex-col md:flex-row items-center md:items-stretch justify-center gap-2 sm:gap-3 md:gap-3 lg:gap-6 xl:gap-10">
             {/* Left side - Features and Button */}
             <motion.div
               initial={{ x: -100, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               transition={{ delay: 0.4 }}
-              className="flex flex-col items-end justify-center gap-2 sm:gap-3 md:gap-5 lg:gap-6 flex-1 order-2 md:order-1"
+              className="flex flex-col items-end justify-center gap-1.5 sm:gap-2.5 md:gap-3 lg:gap-5 flex-1 order-2 md:order-1"
             >
               {/* Features */}
-              <div className="space-y-2 sm:space-y-3 md:space-y-4 lg:space-y-5 w-full">
-                <div className="flex items-center gap-2 sm:gap-3 md:gap-4 justify-start" dir="rtl">
-                  <div className="bg-[hsl(var(--yellow))] rounded-full p-2 sm:p-2.5 md:p-4 flex-shrink-0 border-3 md:border-4 border-white">
-                    <Shield className="w-5 h-5 sm:w-6 sm:h-6 md:w-9 md:h-9 lg:w-10 lg:h-10 text-[hsl(var(--navy))]" strokeWidth={3} />
+              <div className="space-y-1.5 sm:space-y-2.5 md:space-y-3 lg:space-y-4 w-full">
+                <div className="flex items-center gap-1.5 sm:gap-2.5 md:gap-3 lg:gap-4 justify-start" dir="rtl">
+                  <div className="bg-[hsl(var(--yellow))] rounded-full p-1.5 sm:p-2 md:p-3 lg:p-4 flex-shrink-0 border-2 md:border-3 lg:border-4 border-white">
+                    <Shield className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 lg:w-9 lg:h-9 text-[hsl(var(--navy))]" strokeWidth={3} />
                   </div>
-                  <p className="text-xs sm:text-sm md:text-2xl lg:text-3xl font-black text-white" style={{ textShadow: '2px 2px 0px rgba(0, 0, 0, 0.4)', direction: 'rtl' }}>
+                  <p className="text-[10px] sm:text-xs md:text-sm lg:text-2xl xl:text-3xl font-black text-white" style={{ textShadow: '1px 1px 0px rgba(0, 0, 0, 0.4)', direction: 'rtl' }}>
                     10 أسئلة تحدي
                   </p>
                 </div>
                 
-                <div className="flex items-center gap-2 sm:gap-3 md:gap-4 justify-start" dir="rtl">
-                  <div className="bg-[hsl(var(--yellow))] rounded-full p-2 sm:p-2.5 md:p-4 flex-shrink-0 border-3 md:border-4 border-white">
-                    <Star className="w-5 h-5 sm:w-6 sm:h-6 md:w-9 md:h-9 lg:w-10 lg:h-10 fill-[hsl(var(--navy))] text-[hsl(var(--navy))]" />
+                <div className="flex items-center gap-1.5 sm:gap-2.5 md:gap-3 lg:gap-4 justify-start" dir="rtl">
+                  <div className="bg-[hsl(var(--yellow))] rounded-full p-1.5 sm:p-2 md:p-3 lg:p-4 flex-shrink-0 border-2 md:border-3 lg:border-4 border-white">
+                    <Star className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 lg:w-9 lg:h-9 fill-[hsl(var(--navy))] text-[hsl(var(--navy))]" />
                   </div>
-                  <p className="text-xs sm:text-sm md:text-2xl lg:text-3xl font-black text-white" style={{ textShadow: '2px 2px 0px rgba(0, 0, 0, 0.4)', direction: 'rtl' }}>
+                  <p className="text-[10px] sm:text-xs md:text-sm lg:text-2xl xl:text-3xl font-black text-white" style={{ textShadow: '1px 1px 0px rgba(0, 0, 0, 0.4)', direction: 'rtl' }}>
                     نجوم ذهبية
                   </p>
                 </div>
                 
-                <div className="flex items-center gap-2 sm:gap-3 md:gap-4 justify-start" dir="rtl">
-                  <div className="bg-[hsl(var(--yellow))] rounded-full p-2 sm:p-2.5 md:p-4 flex-shrink-0 border-3 md:border-4 border-white">
-                    <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 md:w-9 md:h-9 lg:w-10 lg:h-10 text-[hsl(var(--navy))]" />
+                <div className="flex items-center gap-1.5 sm:gap-2.5 md:gap-3 lg:gap-4 justify-start" dir="rtl">
+                  <div className="bg-[hsl(var(--yellow))] rounded-full p-1.5 sm:p-2 md:p-3 lg:p-4 flex-shrink-0 border-2 md:border-3 lg:border-4 border-white">
+                    <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 lg:w-9 lg:h-9 text-[hsl(var(--navy))]" />
                   </div>
-                  <p className="text-xs sm:text-sm md:text-2xl lg:text-3xl font-black text-white" style={{ textShadow: '2px 2px 0px rgba(0, 0, 0, 0.4)', direction: 'rtl' }}>
+                  <p className="text-[10px] sm:text-xs md:text-sm lg:text-2xl xl:text-3xl font-black text-white" style={{ textShadow: '1px 1px 0px rgba(0, 0, 0, 0.4)', direction: 'rtl' }}>
                     تعلم وامرح
                   </p>
                 </div>
@@ -156,7 +156,7 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
                   damping: 10,
                   delay: 0.6,
                 }}
-                className="w-full mt-2 sm:mt-2.5 md:mt-3 lg:mt-4"
+                className="w-full mt-1.5 sm:mt-2 md:mt-2.5 lg:mt-3 xl:mt-4"
               >
                 <motion.div
                   animate={{
@@ -171,15 +171,15 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
                   <Button
                   onClick={onStart}
                   size="lg"
-                  className="h-12 sm:h-16 md:h-24 lg:h-28 px-6 sm:px-10 md:px-16 lg:px-20 text-xs sm:text-sm md:text-3xl lg:text-4xl font-black rounded-lg sm:rounded-xl md:rounded-2xl gap-1.5 sm:gap-2.5 md:gap-4 bg-[hsl(var(--yellow))] text-[hsl(var(--navy))] border-3 sm:border-4 md:border-[10px] border-white hover:bg-white hover:scale-105 transition-all duration-300 w-full max-w-xs sm:max-w-sm md:max-w-md"
+                  className="h-10 sm:h-14 md:h-16 lg:h-24 xl:h-28 px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 text-[10px] sm:text-xs md:text-sm lg:text-3xl xl:text-4xl font-black rounded-md sm:rounded-lg md:rounded-xl lg:rounded-2xl gap-1 sm:gap-1.5 md:gap-2 lg:gap-4 bg-[hsl(var(--yellow))] text-[hsl(var(--navy))] border-2 sm:border-3 md:border-4 lg:border-[10px] border-white hover:bg-white hover:scale-105 transition-all duration-300 w-full max-w-[120px] sm:max-w-xs md:max-w-sm lg:max-w-md"
                   data-testid="button-start-game"
                   style={{ 
-                    boxShadow: '0 8px 0px hsl(var(--orange-red)), 0 0 30px rgba(229, 242, 107, 0.6)',
-                    textShadow: '2px 2px 0px rgba(0, 0, 0, 0.2)',
+                    boxShadow: '0 4px 0px hsl(var(--orange-red)), 0 0 20px rgba(229, 242, 107, 0.6)',
+                    textShadow: '1px 1px 0px rgba(0, 0, 0, 0.2)',
                     direction: 'rtl',
                   }}
                 >
-                    <Play className="w-5 h-5 sm:w-7 sm:h-7 md:w-12 md:h-12 lg:w-14 lg:h-14 fill-current" />
+                    <Play className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 lg:w-12 lg:h-12 xl:w-14 xl:h-14 fill-current" />
                     <span className="hidden sm:inline">ابدأ!</span>
                   </Button>
                 </motion.div>
@@ -208,7 +208,7 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
                 ease: "easeInOut",
               }}
             >
-              <div className="relative scale-[0.9] sm:scale-[1.2] md:scale-[2] lg:scale-[2.5] xl:scale-[3]">
+              <div className="relative scale-[0.75] sm:scale-[1] md:scale-[1.3] lg:scale-[2] xl:scale-[2.5]">
                 {/* Glow effect behind mascot */}
                 <motion.div
                   className="absolute inset-0 rounded-full blur-2xl"
@@ -250,7 +250,7 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
                   ease: "easeInOut",
                 }}
               >
-                <Sparkles className="w-5 h-5 sm:w-7 sm:h-7 md:w-12 md:h-12 text-[hsl(var(--yellow))]" />
+                <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 md:w-7 md:h-7 lg:w-12 lg:h-12 text-[hsl(var(--yellow))]" />
               </motion.div>
             ))}
             </motion.div>
