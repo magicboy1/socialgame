@@ -166,12 +166,21 @@ export function CompletionScreen({ score, totalQuestions, onRestart }: Completio
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ delay: 0.9, type: "spring" }}
+              className="flex flex-col items-center gap-4"
             >
               <Mascot
                 size="large"
                 animate={true}
-                message="أنت الآن بطل الأمان! تذكر ما تعلمته!"
               />
+              <p 
+                className="text-lg sm:text-xl md:text-2xl font-black text-brand px-4 text-center"
+                style={{ 
+                  textShadow: '0 0 15px hsl(165 75% 50% / 0.5), 2px 2px 4px rgba(0, 0, 0, 0.8)',
+                  direction: 'rtl'
+                }}
+              >
+                أنت الآن بطل الأمان! تذكر ما تعلمته!
+              </p>
             </motion.div>
 
             {/* Restart Button */}
