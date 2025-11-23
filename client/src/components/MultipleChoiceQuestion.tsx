@@ -29,7 +29,7 @@ export function MultipleChoiceQuestion({
   ];
 
   const getButtonClass = (choiceNumber: number) => {
-    const baseClass = "btn-choice w-full rounded-lg sm:rounded-xl lg:rounded-2xl flex items-center gap-3 sm:gap-4 lg:gap-6 px-4 sm:px-6 md:px-8 lg:px-10 2xl:px-12 text-right";
+    const baseClass = "btn-choice w-full rounded-lg sm:rounded-xl lg:rounded-2xl flex items-center gap-3 sm:gap-4 lg:gap-6 px-4 sm:px-6 md:px-8 lg:px-10 2xl:px-12 py-3 sm:py-4 md:py-5 lg:py-6 text-right";
     
     if (!showResult) {
       return baseClass;
@@ -79,7 +79,7 @@ export function MultipleChoiceQuestion({
             className={getButtonClass(choice.number)}
             data-testid={`choice-${choice.number}`}
             style={{
-              height: 'clamp(4rem, 4vw, 6.5rem)',
+              minHeight: 'clamp(4rem, 4vw, 6.5rem)',
             }}
           >
             {/* Letter Circle */}
@@ -100,7 +100,7 @@ export function MultipleChoiceQuestion({
 
             {/* Choice Text */}
             <span 
-              className="flex-1 font-semibold text-white"
+              className="flex-1 font-semibold text-white leading-snug"
               style={{
                 fontSize: 'clamp(0.875rem, calc(1.2vw + 0.5rem), 2rem)',
               }}
