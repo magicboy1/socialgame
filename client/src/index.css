@@ -160,20 +160,30 @@
   
   .spotlight-beam {
     position: absolute;
-    width: 200px;
+    width: 300px;
     height: 100%;
     background: linear-gradient(
       90deg,
       transparent,
-      hsl(175 85% 55% / 0.1),
+      hsl(175 85% 55% / 0.08),
       transparent
     );
-    animation: spotlight-sweep 8s linear infinite;
+    animation: spotlight-sweep 12s ease-in-out infinite;
+    filter: blur(20px);
   }
   
   @keyframes spotlight-sweep {
-    0% { transform: translateX(-100%) rotate(-10deg); }
-    100% { transform: translateX(calc(100vw + 100%)) rotate(-10deg); }
+    0% { 
+      transform: translateX(-100%) rotate(-8deg);
+      opacity: 0.3;
+    }
+    50% {
+      opacity: 0.6;
+    }
+    100% { 
+      transform: translateX(calc(100vw + 100%)) rotate(-8deg);
+      opacity: 0.3;
+    }
   }
 
   /* Hide ugly search cancel button in Chrome until we can style it properly */
