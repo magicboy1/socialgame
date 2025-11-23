@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { motion } from "framer-motion";
+import { Home } from "lucide-react";
 import { queryClient, apiRequest } from "@/lib/queryClient";
 import { WelcomeScreen } from "@/components/WelcomeScreen";
 import { MultipleChoiceQuestion } from "@/components/MultipleChoiceQuestion";
@@ -8,6 +9,17 @@ import { FeedbackScreen } from "@/components/FeedbackScreen";
 import { CompletionScreen } from "@/components/CompletionScreen";
 import { ScoreDisplay } from "@/components/ScoreDisplay";
 import { Mascot } from "@/components/Mascot";
+import { Button } from "@/components/ui/button";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import type { Question, AnswerResult } from "@shared/schema";
 
 type GamePhase = "welcome" | "playing" | "feedback" | "completed";
@@ -20,6 +32,7 @@ export default function Game() {
   const [animateScore, setAnimateScore] = useState(false);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [showResult, setShowResult] = useState(false);
+  const [showHomeDialog, setShowHomeDialog] = useState(false);
 
   const { data: questions = [], isLoading } = useQuery<Question[]>({
     queryKey: ["/api/questions"],
@@ -84,6 +97,15 @@ export default function Game() {
     setSelectedAnswer(null);
     setShowResult(false);
     queryClient.invalidateQueries({ queryKey: ["/api/questions"] });
+  };
+
+  const handleHomeClick = () => {
+    setShowHomeDialog(true);
+  };
+
+  const handleConfirmHome = () => {
+    setShowHomeDialog(false);
+    handleRestart();
   };
 
   if (gamePhase === "welcome") {
@@ -154,8 +176,25 @@ export default function Game() {
             </div>
           </div>
 
-          {/* Score */}
-          <ScoreDisplay score={score} animate={animateScore} />
+          {/* Score and Home Button */}
+          <div className="flex items-center gap-2 sm:gap-3">
+            <Button
+              onClick={handleHomeClick}
+              size="icon"
+              variant="ghost"
+              className="hover-elevate active-elevate-2 h-10 w-10 sm:h-12 sm:w-12 rounded-lg"
+              style={{
+                background: 'rgba(20, 25, 45, 0.5)',
+                border: '2px solid hsl(165, 75%, 50%)',
+                color: 'hsl(165, 75%, 50%)',
+                backdropFilter: 'blur(8px)',
+              }}
+              data-testid="button-home"
+            >
+              <Home className="w-5 h-5 sm:w-6 sm:h-6" />
+            </Button>
+            <ScoreDisplay score={score} animate={animateScore} />
+          </div>
         </motion.div>
 
         {/* Question Area */}
@@ -170,6 +209,53 @@ export default function Game() {
           />
         </div>
       </div>
+
+      {/* Home Confirmation Dialog */}
+      <AlertDialog open={showHomeDialog} onOpenChange={setShowHomeDialog}>
+        <AlertDialogContent
+          dir="rtl"
+          className="rounded-2xl border-4"
+          style={{
+            background: 'linear-gradient(135deg, hsl(230, 35%, 7%) 0%, hsl(260, 40%, 12%) 100%)',
+            borderColor: 'hsl(165, 75%, 50%)',
+            boxShadow: '0 0 40px hsl(165 75% 50% / 0.3)',
+          }}
+        >
+          <AlertDialogHeader>
+            <AlertDialogTitle 
+              className="text-2xl sm:text-3xl font-black text-brand text-center"
+              style={{ textShadow: '0 0 15px hsl(165 75% 50% / 0.5)' }}
+            >
+              هل تريد الخروج؟
+            </AlertDialogTitle>
+            <AlertDialogDescription className="text-base sm:text-lg text-white text-center font-bold mt-4">
+              سيتم فقدان تقدمك الحالي في اللعبة
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter className="flex-row gap-3 sm:gap-4 justify-center mt-6">
+            <AlertDialogCancel
+              className="btn-brand m-0 px-6 sm:px-8 py-3 text-base sm:text-lg font-black rounded-xl"
+              style={{ direction: 'rtl' }}
+              data-testid="button-cancel-home"
+            >
+              إلغاء
+            </AlertDialogCancel>
+            <AlertDialogAction
+              onClick={handleConfirmHome}
+              className="m-0 px-6 sm:px-8 py-3 text-base sm:text-lg font-black rounded-xl"
+              style={{
+                background: 'hsl(0, 70%, 50%)',
+                color: 'white',
+                border: '3px solid hsl(0, 80%, 60%)',
+                direction: 'rtl',
+              }}
+              data-testid="button-confirm-home"
+            >
+              نعم، اخرج
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }
