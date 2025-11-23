@@ -232,27 +232,29 @@ export default function Game() {
               سيتم فقدان تقدمك الحالي في اللعبة
             </AlertDialogDescription>
           </AlertDialogHeader>
-          <AlertDialogFooter className="flex-row gap-3 sm:gap-4 justify-center mt-6">
-            <AlertDialogCancel
-              className="btn-brand m-0 px-6 sm:px-8 py-3 text-base sm:text-lg font-black rounded-xl"
-              style={{ direction: 'rtl' }}
-              data-testid="button-cancel-home"
-            >
-              إلغاء
-            </AlertDialogCancel>
-            <AlertDialogAction
-              onClick={handleConfirmHome}
-              className="m-0 px-6 sm:px-8 py-3 text-base sm:text-lg font-black rounded-xl"
-              style={{
-                background: 'hsl(0, 70%, 50%)',
-                color: 'white',
-                border: '3px solid hsl(0, 80%, 60%)',
-                direction: 'rtl',
-              }}
-              data-testid="button-confirm-home"
-            >
-              نعم، اخرج
-            </AlertDialogAction>
+          <AlertDialogFooter className="mt-6">
+            <div className="flex flex-row gap-3 sm:gap-4 justify-center items-center w-full">
+              <AlertDialogAction
+                onClick={handleConfirmHome}
+                className="m-0 px-6 sm:px-8 py-3 text-base sm:text-lg font-black rounded-xl"
+                style={{
+                  background: 'hsl(0, 70%, 50%)',
+                  color: 'white',
+                  border: '3px solid hsl(0, 80%, 60%)',
+                  direction: 'rtl',
+                }}
+                data-testid="button-confirm-home"
+              >
+                نعم، اخرج
+              </AlertDialogAction>
+              <AlertDialogCancel
+                className="btn-brand m-0 px-6 sm:px-8 py-3 text-base sm:text-lg font-black rounded-xl"
+                style={{ direction: 'rtl' }}
+                data-testid="button-cancel-home"
+              >
+                إلغاء
+              </AlertDialogCancel>
+            </div>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
