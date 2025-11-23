@@ -1,5 +1,6 @@
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Play, Trophy, Star, Zap } from "lucide-react";
+import { Play, Trophy, Star, Zap, Maximize, Minimize } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Mascot } from "./Mascot";
 
@@ -8,6 +9,29 @@ interface WelcomeScreenProps {
 }
 
 export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
+  }, []);
+
+  const toggleFullscreen = async () => {
+    try {
+      if (!document.fullscreenElement) {
+        await document.documentElement.requestFullscreen();
+      } else {
+        await document.exitFullscreen();
+      }
+    } catch (err) {
+      console.error('Fullscreen error:', err);
+    }
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -237,6 +261,35 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
           </motion.div>
         </div>
       </div>
+
+      {/* Fullscreen Button - Bottom Left */}
+      <motion.div
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        transition={{ delay: 0.9 }}
+        className="fixed bottom-4 left-4 sm:bottom-6 sm:left-6 z-50"
+      >
+        <Button
+          onClick={toggleFullscreen}
+          size="icon"
+          variant="ghost"
+          className="hover-elevate active-elevate-2 h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 rounded-xl"
+          style={{
+            background: 'rgba(20, 25, 45, 0.7)',
+            border: '3px solid hsl(165, 75%, 50%)',
+            color: 'hsl(165, 75%, 50%)',
+            backdropFilter: 'blur(10px)',
+            boxShadow: '0 0 20px hsl(165 75% 50% / 0.4)',
+          }}
+          data-testid="button-fullscreen-welcome"
+        >
+          {isFullscreen ? (
+            <Minimize className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8" />
+          ) : (
+            <Maximize className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8" />
+          )}
+        </Button>
+      </motion.div>
     </motion.div>
   );
 }

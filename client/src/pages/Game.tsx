@@ -198,27 +198,8 @@ export default function Game() {
             </div>
           </div>
 
-          {/* Score and Buttons */}
+          {/* Score and Home Button */}
           <div className="flex items-center gap-2 sm:gap-3">
-            <Button
-              onClick={toggleFullscreen}
-              size="icon"
-              variant="ghost"
-              className="hover-elevate active-elevate-2 h-10 w-10 sm:h-12 sm:w-12 rounded-lg"
-              style={{
-                background: 'rgba(20, 25, 45, 0.5)',
-                border: '2px solid hsl(165, 75%, 50%)',
-                color: 'hsl(165, 75%, 50%)',
-                backdropFilter: 'blur(8px)',
-              }}
-              data-testid="button-fullscreen"
-            >
-              {isFullscreen ? (
-                <Minimize className="w-5 h-5 sm:w-6 sm:h-6" />
-              ) : (
-                <Maximize className="w-5 h-5 sm:w-6 sm:h-6" />
-              )}
-            </Button>
             <Button
               onClick={handleHomeClick}
               size="icon"
@@ -250,6 +231,35 @@ export default function Game() {
           />
         </div>
       </div>
+
+      {/* Fullscreen Button - Bottom Left */}
+      <motion.div
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        transition={{ delay: 0.5 }}
+        className="fixed bottom-4 left-4 sm:bottom-6 sm:left-6 z-50"
+      >
+        <Button
+          onClick={toggleFullscreen}
+          size="icon"
+          variant="ghost"
+          className="hover-elevate active-elevate-2 h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 rounded-xl"
+          style={{
+            background: 'rgba(20, 25, 45, 0.7)',
+            border: '3px solid hsl(165, 75%, 50%)',
+            color: 'hsl(165, 75%, 50%)',
+            backdropFilter: 'blur(10px)',
+            boxShadow: '0 0 20px hsl(165 75% 50% / 0.4)',
+          }}
+          data-testid="button-fullscreen"
+        >
+          {isFullscreen ? (
+            <Minimize className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8" />
+          ) : (
+            <Maximize className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8" />
+          )}
+        </Button>
+      </motion.div>
 
       {/* Home Confirmation Dialog */}
       <AlertDialog open={showHomeDialog} onOpenChange={setShowHomeDialog}>
