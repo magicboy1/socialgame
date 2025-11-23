@@ -208,9 +208,20 @@ export default function Game() {
         >
           {/* Progress */}
           <div className="flex items-center gap-2 sm:gap-3" dir="rtl">
-            <div className="flex-shrink-0 hidden sm:block">
-              <Mascot size="small" animate={false} />
-            </div>
+            <motion.div 
+              className="flex-shrink-0 hidden sm:block"
+              animate={{ 
+                y: [0, -8, 0],
+                rotate: [0, 5, -5, 0]
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            >
+              <Mascot size="medium" animate={true} />
+            </motion.div>
             <div className="text-right">
               <p className="text-xs sm:text-sm md:text-lg font-bold text-brand" style={{ textShadow: '0 0 10px rgba(45, 200, 140, 0.5)' }}>
                 السؤال {currentQuestionIndex + 1} من {questions.length}
