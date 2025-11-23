@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
 import { Trophy, Star, RotateCcw, Sparkles, Crown } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -15,6 +15,19 @@ export function CompletionScreen({ score, totalQuestions, onRestart }: Completio
   const { playVictory } = useGameSounds();
   const percentage = (score / totalQuestions) * 100;
   const stars = percentage >= 80 ? 3 : percentage >= 60 ? 2 : 1;
+
+  const particles = useMemo(() => {
+    const screenWidth = typeof window !== 'undefined' ? window.innerWidth : 800;
+    const screenHeight = typeof window !== 'undefined' ? window.innerHeight : 600;
+    
+    return Array.from({ length: 40 }).map((_, i) => ({
+      x: (Math.random() - 0.5) * screenWidth,
+      y: -screenHeight,
+      left: `${Math.random() * 100}%`,
+      delay: i * 0.1,
+      icon: i % 3 === 0 ? 'star' : 'sparkles',
+    }));
+  }, []);
 
   useEffect(() => {
     playVictory();
@@ -41,7 +54,7 @@ export function CompletionScreen({ score, totalQuestions, onRestart }: Completio
       <div className="spotlight-beam" style={{ animationDelay: '4s' }} />
 
       {/* Celebration particles */}
-      {Array.from({ length: 40 }).map((_, i) => (
+      {particles.map((particle, i) => (
         <motion.div
           key={i}
           className="absolute"
@@ -49,21 +62,21 @@ export function CompletionScreen({ score, totalQuestions, onRestart }: Completio
           animate={{
             scale: [0, 1, 1],
             opacity: [0, 1, 0],
-            x: [0, (Math.random() - 0.5) * window.innerWidth],
-            y: [0, -window.innerHeight],
+            x: [0, particle.x],
+            y: [0, particle.y],
           }}
           transition={{
             duration: 3,
-            delay: i * 0.1,
+            delay: particle.delay,
             repeat: Infinity,
             repeatDelay: 2,
           }}
           style={{
-            left: `${Math.random() * 100}%`,
+            left: particle.left,
             top: '100%',
           }}
         >
-          {i % 3 === 0 ? (
+          {particle.icon === 'star' ? (
             <Star className="w-4 h-4 sm:w-6 sm:h-6 fill-[hsl(165,75%,50%)] text-[hsl(165,75%,50%)]" />
           ) : (
             <Sparkles className="w-4 h-4 sm:w-6 sm:h-6 text-[hsl(175,85%,55%)]" />

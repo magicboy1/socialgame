@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { createContext, useContext, useState, useRef, ReactNode } from 'react';
 import { sounds, initAudio } from '@/lib/sounds';
 
 interface GameSoundContextType {
@@ -19,24 +19,14 @@ export function GameSoundProvider({ children }: { children: ReactNode }) {
     const saved = localStorage.getItem('game-sound-muted');
     return saved === 'true';
   });
-  const [isInitialized, setIsInitialized] = useState(false);
+  const initializedRef = useRef(false);
 
-  useEffect(() => {
-    const handleFirstInteraction = () => {
-      if (!isInitialized) {
-        initAudio();
-        setIsInitialized(true);
-      }
-    };
-
-    document.addEventListener('click', handleFirstInteraction, { once: true });
-    document.addEventListener('touchstart', handleFirstInteraction, { once: true });
-
-    return () => {
-      document.removeEventListener('click', handleFirstInteraction);
-      document.removeEventListener('touchstart', handleFirstInteraction);
-    };
-  }, [isInitialized]);
+  const ensureInitialized = () => {
+    if (!initializedRef.current) {
+      initAudio();
+      initializedRef.current = true;
+    }
+  };
 
   const toggleMute = () => {
     setIsMuted(prev => {
@@ -47,7 +37,8 @@ export function GameSoundProvider({ children }: { children: ReactNode }) {
   };
 
   const playSound = (soundFn: () => void) => {
-    if (!isMuted && isInitialized) {
+    ensureInitialized();
+    if (!isMuted) {
       soundFn();
     }
   };
