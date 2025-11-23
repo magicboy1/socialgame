@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
-import { useQuery, useMutation } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { Home, Maximize, Minimize, Volume2, VolumeX } from "lucide-react";
-import { queryClient, apiRequest } from "@/lib/queryClient";
 import { useGameSounds } from "@/contexts/GameSoundContext";
+import { shuffleQuestions, checkAnswer } from "@/data/questions";
 import { WelcomeScreen } from "@/components/WelcomeScreen";
 import { MultipleChoiceQuestion } from "@/components/MultipleChoiceQuestion";
 import { FeedbackScreen } from "@/components/FeedbackScreen";
@@ -21,13 +20,19 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import type { Question, AnswerResult } from "@shared/schema";
+import type { Question } from "@shared/schema";
+
+type AnswerResult = {
+  isCorrect: boolean;
+  tip: string;
+};
 
 type GamePhase = "welcome" | "playing" | "feedback" | "completed";
 
 export default function Game() {
   const { isMuted, toggleMute, playSelect, playCorrect, playIncorrect, playAdvance } = useGameSounds();
   const [gamePhase, setGamePhase] = useState<GamePhase>("welcome");
+  const [questions, setQuestions] = useState<Question[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [feedbackData, setFeedbackData] = useState<AnswerResult | null>(null);
@@ -36,6 +41,7 @@ export default function Game() {
   const [showResult, setShowResult] = useState(false);
   const [showHomeDialog, setShowHomeDialog] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
 
   useEffect(() => {
     const handleFullscreenChange = () => {
@@ -66,54 +72,42 @@ export default function Game() {
     };
   }, []);
 
-  const { data: questions = [], isLoading } = useQuery<Question[]>({
-    queryKey: ["/api/questions"],
-    enabled: gamePhase !== "welcome",
-  });
-
-  const submitAnswerMutation = useMutation({
-    mutationFn: async (answer: number) => {
-      const question = questions[currentQuestionIndex];
-      const response = await apiRequest("POST", "/api/answer", {
-        questionId: question.id,
-        userAnswer: answer,
-      });
-      return await response.json();
-    },
-    onSuccess: (result: AnswerResult) => {
-      setFeedbackData(result);
-      setShowResult(true);
-      
-      if (result.correct) {
-        playCorrect();
-      } else {
-        playIncorrect();
-      }
-      
-      // Show result on button for 1.5 seconds, then go to feedback screen
-      setTimeout(() => {
-        setGamePhase("feedback");
-        if (result.correct) {
-          setScore((prev) => prev + 1);
-          setAnimateScore(true);
-          setTimeout(() => setAnimateScore(false), 500);
-        }
-      }, 1500);
-    },
-  });
-
   const handleStartGame = () => {
+    setQuestions(shuffleQuestions());
     setGamePhase("playing");
     setCurrentQuestionIndex(0);
     setScore(0);
   };
 
   const handleAnswer = (choiceNumber: number) => {
-    if (submitAnswerMutation.isPending || showResult) return;
+    if (isProcessing || showResult) return;
     
+    setIsProcessing(true);
     playSelect();
     setSelectedAnswer(choiceNumber);
-    submitAnswerMutation.mutate(choiceNumber);
+    
+    const question = questions[currentQuestionIndex];
+    const result = checkAnswer(question.id, choiceNumber);
+    
+    setFeedbackData(result);
+    setShowResult(true);
+    
+    if (result.isCorrect) {
+      playCorrect();
+    } else {
+      playIncorrect();
+    }
+    
+    // Show result on button for 1.5 seconds, then go to feedback screen
+    setTimeout(() => {
+      setGamePhase("feedback");
+      if (result.isCorrect) {
+        setScore((prev) => prev + 1);
+        setAnimateScore(true);
+        setTimeout(() => setAnimateScore(false), 500);
+      }
+      setIsProcessing(false);
+    }, 1500);
   };
 
   const handleContinue = () => {
@@ -131,12 +125,12 @@ export default function Game() {
 
   const handleRestart = () => {
     setGamePhase("welcome");
+    setQuestions([]);
     setCurrentQuestionIndex(0);
     setScore(0);
     setFeedbackData(null);
     setSelectedAnswer(null);
     setShowResult(false);
-    queryClient.invalidateQueries({ queryKey: ["/api/questions"] });
   };
 
   const handleHomeClick = () => {
@@ -177,25 +171,12 @@ export default function Game() {
   if (gamePhase === "feedback" && feedbackData) {
     return (
       <FeedbackScreen
-        isCorrect={feedbackData.correct}
+        isCorrect={feedbackData.isCorrect}
         tip={feedbackData.tip}
         onContinue={handleContinue}
         currentQuestion={currentQuestionIndex + 1}
         totalQuestions={questions.length}
       />
-    );
-  }
-
-  if (isLoading || questions.length === 0) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[hsl(230,35%,7%)] to-[hsl(260,40%,12%)]">
-        <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-        >
-          <Mascot size="large" animate={false} />
-        </motion.div>
-      </div>
     );
   }
 
@@ -288,8 +269,8 @@ export default function Game() {
             onAnswer={handleAnswer}
             selectedAnswer={selectedAnswer}
             showResult={showResult}
-            isCorrect={feedbackData?.correct ?? null}
-            disabled={submitAnswerMutation.isPending || showResult}
+            isCorrect={feedbackData?.isCorrect ?? null}
+            disabled={isProcessing || showResult}
           />
         </div>
       </div>
