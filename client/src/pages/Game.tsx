@@ -192,10 +192,12 @@ export default function Game() {
   const currentQuestion = questions[currentQuestionIndex];
 
   return (
-    <div className="min-h-screen relative overflow-hidden" style={{ background: 'linear-gradient(135deg, hsl(230, 35%, 7%) 0%, hsl(260, 40%, 12%) 100%)' }}>
-      {/* Animated spotlight beams */}
-      <div className="spotlight-beam" style={{ animationDelay: '0s' }} />
-      <div className="spotlight-beam" style={{ animationDelay: '4s' }} />
+    <div className="min-h-screen relative overflow-y-auto" style={{ background: 'linear-gradient(135deg, hsl(230, 35%, 7%) 0%, hsl(260, 40%, 12%) 100%)' }}>
+      {/* Spotlight beams container - positioned absolutely with overflow hidden */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="spotlight-beam" style={{ animationDelay: '0s' }} />
+        <div className="spotlight-beam" style={{ animationDelay: '4s' }} />
+      </div>
       
       {/* Content */}
       <div className="relative z-10 min-h-screen flex flex-col p-3 sm:p-4 md:p-6">
