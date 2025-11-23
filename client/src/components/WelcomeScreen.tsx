@@ -67,7 +67,7 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
               <motion.div
                 className="absolute inset-0 blur-3xl"
                 style={{
-                  background: 'radial-gradient(circle, rgba(212, 175, 55, 0.4) 0%, transparent 70%)',
+                  background: 'radial-gradient(circle, rgba(45, 200, 140, 0.4) 0%, transparent 70%)',
                 }}
                 animate={{
                   scale: [1, 1.2, 1],
@@ -81,9 +81,10 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
               />
               
               <h1 
-                className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-gold leading-tight mb-2 sm:mb-3 md:mb-4 relative"
+                className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-black leading-tight mb-2 sm:mb-3 md:mb-4 relative"
                 style={{ 
-                  textShadow: '0 0 30px hsl(45 100% 55% / 0.8), 0 0 60px hsl(45 100% 55% / 0.4), 4px 4px 0px hsl(30 45% 25%), 2px 2px 0px rgba(0, 0, 0, 0.8)',
+                  color: 'hsl(165 75% 50%)',
+                  textShadow: '0 0 30px hsl(165 75% 50% / 0.8), 0 0 60px hsl(165 75% 50% / 0.4), 4px 4px 0px hsl(165 85% 20%), 2px 2px 0px rgba(0, 0, 0, 0.8)',
                   direction: 'rtl',
                 }}
               >
@@ -92,11 +93,11 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
               <h3 
                 className="text-sm sm:text-lg md:text-2xl lg:text-3xl xl:text-4xl font-black text-white relative"
                 style={{ 
-                  textShadow: '0 0 20px hsl(195 100% 65% / 0.6), 3px 3px 0px rgba(0, 0, 0, 0.8)',
+                  textShadow: '0 0 20px hsl(175 85% 55% / 0.6), 3px 3px 0px rgba(0, 0, 0, 0.8)',
                   direction: 'rtl',
                 }}
               >
-                🦸 من سيربح النجوم الذهبية؟ 🦸
+                🦸 من سيربح النجوم الخضراء؟ 🦸
               </h3>
             </div>
           </motion.div>
@@ -126,7 +127,7 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
                   <motion.div
                     className="absolute inset-0 rounded-full blur-2xl"
                     style={{
-                      background: 'radial-gradient(circle, rgba(212, 175, 55, 0.3) 0%, transparent 70%)',
+                      background: 'radial-gradient(circle, rgba(45, 200, 140, 0.3) 0%, transparent 70%)',
                     }}
                     animate={{
                       scale: [1, 1.3, 1],
@@ -155,8 +156,8 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
                 <div 
                   className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center flex-shrink-0"
                   style={{
-                    background: 'linear-gradient(135deg, hsl(45 100% 55%), hsl(40 90% 48%))',
-                    boxShadow: '0 0 20px rgba(212, 175, 55, 0.5)',
+                    background: 'linear-gradient(135deg, hsl(165 75% 50%), hsl(165 80% 40%))',
+                    boxShadow: '0 0 20px rgba(45, 200, 140, 0.5)',
                   }}
                 >
                   <Trophy className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-[hsl(230,35%,7%)]" strokeWidth={3} />
@@ -170,14 +171,14 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
                 <div 
                   className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center flex-shrink-0"
                   style={{
-                    background: 'linear-gradient(135deg, hsl(45 100% 55%), hsl(40 90% 48%))',
-                    boxShadow: '0 0 20px rgba(212, 175, 55, 0.5)',
+                    background: 'linear-gradient(135deg, hsl(165 75% 50%), hsl(165 80% 40%))',
+                    boxShadow: '0 0 20px rgba(45, 200, 140, 0.5)',
                   }}
                 >
                   <Star className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 fill-[hsl(230,35%,7%)] text-[hsl(230,35%,7%)]" />
                 </div>
                 <p className="text-base sm:text-lg md:text-2xl lg:text-3xl font-bold text-white" style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8)' }}>
-                  نجوم ذهبية
+                  نجوم خضراء
                 </p>
               </div>
               
@@ -185,8 +186,8 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
                 <div 
                   className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center flex-shrink-0"
                   style={{
-                    background: 'linear-gradient(135deg, hsl(45 100% 55%), hsl(40 90% 48%))',
-                    boxShadow: '0 0 20px rgba(212, 175, 55, 0.5)',
+                    background: 'linear-gradient(135deg, hsl(165 75% 50%), hsl(165 80% 40%))',
+                    boxShadow: '0 0 20px rgba(45, 200, 140, 0.5)',
                   }}
                 >
                   <Zap className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 fill-[hsl(230,35%,7%)] text-[hsl(230,35%,7%)]" />
@@ -223,7 +224,7 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
               <Button
                 onClick={onStart}
                 size="lg"
-                className="btn-gold h-14 sm:h-16 md:h-20 lg:h-24 px-8 sm:px-12 md:px-16 lg:px-20 text-base sm:text-xl md:text-2xl lg:text-3xl font-black rounded-xl sm:rounded-2xl gap-2 sm:gap-3 md:gap-4 hover:scale-110 transition-all duration-300"
+                className="btn-brand h-14 sm:h-16 md:h-20 lg:h-24 px-8 sm:px-12 md:px-16 lg:px-20 text-base sm:text-xl md:text-2xl lg:text-3xl font-black rounded-xl sm:rounded-2xl gap-2 sm:gap-3 md:gap-4 hover:scale-110 transition-all duration-300"
                 data-testid="button-start-game"
                 style={{ 
                   direction: 'rtl',

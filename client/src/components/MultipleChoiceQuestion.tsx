@@ -58,7 +58,7 @@ export function MultipleChoiceQuestion({
         <p 
           className="text-lg sm:text-xl md:text-3xl lg:text-4xl font-bold text-white text-center leading-relaxed"
           style={{
-            textShadow: '0 0 20px rgba(212, 175, 55, 0.3), 2px 2px 8px rgba(0, 0, 0, 0.8)',
+            textShadow: '0 0 20px rgba(45, 200, 140, 0.3), 2px 2px 8px rgba(0, 0, 0, 0.8)',
           }}
         >
           {question.scenario}
@@ -82,10 +82,10 @@ export function MultipleChoiceQuestion({
             <div 
               className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center font-black text-lg sm:text-xl md:text-2xl border-2 sm:border-3"
               style={{
-                background: 'linear-gradient(135deg, hsl(45 100% 55%), hsl(40 90% 48%))',
+                background: 'linear-gradient(135deg, hsl(165 75% 50%), hsl(165 80% 40%))',
                 color: 'hsl(230 35% 7%)',
-                borderColor: 'hsl(50 100% 65%)',
-                boxShadow: '0 0 15px rgba(212, 175, 55, 0.4)',
+                borderColor: 'hsl(165 70% 65%)',
+                boxShadow: '0 0 15px rgba(45, 200, 140, 0.4)',
               }}
             >
               {choiceLetters[index]}

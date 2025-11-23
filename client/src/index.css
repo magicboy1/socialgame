@@ -2,40 +2,42 @@
 @tailwind components;
 @tailwind utilities;
 
-/* LIGHT MODE - Game Show Theme */
+/* LIGHT MODE - Game Show Theme with Green/Teal Brand */
 :root {
-  --button-outline: rgba(212, 175, 55, 0.3);
-  --badge-outline: rgba(212, 175, 55, 0.2);
+  --button-outline: rgba(45, 200, 140, 0.3);
+  --badge-outline: rgba(45, 200, 140, 0.2);
   --opaque-button-border-intensity: -8;
-  --elevate-1: rgba(212, 175, 55, 0.15);
-  --elevate-2: rgba(212, 175, 55, 0.3);
+  --elevate-1: rgba(45, 200, 140, 0.15);
+  --elevate-2: rgba(45, 200, 140, 0.3);
   
-  /* Game Show Colors - Dramatic & Luxurious */
+  /* Game Show Colors - Dramatic with Green/Teal Brand */
   --background: 230 35% 7%;          /* Deep navy background */
   --foreground: 0 0% 98%;            /* Crisp white text */
   
-  --spotlight-gold: 45 100% 55%;     /* Bright metallic gold */
-  --bronze: 30 45% 45%;              /* Rich bronze */
+  --brand-green: 165 75% 50%;        /* Bright teal/green brand color */
+  --brand-green-light: 165 70% 65%;  /* Light teal for accents */
+  --brand-green-dark: 165 80% 35%;   /* Dark teal for depth */
+  --bronze: 30 45% 45%;              /* Rich bronze (kept for variety) */
   --success: 145 65% 45%;            /* Emerald green for correct */
   --danger: 0 75% 45%;               /* Dramatic red for wrong */
-  --glow-cyan: 195 100% 65%;         /* Cyan spotlight glow */
+  --glow-cyan: 175 85% 55%;          /* Cyan-teal glow */
   
-  --border: 45 50% 35%;
+  --border: 165 60% 40%;
   --card: 230 30% 12%;               /* Dark semi-transparent card */
   --card-foreground: 0 0% 98%;
-  --card-border: 45 80% 50%;         /* Gold border */
+  --card-border: 165 75% 50%;        /* Teal border */
   
-  --primary: 45 100% 55%;            /* Gold */
-  --primary-foreground: 230 35% 7%;  /* Dark text on gold */
+  --primary: 165 75% 50%;            /* Teal/Green brand */
+  --primary-foreground: 230 35% 7%;  /* Dark text on teal */
   
-  --secondary: 195 100% 65%;         /* Cyan-blue */
+  --secondary: 175 85% 55%;          /* Cyan-teal */
   --secondary-foreground: 0 0% 98%;
   
   --muted: 230 20% 20%;
-  --muted-foreground: 45 60% 70%;    /* Light gold */
+  --muted-foreground: 165 60% 70%;   /* Light teal */
   
   --accent: 260 40% 18%;             /* Deep purple accent */
-  --accent-foreground: 45 80% 75%;   /* Gold text */
+  --accent-foreground: 165 70% 75%;  /* Light teal text */
   
   --destructive: 0 75% 45%;
   --destructive-foreground: 0 0% 100%;
@@ -43,29 +45,29 @@
   --success-foreground: 0 0% 100%;
   
   --input: 230 25% 15%;
-  --ring: 45 100% 55%;
+  --ring: 165 75% 50%;
   
   --font-sans: 'Baloo Bhaijaan 2', Cairo, Tajawal, system-ui, sans-serif;
   --radius: 0.75rem;
   
   /* Dramatic shadows for game show effect */
-  --shadow-glow: 0 0 20px hsl(45 100% 55% / 0.4);
-  --shadow-dramatic: 0 8px 30px rgba(0, 0, 0, 0.6), 0 0 40px hsl(45 100% 55% / 0.2);
+  --shadow-glow: 0 0 20px hsl(165 75% 50% / 0.4);
+  --shadow-dramatic: 0 8px 30px rgba(0, 0, 0, 0.6), 0 0 40px hsl(165 75% 50% / 0.2);
 }
 
 .dark {
-  --button-outline: rgba(212, 175, 55, 0.3);
-  --badge-outline: rgba(212, 175, 55, 0.2);
+  --button-outline: rgba(45, 200, 140, 0.3);
+  --badge-outline: rgba(45, 200, 140, 0.2);
   --opaque-button-border-intensity: 9;
-  --elevate-1: rgba(212, 175, 55, 0.15);
-  --elevate-2: rgba(212, 175, 55, 0.3);
+  --elevate-1: rgba(45, 200, 140, 0.15);
+  --elevate-2: rgba(45, 200, 140, 0.3);
   
   /* Same dark theme for consistency */
   --background: 230 35% 7%;
   --foreground: 0 0% 98%;
   --card: 230 30% 12%;
   --card-foreground: 0 0% 98%;
-  --border: 45 50% 35%;
+  --border: 165 60% 40%;
 }
 
 @layer base {
@@ -80,9 +82,9 @@
 
 /* Game Show Specific Utilities */
 @layer utilities {
-  .text-gold {
-    color: hsl(var(--spotlight-gold));
-    text-shadow: 0 0 10px hsl(45 100% 55% / 0.5), 
+  .text-brand {
+    color: hsl(var(--brand-green));
+    text-shadow: 0 0 10px hsl(165 75% 50% / 0.5), 
                  2px 2px 4px rgba(0, 0, 0, 0.8);
   }
   
@@ -93,32 +95,32 @@
   }
   
   .spotlight-glow {
-    box-shadow: 0 0 40px hsl(45 100% 55% / 0.3),
-                0 0 80px hsl(195 100% 65% / 0.2),
-                inset 0 0 60px hsl(45 100% 55% / 0.1);
+    box-shadow: 0 0 40px hsl(165 75% 50% / 0.3),
+                0 0 80px hsl(175 85% 55% / 0.2),
+                inset 0 0 60px hsl(165 75% 50% / 0.1);
   }
   
   .card-dramatic {
     background: rgba(20, 25, 45, 0.85);
-    border: 2px solid hsl(var(--spotlight-gold));
+    border: 2px solid hsl(var(--brand-green));
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6),
-                0 0 40px hsl(45 100% 55% / 0.15);
+                0 0 40px hsl(165 75% 50% / 0.15);
     backdrop-filter: blur(8px);
   }
   
-  .btn-gold {
-    background: linear-gradient(135deg, hsl(45 100% 55%), hsl(40 90% 48%));
-    border: 2px solid hsl(50 100% 65%);
+  .btn-brand {
+    background: linear-gradient(135deg, hsl(165 75% 50%), hsl(165 80% 40%));
+    border: 2px solid hsl(165 70% 60%);
     color: hsl(230 35% 7%);
     font-weight: 700;
     text-shadow: 0 1px 2px rgba(255, 255, 255, 0.3);
-    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4),
+    box-shadow: 0 4px 15px rgba(45, 200, 140, 0.4),
                 inset 0 1px 0 rgba(255, 255, 255, 0.4);
   }
   
   .btn-choice {
     background: rgba(20, 30, 50, 0.7);
-    border: 2px solid hsl(45 60% 50%);
+    border: 2px solid hsl(165 65% 45%);
     color: white;
     backdrop-filter: blur(4px);
     transition: all 0.3s ease;
@@ -126,8 +128,8 @@
   
   .btn-choice:hover {
     background: rgba(40, 50, 70, 0.9);
-    border-color: hsl(45 100% 60%);
-    box-shadow: 0 0 30px hsl(45 100% 55% / 0.5);
+    border-color: hsl(165 75% 55%);
+    box-shadow: 0 0 30px hsl(165 75% 50% / 0.5);
     transform: scale(1.02);
   }
   
@@ -163,7 +165,7 @@
     background: linear-gradient(
       90deg,
       transparent,
-      hsl(195 100% 65% / 0.1),
+      hsl(175 85% 55% / 0.1),
       transparent
     );
     animation: spotlight-sweep 8s linear infinite;

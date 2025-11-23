@@ -26,11 +26,29 @@ export function Mascot({ size = "medium", animate = true, message }: MascotProps
         <motion.div
           initial={{ opacity: 0, scale: 0.8, y: 10 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
-          className="absolute -right-4 -top-4 bg-white rounded-2xl shadow-xl px-4 py-3 border-2 border-primary/30 max-w-xs"
+          className="absolute -right-4 -top-4 rounded-2xl shadow-2xl px-4 sm:px-5 py-3 sm:py-4 border-3 max-w-xs"
+          style={{
+            background: 'linear-gradient(135deg, hsl(165 75% 50%), hsl(165 80% 40%))',
+            borderColor: 'hsl(165 70% 65%)',
+            boxShadow: '0 0 30px hsl(165 75% 50% / 0.6), 0 8px 0px hsl(165 85% 30%)',
+          }}
           data-testid="mascot-speech-bubble"
         >
-          <div className="absolute -bottom-2 left-8 w-4 h-4 bg-white border-r-2 border-b-2 border-primary/30 transform rotate-45" />
-          <p className="text-sm font-semibold text-foreground relative z-10">
+          <div 
+            className="absolute -bottom-2 left-8 w-4 h-4 border-r-3 border-b-3 transform rotate-45" 
+            style={{
+              background: 'hsl(165 80% 40%)',
+              borderColor: 'hsl(165 70% 65%)',
+            }}
+          />
+          <p 
+            className="text-sm sm:text-base md:text-lg font-black relative z-10" 
+            style={{ 
+              color: 'hsl(230 35% 7%)',
+              textShadow: '0 1px 2px rgba(255, 255, 255, 0.5)',
+              direction: 'rtl',
+            }}
+          >
             {message}
           </p>
         </motion.div>

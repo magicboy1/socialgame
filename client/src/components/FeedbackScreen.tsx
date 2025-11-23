@@ -67,7 +67,7 @@ export function FeedbackScreen({ isCorrect, tip, onContinue, currentQuestion, to
             ease: "easeOut",
           }}
         >
-          <Star className="w-4 h-4 sm:w-6 sm:h-6 fill-[hsl(45,100%,55%)] text-[hsl(45,100%,55%)]" />
+          <Star className="w-4 h-4 sm:w-6 sm:h-6 fill-[hsl(165,75%,50%)] text-[hsl(165,75%,50%)]" />
         </motion.div>
       ))}
 
@@ -93,7 +93,7 @@ export function FeedbackScreen({ isCorrect, tip, onContinue, currentQuestion, to
                     animate={{ scale: [1, 1.2, 1], rotate: [0, 180, 360] }}
                     transition={{ duration: 2, repeat: Infinity }}
                   >
-                    <Sparkles className="w-10 h-10 sm:w-12 sm:h-12 absolute -top-2 -right-2" style={{ color: 'hsl(45, 100%, 55%)' }} />
+                    <Sparkles className="w-10 h-10 sm:w-12 sm:h-12 absolute -top-2 -right-2" style={{ color: 'hsl(165, 75%, 50%)' }} />
                   </motion.div>
                 </div>
               ) : (
@@ -118,7 +118,7 @@ export function FeedbackScreen({ isCorrect, tip, onContinue, currentQuestion, to
                 {isCorrect ? "إجابة صحيحة! 🎉" : "إجابة خاطئة 😔"}
               </h2>
               
-              <p className="text-base sm:text-xl md:text-2xl font-bold text-gold">
+              <p className="text-base sm:text-xl md:text-2xl font-bold text-brand">
                 {mascotMessage}
               </p>
             </motion.div>
@@ -138,7 +138,7 @@ export function FeedbackScreen({ isCorrect, tip, onContinue, currentQuestion, to
                   boxShadow: `0 0 40px ${isCorrect ? 'hsl(145 65% 45% / 0.3)' : 'hsl(0 75% 45% / 0.3)'}`,
                 }}
               >
-                <h3 className="text-xl sm:text-2xl md:text-3xl font-black mb-3 sm:mb-4 text-gold">
+                <h3 className="text-xl sm:text-2xl md:text-3xl font-black mb-3 sm:mb-4 text-brand">
                   {isCorrect ? "لماذا هذا صحيح؟" : "لماذا هذا خطأ؟"}
                 </h3>
                 <p
@@ -158,13 +158,13 @@ export function FeedbackScreen({ isCorrect, tip, onContinue, currentQuestion, to
               transition={{ delay: 0.6 }}
               className="w-full flex flex-col items-center gap-3"
             >
-              <p className="text-sm sm:text-base md:text-lg font-bold text-gold">
+              <p className="text-sm sm:text-base md:text-lg font-bold text-brand">
                 السؤال {currentQuestion} من {totalQuestions}
               </p>
               <Button
                 onClick={onContinue}
                 size="lg"
-                className="btn-gold h-14 sm:h-16 md:h-20 px-8 sm:px-12 md:px-16 text-base sm:text-xl md:text-2xl font-black rounded-xl sm:rounded-2xl w-full sm:w-auto"
+                className="btn-brand h-14 sm:h-16 md:h-20 px-8 sm:px-12 md:px-16 text-base sm:text-xl md:text-2xl font-black rounded-xl sm:rounded-2xl w-full sm:w-auto"
                 data-testid="button-continue"
                 style={{ direction: 'rtl' }}
               >

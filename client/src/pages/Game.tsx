@@ -148,7 +148,7 @@ export default function Game() {
               <Mascot size="small" animate={false} />
             </div>
             <div className="text-right">
-              <p className="text-xs sm:text-sm md:text-lg font-bold text-gold" style={{ textShadow: '0 0 10px rgba(212, 175, 55, 0.5)' }}>
+              <p className="text-xs sm:text-sm md:text-lg font-bold text-brand" style={{ textShadow: '0 0 10px rgba(45, 200, 140, 0.5)' }}>
                 السؤال {currentQuestionIndex + 1} من {questions.length}
               </p>
             </div>

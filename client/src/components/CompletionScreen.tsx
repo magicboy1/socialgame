@@ -57,9 +57,9 @@ export function CompletionScreen({ score, totalQuestions, onRestart }: Completio
           }}
         >
           {i % 3 === 0 ? (
-            <Star className="w-4 h-4 sm:w-6 sm:h-6 fill-[hsl(45,100%,55%)] text-[hsl(45,100%,55%)]" />
+            <Star className="w-4 h-4 sm:w-6 sm:h-6 fill-[hsl(165,75%,50%)] text-[hsl(165,75%,50%)]" />
           ) : (
-            <Sparkles className="w-4 h-4 sm:w-6 sm:h-6 text-[hsl(195,100%,65%)]" />
+            <Sparkles className="w-4 h-4 sm:w-6 sm:h-6 text-[hsl(175,85%,55%)]" />
           )}
         </motion.div>
       ))}
@@ -80,16 +80,16 @@ export function CompletionScreen({ score, totalQuestions, onRestart }: Completio
               className="relative"
             >
               {percentage >= 80 ? (
-                <Crown className="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40" style={{ color: 'hsl(45, 100%, 55%)', filter: 'drop-shadow(0 0 20px hsl(45 100% 55%))' }} strokeWidth={2} />
+                <Crown className="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40" style={{ color: 'hsl(165, 75%, 50%)', filter: 'drop-shadow(0 0 20px hsl(165 75% 50%))' }} strokeWidth={2} />
               ) : (
-                <Trophy className="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40" style={{ color: 'hsl(45, 100%, 55%)', filter: 'drop-shadow(0 0 20px hsl(45 100% 55%))' }} strokeWidth={2} />
+                <Trophy className="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40" style={{ color: 'hsl(165, 75%, 50%)', filter: 'drop-shadow(0 0 20px hsl(165 75% 50%))' }} strokeWidth={2} />
               )}
               <motion.div
                 animate={{ rotate: 360 }}
                 transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
                 className="absolute inset-0"
               >
-                <Sparkles className="w-10 h-10 sm:w-12 sm:h-12 absolute -top-4 -right-4" style={{ color: 'hsl(195, 100%, 65%)' }} />
+                <Sparkles className="w-10 h-10 sm:w-12 sm:h-12 absolute -top-4 -right-4" style={{ color: 'hsl(175, 85%, 55%)' }} />
               </motion.div>
             </motion.div>
 
@@ -99,7 +99,7 @@ export function CompletionScreen({ score, totalQuestions, onRestart }: Completio
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.3 }}
             >
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-3 sm:mb-4 text-gold text-glow">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-3 sm:mb-4 text-brand text-glow">
                 مبروك!
               </h1>
               <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-white" data-testid="text-completion-message" style={{ textShadow: '2px 2px 8px rgba(0, 0, 0, 0.8)' }}>
@@ -128,9 +128,9 @@ export function CompletionScreen({ score, totalQuestions, onRestart }: Completio
                   <Star 
                     className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20" 
                     style={{ 
-                      fill: i < stars ? 'hsl(45, 100%, 55%)' : 'transparent',
-                      color: i < stars ? 'hsl(45, 100%, 55%)' : 'hsl(45, 50%, 30%)',
-                      filter: i < stars ? 'drop-shadow(0 0 10px hsl(45 100% 55%))' : 'none'
+                      fill: i < stars ? 'hsl(165, 75%, 50%)' : 'transparent',
+                      color: i < stars ? 'hsl(165, 75%, 50%)' : 'hsl(165, 60%, 25%)',
+                      filter: i < stars ? 'drop-shadow(0 0 10px hsl(165 75% 50%))' : 'none'
                     }}
                   />
                 </motion.div>
@@ -152,10 +152,10 @@ export function CompletionScreen({ score, totalQuestions, onRestart }: Completio
                   boxShadow: '0 0 40px hsl(45 100% 55% / 0.3)',
                 }}
               >
-                <p className="text-2xl sm:text-3xl md:text-4xl font-black mb-2 text-gold">
+                <p className="text-2xl sm:text-3xl md:text-4xl font-black mb-2 text-brand">
                   النتيجة النهائية
                 </p>
-                <p className="text-5xl sm:text-6xl md:text-7xl font-black text-glow" style={{ color: 'hsl(45, 100%, 55%)' }} data-testid="text-final-score">
+                <p className="text-5xl sm:text-6xl md:text-7xl font-black text-glow" style={{ color: 'hsl(165, 75%, 50%)' }} data-testid="text-final-score">
                   {score}/{totalQuestions}
                 </p>
               </div>
@@ -184,7 +184,7 @@ export function CompletionScreen({ score, totalQuestions, onRestart }: Completio
               <Button
                 onClick={onRestart}
                 size="lg"
-                className="btn-gold h-14 sm:h-16 md:h-20 px-8 sm:px-12 md:px-16 text-base sm:text-xl md:text-2xl font-black rounded-xl sm:rounded-2xl gap-2 sm:gap-3 md:gap-4 w-full sm:w-auto"
+                className="btn-brand h-14 sm:h-16 md:h-20 px-8 sm:px-12 md:px-16 text-base sm:text-xl md:text-2xl font-black rounded-xl sm:rounded-2xl gap-2 sm:gap-3 md:gap-4 w-full sm:w-auto"
                 data-testid="button-restart"
                 style={{ direction: 'rtl' }}
               >
