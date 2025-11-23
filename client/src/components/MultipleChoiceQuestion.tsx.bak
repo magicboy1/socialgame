@@ -58,7 +58,7 @@ export function MultipleChoiceQuestion({
         <p 
           className="font-bold text-white text-center leading-relaxed"
           style={{
-            fontSize: 'clamp(1.125rem, calc(1.5vw + 0.75rem), 3.5rem)',
+            fontSize: 'clamp(1.125rem, 1.5vw + 0.75rem, 3.5rem)',
             textShadow: '0 0 20px rgba(45, 200, 140, 0.3), 2px 2px 8px rgba(0, 0, 0, 0.8)',
           }}
         >
@@ -102,7 +102,7 @@ export function MultipleChoiceQuestion({
             <span 
               className="flex-1 font-semibold text-white"
               style={{
-                fontSize: 'clamp(0.875rem, calc(1.2vw + 0.5rem), 2rem)',
+                fontSize: 'clamp(0.875rem, 1.2vw + 0.5rem, 2rem)',
               }}
             >
               {choice.text}

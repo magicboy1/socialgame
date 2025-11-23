@@ -131,7 +131,7 @@ export function FeedbackScreen({ isCorrect, tip, onContinue, currentQuestion, to
               <h2
                 className="font-black"
                 style={{
-                  fontSize: 'clamp(1.875rem, calc(3vw + 1rem), 5rem)',
+                  fontSize: 'clamp(1.875rem, 3vw + 1rem, 5rem)',
                   marginBottom: 'clamp(0.75rem, 1vw, 1.5rem)',
                   color: isCorrect ? 'hsl(145, 65%, 55%)' : 'hsl(0, 75%, 55%)',
                   textShadow: '0 0 30px currentColor, 4px 4px 0px rgba(0, 0, 0, 0.8)'
@@ -144,7 +144,7 @@ export function FeedbackScreen({ isCorrect, tip, onContinue, currentQuestion, to
               <p 
                 className="font-bold text-brand"
                 style={{
-                  fontSize: 'clamp(1rem, calc(1.5vw + 0.5rem), 2rem)',
+                  fontSize: 'clamp(1rem, 1.5vw + 0.5rem, 2rem)',
                 }}
               >
                 {mascotMessage}
@@ -170,7 +170,7 @@ export function FeedbackScreen({ isCorrect, tip, onContinue, currentQuestion, to
                 <h3 
                   className="font-black text-brand"
                   style={{
-                    fontSize: 'clamp(1.25rem, calc(2vw + 0.5rem), 2.5rem)',
+                    fontSize: 'clamp(1.25rem, 2vw + 0.5rem, 2.5rem)',
                     marginBottom: 'clamp(0.75rem, 1vw, 1.5rem)',
                   }}
                 >
@@ -181,7 +181,7 @@ export function FeedbackScreen({ isCorrect, tip, onContinue, currentQuestion, to
                   data-testid="text-tip"
                   dir="rtl"
                   style={{
-                    fontSize: 'clamp(1rem, calc(1.5vw + 0.5rem), 2rem)',
+                    fontSize: 'clamp(1rem, 1.5vw + 0.5rem, 2rem)',
                   }}
                 >
                   {tip}
@@ -200,7 +200,7 @@ export function FeedbackScreen({ isCorrect, tip, onContinue, currentQuestion, to
               <p 
                 className="font-bold text-brand"
                 style={{
-                  fontSize: 'clamp(0.875rem, calc(1vw + 0.25rem), 1.5rem)',
+                  fontSize: 'clamp(0.875rem, 1vw + 0.25rem, 1.5rem)',
                 }}
               >
                 السؤال {currentQuestion} من {totalQuestions}
@@ -214,7 +214,7 @@ export function FeedbackScreen({ isCorrect, tip, onContinue, currentQuestion, to
                   direction: 'rtl',
                   height: 'clamp(3.5rem, 5vw, 5rem)',
                   padding: '0 clamp(2rem, 4vw, 4rem)',
-                  fontSize: 'clamp(1rem, calc(1.5vw + 0.5rem), 2rem)',
+                  fontSize: 'clamp(1rem, 1.5vw + 0.5rem, 2rem)',
                 }}
               >
                 {currentQuestion < totalQuestions ? 'السؤال التالي' : 'النتيجة النهائية'}

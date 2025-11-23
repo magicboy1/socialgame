@@ -125,7 +125,7 @@ export function CompletionScreen({ score, totalQuestions, onRestart }: Completio
               <h1 
                 className="font-black text-brand text-glow"
                 style={{
-                  fontSize: 'clamp(2.5rem, calc(4vw + 1rem), 6rem)',
+                  fontSize: 'clamp(2.5rem, 4vw + 1rem, 6rem)',
                   marginBottom: 'clamp(0.75rem, 1vw, 1.5rem)',
                 }}
               >
@@ -135,7 +135,7 @@ export function CompletionScreen({ score, totalQuestions, onRestart }: Completio
                 className="font-bold text-white" 
                 data-testid="text-completion-message" 
                 style={{ 
-                  fontSize: 'clamp(1.125rem, calc(2vw + 0.5rem), 2.5rem)',
+                  fontSize: 'clamp(1.125rem, 2vw + 0.5rem, 2.5rem)',
                   textShadow: '2px 2px 8px rgba(0, 0, 0, 0.8)' 
                 }}
               >
@@ -193,7 +193,7 @@ export function CompletionScreen({ score, totalQuestions, onRestart }: Completio
                 <p 
                   className="font-black text-brand"
                   style={{
-                    fontSize: 'clamp(1.5rem, calc(2.5vw + 0.5rem), 3rem)',
+                    fontSize: 'clamp(1.5rem, 2.5vw + 0.5rem, 3rem)',
                     marginBottom: 'clamp(0.5rem, 0.5vw, 1rem)',
                   }}
                 >
@@ -203,7 +203,7 @@ export function CompletionScreen({ score, totalQuestions, onRestart }: Completio
                   className="font-black text-glow" 
                   style={{ 
                     color: 'hsl(165, 75%, 50%)',
-                    fontSize: 'clamp(3rem, calc(5vw + 1rem), 6rem)',
+                    fontSize: 'clamp(3rem, 5vw + 1rem, 6rem)',
                   }} 
                   data-testid="text-final-score"
                 >
@@ -227,7 +227,7 @@ export function CompletionScreen({ score, totalQuestions, onRestart }: Completio
               <p 
                 className="font-black text-brand px-4 text-center"
                 style={{ 
-                  fontSize: 'clamp(1.125rem, calc(1.5vw + 0.5rem), 2rem)',
+                  fontSize: 'clamp(1.125rem, 1.5vw + 0.5rem, 2rem)',
                   textShadow: '0 0 15px hsl(165 75% 50% / 0.5), 2px 2px 4px rgba(0, 0, 0, 0.8)',
                   direction: 'rtl'
                 }}
@@ -252,7 +252,7 @@ export function CompletionScreen({ score, totalQuestions, onRestart }: Completio
                   direction: 'rtl',
                   height: 'clamp(3.5rem, 5vw, 5rem)',
                   padding: '0 clamp(2rem, 4vw, 4rem)',
-                  fontSize: 'clamp(1rem, calc(1.5vw + 0.5rem), 2rem)',
+                  fontSize: 'clamp(1rem, 1.5vw + 0.5rem, 2rem)',
                   gap: 'clamp(0.5rem, 1vw, 1.5rem)',
                 }}
               >
