@@ -2,16 +2,30 @@
 
 ## Overview
 
-An interactive educational game designed to teach children ages 6-10 about social media safety and privacy in Arabic. The application presents quiz scenarios in Arabic where children drag question cards to safe (green) or unsafe (red) zones, guided by a friendly superhero mascot. Children receive immediate feedback with educational tips in Arabic and earn stars for correct answers.
+An interactive educational game designed to teach children ages 6-10 about social media safety and privacy in Arabic. Styled like "Who Wants to Be a Millionaire" game show with dramatic dark backgrounds, spotlights, and green/teal brand colors. Children answer multiple-choice questions (4 options labeled أ, ب, ج, د) and receive immediate feedback with educational tips in Arabic, earning green stars for correct answers.
 
 **Key Features**:
 - Full Arabic language support with RTL (right-to-left) text direction
-- Touch-optimized drag-and-drop interaction for tablets
+- Multiple-choice quiz format (4 answers per question)
 - 10 educational questions about social media safety in Arabic
-- Turquoise gradient background with beige question cards
-- Green "أمن" (Safe) and red "غير أمن" (Unsafe) drop zones
+- Dark dramatic background with spotlight animations
+- Green/teal brand colors with golden accents
 - Animated feedback screens with educational tips
 - Star-based scoring system
+- Interactive sound effects (Web Audio API)
+- Fullscreen mode for immersive experience
+- Mute/unmute toggle with localStorage persistence
+
+## Recent Changes
+
+**November 23, 2025** - Converted to Static Frontend-Only Application:
+- Moved all questions from backend to `client/src/data/questions.ts`
+- Removed all API calls - game logic now runs entirely in frontend
+- Added `shuffleQuestions()` and `checkAnswer()` utility functions
+- Updated Game component to use local state instead of TanStack Query/API calls
+- Created `vercel.json` for SPA routing configuration on Vercel
+- Created `DEPLOYMENT.md` with complete Vercel deployment instructions
+- Application now works as pure static SPA (no backend required)
 
 ## User Preferences
 
@@ -42,11 +56,10 @@ Preferred communication style: Simple, everyday language.
 - DragOverlay provides smooth visual feedback during drag operation
 
 **State Management**
-- TanStack Query (React Query) for server state management, caching, and data fetching
-- Local React state for UI state (game phase, current question, score, feedback, drag state)
-- Drag state management (activeId, overId) to track current drag operation
-- `isDragEnabled` flag prevents duplicate submissions during feedback or pending mutations
-- Custom query client configured with infinite stale time and disabled automatic refetching
+- Local React state for all game state (questions, game phase, current question, score, feedback)
+- Questions shuffled on game start using `shuffleQuestions()` from `@/data/questions`
+- Answer validation using `checkAnswer()` function (no API calls)
+- `isProcessing` flag prevents duplicate submissions during feedback display
 
 **Design Approach**
 - Child-centric interface with single-focus screens and one primary task per view
