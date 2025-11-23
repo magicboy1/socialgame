@@ -72,6 +72,12 @@ export default function Game() {
     };
   }, []);
 
+  useEffect(() => {
+    if (gamePhase === "playing" && questions.length === 0) {
+      setQuestions(shuffleQuestions());
+    }
+  }, [gamePhase, questions.length]);
+
   const handleStartGame = () => {
     setQuestions(shuffleQuestions());
     setGamePhase("playing");
