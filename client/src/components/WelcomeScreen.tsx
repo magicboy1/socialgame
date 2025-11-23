@@ -13,11 +13,31 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
 
   useEffect(() => {
     const handleFullscreenChange = () => {
-      setIsFullscreen(!!document.fullscreenElement);
+      const isFs = !!document.fullscreenElement;
+      setIsFullscreen(isFs);
+      
+      // Add/remove fullscreen class to body for CSS targeting
+      if (isFs) {
+        document.body.classList.add('is-fullscreen');
+      } else {
+        document.body.classList.remove('is-fullscreen');
+      }
     };
 
+    // Check if already in fullscreen on mount and apply class
+    if (document.fullscreenElement) {
+      setIsFullscreen(true);
+      document.body.classList.add('is-fullscreen');
+    }
+
     document.addEventListener('fullscreenchange', handleFullscreenChange);
-    return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+      // Only remove class if not in fullscreen anymore
+      if (!document.fullscreenElement) {
+        document.body.classList.remove('is-fullscreen');
+      }
+    };
   }, []);
 
   const toggleFullscreen = async () => {

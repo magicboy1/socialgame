@@ -257,3 +257,44 @@
     inset: -1px;
   }
 }
+
+/* Fullscreen Mode Styles */
+html:fullscreen,
+html:-webkit-full-screen,
+html:-moz-full-screen {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+html:fullscreen body,
+html:-webkit-full-screen body,
+html:-moz-full-screen body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* When in fullscreen mode, expand all containers to fill the screen */
+body.is-fullscreen {
+  overflow: hidden;
+}
+
+body.is-fullscreen #root,
+body.is-fullscreen #root > * {
+  width: 100% !important;
+  height: 100vh !important;
+  max-width: none !important;
+  min-width: 100% !important;
+}
+
+/* Override width constraints in fullscreen mode for all game containers */
+body.is-fullscreen [style*="min(90vw"],
+body.is-fullscreen [style*="min(95vw"],
+body.is-fullscreen .w-\[min\(90vw\,75rem\)\],
+body.is-fullscreen .w-\[min\(90vw\,80rem\)\] {
+  width: 100% !important;
+  max-width: none !important;
+}
