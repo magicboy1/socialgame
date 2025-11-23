@@ -36,10 +36,12 @@ Vercel سيستخدم الإعدادات من `vercel.json` تلقائياً:
 
 - **Framework Preset**: Vite (أو Other)
 - **Build Command**: `vite build` ✅ (مهم جداً - استخدم هذا وليس npm run build)
-- **Output Directory**: `dist`
+- **Output Directory**: `dist/public` ✅ (مهم - Vite يبني في dist/public)
 - **Install Command**: `npm install`
 
-**ملاحظة مهمة**: الـ `vercel.json` يحتوي على `"buildCommand": "vite build"` لضمان بناء الـ frontend فقط دون محاولة بناء الـ backend.
+**ملاحظة مهمة**: الـ `vercel.json` يحتوي على الإعدادات الصحيحة:
+- `"buildCommand": "vite build"` لضمان بناء الـ frontend فقط
+- `"outputDirectory": "dist/public"` لأن Vite يبني الملفات في هذا المجلد
 
 ### 4. Deploy!
 

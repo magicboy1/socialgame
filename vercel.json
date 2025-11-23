@@ -6,7 +6,7 @@
     }
   ],
   "buildCommand": "vite build",
-  "outputDirectory": "dist",
+  "outputDirectory": "dist/public",
   "installCommand": "npm install",
   "framework": null
 }
