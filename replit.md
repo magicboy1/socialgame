@@ -23,7 +23,8 @@ An interactive educational game designed to teach children ages 6-10 about socia
 - Removed all API calls - game logic now runs entirely in frontend
 - Added `shuffleQuestions()` and `checkAnswer()` utility functions
 - Updated Game component to use local state instead of TanStack Query/API calls
-- Created `vercel.json` for SPA routing configuration on Vercel
+- Created `vercel.json` for SPA routing and build configuration
+  - Build command set to `vite build` (not `npm run build`) to avoid building backend
 - Created `DEPLOYMENT.md` with complete Vercel deployment instructions
 - Application now works as pure static SPA (no backend required)
 

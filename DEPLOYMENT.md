@@ -34,9 +34,12 @@ git push origin main
 
 Vercel سيستخدم الإعدادات من `vercel.json` تلقائياً:
 
-- **Build Command**: `vite build`
+- **Framework Preset**: Vite (أو Other)
+- **Build Command**: `vite build` ✅ (مهم جداً - استخدم هذا وليس npm run build)
 - **Output Directory**: `dist`
 - **Install Command**: `npm install`
+
+**ملاحظة مهمة**: الـ `vercel.json` يحتوي على `"buildCommand": "vite build"` لضمان بناء الـ frontend فقط دون محاولة بناء الـ backend.
 
 ### 4. Deploy!
 
