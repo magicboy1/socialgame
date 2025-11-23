@@ -108,7 +108,7 @@ export function FeedbackScreen({ isCorrect, tip, onContinue, currentQuestion, to
               transition={{ delay: 0.2 }}
             >
               <h2
-                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black mb-3 sm:mb-4"
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black"
                 style={{
                   color: isCorrect ? 'hsl(145, 65%, 55%)' : 'hsl(0, 75%, 55%)',
                   textShadow: '0 0 30px currentColor, 4px 4px 0px rgba(0, 0, 0, 0.8)'
@@ -118,9 +118,11 @@ export function FeedbackScreen({ isCorrect, tip, onContinue, currentQuestion, to
                 {isCorrect ? "إجابة صحيحة! 🎉" : "إجابة خاطئة 😔"}
               </h2>
               
-              <p className="text-base sm:text-xl md:text-2xl font-bold text-brand">
-                {mascotMessage}
-              </p>
+              {isCorrect && (
+                <p className="text-base sm:text-xl md:text-2xl font-bold text-brand mt-3 sm:mt-4">
+                  {mascotMessage}
+                </p>
+              )}
             </motion.div>
 
             {/* Tip */}
