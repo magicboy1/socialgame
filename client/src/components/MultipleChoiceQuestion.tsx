@@ -47,7 +47,7 @@ export function MultipleChoiceQuestion({
   };
 
   return (
-    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6" dir="rtl">
+    <div className="w-full max-w-5xl mx-auto px-4 sm:px-6" dir="rtl">
       {/* Question Card */}
       <motion.div
         initial={{ opacity: 0, y: -30 }}
