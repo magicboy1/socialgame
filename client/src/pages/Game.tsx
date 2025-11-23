@@ -172,13 +172,13 @@ export default function Game() {
   const currentQuestion = questions[currentQuestionIndex];
 
   return (
-    <div className="min-h-screen relative overflow-hidden" style={{ background: 'linear-gradient(135deg, hsl(230, 35%, 7%) 0%, hsl(260, 40%, 12%) 100%)' }}>
+    <div className="h-screen relative overflow-hidden" style={{ background: 'linear-gradient(135deg, hsl(230, 35%, 7%) 0%, hsl(260, 40%, 12%) 100%)' }}>
       {/* Animated spotlight beams */}
       <div className="spotlight-beam" style={{ animationDelay: '0s' }} />
       <div className="spotlight-beam" style={{ animationDelay: '4s' }} />
       
       {/* Content */}
-      <div className="relative z-10 min-h-screen flex flex-col p-3 sm:p-4 md:p-6">
+      <div className="relative z-10 h-full flex flex-col p-3 sm:p-4 md:p-6">
         {/* Header */}
         <motion.div
           initial={{ y: -20, opacity: 0 }}
