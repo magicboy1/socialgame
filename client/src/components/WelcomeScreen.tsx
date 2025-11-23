@@ -267,26 +267,26 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ delay: 0.9 }}
-        className="fixed bottom-4 left-4 sm:bottom-6 sm:left-6 z-50"
+        className="fixed bottom-3 left-3 sm:bottom-4 sm:left-4 z-50"
       >
         <Button
           onClick={toggleFullscreen}
           size="icon"
           variant="ghost"
-          className="hover-elevate active-elevate-2 h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 rounded-xl"
+          className="hover-elevate active-elevate-2 h-10 w-10 sm:h-11 sm:w-11 rounded-lg"
           style={{
             background: 'rgba(20, 25, 45, 0.7)',
-            border: '3px solid hsl(165, 75%, 50%)',
+            border: '2px solid hsl(165, 75%, 50%)',
             color: 'hsl(165, 75%, 50%)',
             backdropFilter: 'blur(10px)',
-            boxShadow: '0 0 20px hsl(165 75% 50% / 0.4)',
+            boxShadow: '0 0 15px hsl(165 75% 50% / 0.3)',
           }}
           data-testid="button-fullscreen-welcome"
         >
           {isFullscreen ? (
-            <Minimize className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8" />
+            <Minimize className="w-5 h-5 sm:w-5 sm:h-5" />
           ) : (
-            <Maximize className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8" />
+            <Maximize className="w-5 h-5 sm:w-5 sm:h-5" />
           )}
         </Button>
       </motion.div>
