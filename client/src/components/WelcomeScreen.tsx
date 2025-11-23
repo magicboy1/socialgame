@@ -3,12 +3,14 @@ import { motion } from "framer-motion";
 import { Play, Trophy, Star, Zap, Maximize, Minimize } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Mascot } from "./Mascot";
+import { useGameSounds } from "@/contexts/GameSoundContext";
 
 interface WelcomeScreenProps {
   onStart: () => void;
 }
 
 export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
+  const { playStart } = useGameSounds();
   const [isFullscreen, setIsFullscreen] = useState(false);
 
   useEffect(() => {
@@ -330,7 +332,10 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
               }}
             >
               <Button
-                onClick={onStart}
+                onClick={() => {
+                  playStart();
+                  onStart();
+                }}
                 size="lg"
                 className="btn-brand font-black rounded-xl sm:rounded-2xl hover:scale-110 transition-all duration-300"
                 data-testid="button-start-game"

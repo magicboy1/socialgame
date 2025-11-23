@@ -1,7 +1,9 @@
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { Trophy, Star, RotateCcw, Sparkles, Crown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Mascot } from "./Mascot";
+import { useGameSounds } from "@/contexts/GameSoundContext";
 
 interface CompletionScreenProps {
   score: number;
@@ -10,8 +12,13 @@ interface CompletionScreenProps {
 }
 
 export function CompletionScreen({ score, totalQuestions, onRestart }: CompletionScreenProps) {
+  const { playVictory } = useGameSounds();
   const percentage = (score / totalQuestions) * 100;
   const stars = percentage >= 80 ? 3 : percentage >= 60 ? 2 : 1;
+
+  useEffect(() => {
+    playVictory();
+  }, [playVictory]);
 
   const getMessage = () => {
     if (percentage === 100) return "نتيجة مثالية! أنت بطل أمان حقيقي!";
