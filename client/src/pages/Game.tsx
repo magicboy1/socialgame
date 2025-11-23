@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { motion } from "framer-motion";
-import { Home } from "lucide-react";
+import { Home, Maximize, Minimize } from "lucide-react";
 import { queryClient, apiRequest } from "@/lib/queryClient";
 import { WelcomeScreen } from "@/components/WelcomeScreen";
 import { MultipleChoiceQuestion } from "@/components/MultipleChoiceQuestion";
@@ -33,6 +33,16 @@ export default function Game() {
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [showResult, setShowResult] = useState(false);
   const [showHomeDialog, setShowHomeDialog] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
+  }, []);
 
   const { data: questions = [], isLoading } = useQuery<Question[]>({
     queryKey: ["/api/questions"],
@@ -108,6 +118,18 @@ export default function Game() {
     handleRestart();
   };
 
+  const toggleFullscreen = async () => {
+    try {
+      if (!document.fullscreenElement) {
+        await document.documentElement.requestFullscreen();
+      } else {
+        await document.exitFullscreen();
+      }
+    } catch (err) {
+      console.error('Fullscreen error:', err);
+    }
+  };
+
   if (gamePhase === "welcome") {
     return <WelcomeScreen onStart={handleStartGame} />;
   }
@@ -176,8 +198,27 @@ export default function Game() {
             </div>
           </div>
 
-          {/* Score and Home Button */}
+          {/* Score and Buttons */}
           <div className="flex items-center gap-2 sm:gap-3">
+            <Button
+              onClick={toggleFullscreen}
+              size="icon"
+              variant="ghost"
+              className="hover-elevate active-elevate-2 h-10 w-10 sm:h-12 sm:w-12 rounded-lg"
+              style={{
+                background: 'rgba(20, 25, 45, 0.5)',
+                border: '2px solid hsl(165, 75%, 50%)',
+                color: 'hsl(165, 75%, 50%)',
+                backdropFilter: 'blur(8px)',
+              }}
+              data-testid="button-fullscreen"
+            >
+              {isFullscreen ? (
+                <Minimize className="w-5 h-5 sm:w-6 sm:h-6" />
+              ) : (
+                <Maximize className="w-5 h-5 sm:w-6 sm:h-6" />
+              )}
+            </Button>
             <Button
               onClick={handleHomeClick}
               size="icon"
