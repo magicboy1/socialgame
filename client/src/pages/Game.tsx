@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { motion } from "framer-motion";
-import { Home, Maximize, Minimize } from "lucide-react";
+import { Home, Maximize, Minimize, Volume2, VolumeX } from "lucide-react";
 import { queryClient, apiRequest } from "@/lib/queryClient";
+import { useGameSounds } from "@/contexts/GameSoundContext";
 import { WelcomeScreen } from "@/components/WelcomeScreen";
 import { MultipleChoiceQuestion } from "@/components/MultipleChoiceQuestion";
 import { FeedbackScreen } from "@/components/FeedbackScreen";
@@ -25,6 +26,7 @@ import type { Question, AnswerResult } from "@shared/schema";
 type GamePhase = "welcome" | "playing" | "feedback" | "completed";
 
 export default function Game() {
+  const { isMuted, toggleMute, playSelect, playCorrect, playIncorrect, playAdvance } = useGameSounds();
   const [gamePhase, setGamePhase] = useState<GamePhase>("welcome");
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [score, setScore] = useState(0);
@@ -82,6 +84,12 @@ export default function Game() {
       setFeedbackData(result);
       setShowResult(true);
       
+      if (result.correct) {
+        playCorrect();
+      } else {
+        playIncorrect();
+      }
+      
       // Show result on button for 1.5 seconds, then go to feedback screen
       setTimeout(() => {
         setGamePhase("feedback");
@@ -103,11 +111,13 @@ export default function Game() {
   const handleAnswer = (choiceNumber: number) => {
     if (submitAnswerMutation.isPending || showResult) return;
     
+    playSelect();
     setSelectedAnswer(choiceNumber);
     submitAnswerMutation.mutate(choiceNumber);
   };
 
   const handleContinue = () => {
+    playAdvance();
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex((prev) => prev + 1);
       setGamePhase("playing");
