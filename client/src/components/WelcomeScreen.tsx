@@ -235,7 +235,7 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
                     textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8)' 
                   }}
                 >
-                  10 أسئلة تحدي
+                  5 أسئلة تحدي
                 </p>
               </div>
               
